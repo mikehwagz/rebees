@@ -1,0 +1,18 @@
+{
+  "name": "rebees",
+  "version": "0.0.1",
+  "description": "A portfolio website for Rebees",
+  "main": "index.js",
+  "repository": "https://github.com/mikehwagz/rebees",
+  "author": "Self Aware <howdy@selfaware.studio>",
+  "license": "NONE",
+  "private": true,
+  "devDependencies": {
+    "cz-conventional-changelog": "3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
