@@ -7,9 +7,13 @@
   "author": "Self Aware <howdy@selfaware.studio>",
   "license": "NONE",
   "private": true,
+  "scripts": {
+    "sanity:start": "yarn workspace rebees-cms start",
+    "sanity:test": "yarn workspace rebees-cms test"
+  },
   "workspaces": [
-    "app",
-    "sanity"
+    "sanity",
+    "app"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
