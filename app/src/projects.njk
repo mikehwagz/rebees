@@ -1,0 +1,36 @@
+---
+layout: base.njk
+title: Projects
+permalink: /projects/
+---
+<div data-router-view="projects">
+  {% pageTitle projects.title %}
+  <ul class="f fw mb65 mhn20">
+    {% for project in projects.selected %}
+      <li class="w50 ph20 mb35">
+        <a class="tdn" href="/project/{{ project.slug }}/">
+          <div class="r r--project">
+            <div class="ro">
+              <img class="x y cover" src="{{ project.thumbnail.image.url }}" alt="{{ project.thumbnail.altText }}">
+            </div>
+            <div class="f26 lh125 parchment ro p20">
+              <p>{{ project.category }}</p>
+              <p>{{ project.location }}</p>
+              <p>{{ project.year }}</p>
+            </div>
+          </div>
+          <h3 class="serif f28 lh129 mt10">{{ project.title }}</h3>
+        </a>
+      </li>
+    {% endfor %}
+    <li class="w50 ph20">
+      <a class="db r r--project ba bg-crimson parchment" href="/{{ projects.cta.link }}/">
+        <div class="ro f fc jcb ph40 pv30">
+          <h2 class="serif f58 lh112">{{ projects.cta.title }}</h2>
+          <p class="serif f28 lh129">{{ projects.cta.subtitle }}</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
+

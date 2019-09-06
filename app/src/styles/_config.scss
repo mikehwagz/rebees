@@ -1,0 +1,170 @@
+$slate: #3b3b3b;
+$parchment: #fffcf5;
+$crimson: #652d30;
+
+$colors: (
+  'slate': $slate,
+  'parchment': $parchment,
+  'crimson': $crimson,
+);
+
+$font-sizes: (
+  '0': 0rem,
+  '16': 1.6rem,
+  '18': 1.8rem,
+  '20': 2rem,
+  '22': 2.2rem,
+  '25': 2.5rem,
+  '26': 2.6rem,
+  '28': 2.8rem,
+  '30': 3rem,
+  '38': 3.8rem,
+  '46': 4.6rem,
+  '58': 5.8rem,
+);
+
+$line-heights: (
+  '105': 1.05,
+  '106': 1.067,
+  '112': 1.12,
+  '114': 1.14,
+  '122': 1.22,
+  '125': 1.25,
+  '128': 1.28,
+  '129': 1.29,
+  '131': 1.31,
+  '139': 1.39,
+);
+
+$letter-spacings: ();
+
+$font-stacks: (
+  'sans': "'Dia', sans-serif",
+  'serif': "'Suisse Works', serif",
+);
+
+// $margin-units: ();
+// @for $i from -50 through 50 {
+//   $key: $i * 5;
+//   @if ($i < 0) {
+//     $key: 'n#{$i * -5}';
+//   }
+//   $value: $i * 0.5rem;
+//   $margin-units: map-merge(
+//     $margin-units,
+//     (
+//       $key: $value,
+//     )
+//   );
+// }
+
+// $padding-units: ();
+// @for $i from 0 through 50 {
+//   $key: $i * 5;
+//   $value: $key * 0.1rem;
+//   $padding-units: map-merge(
+//     $padding-units,
+//     (
+//       $key: $value,
+//     )
+//   );
+// }
+
+// $max-widths: (
+//   '500': 500px,
+//   '750': 750px,
+//   '980': 980px,
+//   '1280': 1280px,
+//   '1440': 1440px,
+// );
+
+$aspect-ratios: (
+  // '1x1': (
+  //   1,
+  //   1,
+  // ),
+  'project': (
+    20,
+    11,
+  ),
+  // '3x1': (
+  //   3,
+  //   1,
+  // ),
+  // '3x4': (
+  //   3,
+  //   4,
+  // ),
+  // '4x3': (
+  //   4,
+  //   3,
+  // ),
+  // '4x5': (
+  //   4,
+  //   5,
+  // ),
+  // '4x6': (
+  //   4,
+  //   6,
+  // ),
+  // '5x4': (
+  //   5,
+  //   4,
+  // ),
+  // '5x7': (
+  //   5,
+  //   7,
+  // ),
+  // '5x8': (
+  //   5,
+  //   8,
+  // ),
+  // '6x4': (
+  //   6,
+  //   4,
+  // ),
+  // '7x5': (
+  //   7,
+  //   5,
+  // ),
+  // '8x5': (
+  //   8,
+  //   5,
+  // ),
+  // '9x16': (
+  //   9,
+  //   16,
+  // ),
+  // '16x9': (
+  //   16,
+  //   9,
+  // ),
+);
+
+$default-border: 2px solid $crimson;
+
+$border-styles: (
+  'solid': solid,
+);
+
+$border-widths: (
+  '2': 2px,
+);
+
+// $breakpoints: (
+//   xs: 415px,
+//   s: 650px,
+//   m: 850px,
+//   l: 1025px,
+//   xl: 1440px,
+// );
+
+// $media-queries: ();
+// @each $name, $breakpoint in $breakpoints {
+//   $media-queries: map-merge(
+//     $media-queries,
+//     (
+//       '#{$name}': 'min-width: #{$breakpoint}',
+//     )
+//   );
+// }

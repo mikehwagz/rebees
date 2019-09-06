@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <script>
+    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'has-js ';
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ renderData.description or description or metadata.description }}">
+  <title>{{ renderData.title or title or metadata.title }} — Rebees</title>
+  <link rel="stylesheet" href="/styles/index.css">
+</head>
+<body class="bg-parchment slate sans f20" itemscope itemtype="http://schema.org/WebPage">
+  <nav class="fix x ph40 pv25 bg-white z9" role="navigation">
+    <a class="dib mr20 tdn" href="/">Home</a>
+    <a class="dib mr20 tdn" href="/projects/">Projects</a>
+    <a class="dib mr20 tdn" href="/people/">People</a>
+    <a class="dib mr20 tdn" href="/opportunities/">Opportunities</a>
+  </nav>
+  <main id="root" class="ph40 pt130" data-router-wrapper>
+    {{ content | safe }}
+  </main>
+  <script src="/scripts/index.js"></script>
+</body>
+</html>

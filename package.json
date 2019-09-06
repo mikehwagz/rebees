@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "sanity:start": "yarn workspace rebees-cms start",
-    "sanity:test": "yarn workspace rebees-cms test"
+    "sanity:test": "yarn workspace rebees-cms test",
+    "site:dev": "yarn workspace rebees-site dev"
   },
   "workspaces": [
     "sanity",

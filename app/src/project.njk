@@ -1,0 +1,14 @@
+---
+layout: base.njk
+permalink: /project/{{ project.slug }}/
+pagination:
+  alias: project
+  data: projects.selected
+  size: 1
+renderData:
+  title: "{{ project.title }}"
+---
+<div data-router-view="project">
+  {% pageTitle project.title %}
+</div>
+
