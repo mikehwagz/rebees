@@ -72,6 +72,3 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
-
-# Fonts directory
-app/src/assets/fonts
