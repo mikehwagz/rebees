@@ -3,97 +3,81 @@ import {
   MdSettings,
   MdHome,
   MdDashboard,
-  MdLibraryBooks,
   MdPalette,
-  MdMoreHoriz,
   MdFolderOpen,
   MdLocationOn,
   MdPeople,
   MdPerson,
   MdVpnKey,
 } from 'react-icons/md'
+import React from 'react'
+import Emoji from 'react-emoji-render'
 
 export default () =>
   S.list()
-    .title('Site')
+    .title('Rebees Admin')
     .items([
       S.listItem()
-        .title('Configuration')
-        .icon(MdSettings)
+        .title('Home')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🏡" />)
+        .child(
+          S.editor()
+            .id('home')
+            .schemaType('home')
+            .documentId('homepage'),
+        ),
+      S.listItem()
+        .title('Projects Page')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="✨" />)
+        .child(
+          S.editor()
+            .id('projects')
+            .schemaType('projects')
+            .documentId('projectspage'),
+        ),
+      S.listItem()
+        .title('People Page')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🤠" />)
+        .child(
+          S.editor()
+            .id('people')
+            .schemaType('people')
+            .documentId('peoplepage'),
+        ),
+      S.listItem()
+        .title('Opportunities Page')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="📈" />)
+        .child(
+          S.editor()
+            .id('opportunities')
+            .schemaType('opportunities')
+            .documentId('opportunitiespage'),
+        ),
+
+      S.listItem()
+        .title('Global Configuration')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="💕" />)
         .child(
           S.editor()
             .id('config')
             .schemaType('config')
             .documentId('global-config'),
         ),
-      S.listItem()
-        .title('Pages')
-        .icon(MdLibraryBooks)
-        .child(
-          S.list()
-            .title('Pages')
-            .items([
-              S.listItem()
-                .title('Home')
-                .icon(MdHome)
-                .child(
-                  S.editor()
-                    .id('home')
-                    .schemaType('home')
-                    .documentId('homepage'),
-                ),
-              S.listItem()
-                .title('Project Index')
-                .icon(MdDashboard)
-                .child(
-                  S.editor()
-                    .id('projects')
-                    .schemaType('projects')
-                    .documentId('projectspage'),
-                ),
-              S.listItem()
-                .title('People Index')
-                .icon(MdPeople)
-                .child(
-                  S.editor()
-                    .id('people')
-                    .schemaType('people')
-                    .documentId('peoplepage'),
-                ),
-              S.listItem()
-                .title('Opportunity Index')
-                .icon(MdVpnKey)
-                .child(
-                  S.editor()
-                    .id('opportunities')
-                    .schemaType('opportunities')
-                    .documentId('opportunitiespage'),
-                ),
-            ]),
-        ),
+      S.divider(),
       S.listItem()
         .title('Projects')
-        .icon(MdPalette)
-        .child(
-          S.list()
-            .title('Projects')
-            .items([
-              S.listItem()
-                .title('All Projects')
-                .icon(MdMoreHoriz)
-                .child(S.documentTypeList('project')),
-              S.listItem()
-                .title('Categories')
-                .icon(MdFolderOpen)
-                .child(S.documentTypeList('category')),
-              S.listItem()
-                .title('Locations')
-                .icon(MdLocationOn)
-                .child(S.documentTypeList('location')),
-            ]),
-        ),
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🎨" />)
+        .child(S.documentTypeList('project').title('Projects')),
       S.listItem()
         .title('People')
-        .icon(MdPerson)
-        .child(S.documentTypeList('person')),
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🤸‍" />)
+        .child(S.documentTypeList('person').title('People')),
+      S.listItem()
+        .title('Categories')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🐱" />)
+        .child(S.documentTypeList('category').title('Categories')),
+      S.listItem()
+        .title('Locations')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🌎" />)
+        .child(S.documentTypeList('location').title('Locations')),
     ])
