@@ -1,15 +1,4 @@
 import S from '@sanity/desk-tool/structure-builder'
-import {
-  MdSettings,
-  MdHome,
-  MdDashboard,
-  MdPalette,
-  MdFolderOpen,
-  MdLocationOn,
-  MdPeople,
-  MdPerson,
-  MdVpnKey,
-} from 'react-icons/md'
 import React from 'react'
 import Emoji from 'react-emoji-render'
 
