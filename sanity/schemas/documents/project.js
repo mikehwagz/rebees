@@ -1,8 +1,9 @@
-import { MdPhoto } from 'react-icons/md'
+import React from 'react'
+import Emoji from 'react-emoji-render'
 
 export default {
   title: 'Project',
-  icon: MdPhoto,
+  icon: () => <Emoji style={{ fontSize: 30 }} text="🖼️" />,
   name: 'project',
   type: 'document',
   fields: [
