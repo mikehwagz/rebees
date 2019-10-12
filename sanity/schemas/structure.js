@@ -86,13 +86,17 @@ export default () =>
         .icon(() => <Emoji style={{ fontSize: 30 }} text="🎨" />)
         .child(S.documentTypeList('project').title('Projects')),
       S.listItem()
+        .title('People')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🤸‍" />)
+        .child(S.documentTypeList('person').title('People')),
+      S.listItem()
         .title('Careers')
         .icon(() => <Emoji style={{ fontSize: 30 }} text="👩‍💼" />)
         .child(S.documentTypeList('career').title('Careers')),
       S.listItem()
-        .title('People')
-        .icon(() => <Emoji style={{ fontSize: 30 }} text="🤸‍" />)
-        .child(S.documentTypeList('person').title('People')),
+        .title('Tenant Vacancies')
+        .icon(() => <Emoji style={{ fontSize: 30 }} text="🥑" />)
+        .child(S.documentTypeList('tenantVacancy').title('Tenant Vacancies')),
       S.listItem()
         .title('Categories')
         .icon(() => <Emoji style={{ fontSize: 30 }} text="🐱" />)

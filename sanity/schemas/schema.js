@@ -14,6 +14,7 @@ import opportunities from './documents/opportunities'
 import careers from './documents/careers'
 import career from './documents/career'
 import tenants from './documents/tenants'
+import tenantVacancy from './documents/tenantVacancy'
 import partners from './documents/partners'
 
 // Objects
@@ -38,6 +39,7 @@ export default createSchema({
     careers,
     career,
     tenants,
+    tenantVacancy,
     partners,
     imageWithAltText,
     imageWithAltTextAndCaption,
