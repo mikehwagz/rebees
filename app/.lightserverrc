@@ -1,5 +1,5 @@
 {
- "port": 4000,
+ "port": 3000,
  "serve": "dist",
  "bind": "localhost",
  "delay": 100,
@@ -11,5 +11,5 @@
     "src/images/"
  ],
  "http2": false,
- "open": false
+ "open": true
 }

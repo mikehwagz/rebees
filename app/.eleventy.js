@@ -7,6 +7,12 @@ module.exports = function(eleventyConfig) {
       `<${tag} class="serif f58 lh112 pb25 mb40 bb bc-slate">${title}</${tag}>`,
   )
 
+  eleventyConfig.addShortcode(
+    'debug',
+    (value = `h2`) =>
+      `<pre class="pv100">${JSON.stringify(value, null, 2)}</pre>`,
+  )
+
   return {
     dir: { input: 'src', output: 'dist', data: '_data' },
     passthroughFileCopy: true,

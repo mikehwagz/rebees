@@ -1,17 +1,17 @@
 import Highway from '@dogstudio/highway'
-
-// GSAP Library
-import A from 'gsap'
+import Animate from 'gsap'
 
 // Fade
 class Fade extends Highway.Transition {
   in({ from, to, done }) {
     window.scrollTo(0, 0)
     from.remove()
-    A.fromTo(
+    Animate.fromTo(
       to,
       0.5,
-      { autoAlpha: 0 },
+      {
+        autoAlpha: 0,
+      },
       {
         autoAlpha: 1,
         onComplete: done,
@@ -20,15 +20,10 @@ class Fade extends Highway.Transition {
   }
 
   out({ from, done }) {
-    A.fromTo(
-      from,
-      0.5,
-      { autoAlpha: 1 },
-      {
-        autoAlpha: 0,
-        onComplete: done,
-      },
-    )
+    Animate.to(from, 0.5, {
+      autoAlpha: 0,
+      onComplete: done,
+    })
   }
 }
 

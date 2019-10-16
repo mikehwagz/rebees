@@ -1,26 +1,5 @@
-import Highway from '@dogstudio/highway'
-import Fade from './transitions/fade'
+import app from '@/app'
 
-const H = new Highway.Core({
-  transitions: {
-    default: Fade,
-  },
-})
-
-H.on('NAVIGATE_IN', ({ to, trigger, location }) => {
-  console.groupCollapsed('IN')
-  console.log(to, trigger, location)
-  console.groupEnd()
-})
-
-H.on('NAVIGATE_OUT', ({ from, trigger, location }) => {
-  console.groupCollapsed('OUT')
-  console.log(from, trigger, location)
-  console.groupEnd()
-})
-
-H.on('NAVIGATE_END', ({ to, from, trigger, location }) => {
-  console.groupCollapsed('END')
-  console.log(to, from, trigger, location)
-  console.groupEnd()
-})
+// Components mounted via 'data-ui' are not unmounted/mounted during page
+// transitions. Used for persistent UI like navigation and webgl.
+app.mount(['data-ui', 'data-component'])
