@@ -39,6 +39,7 @@
     "@dogstudio/highway": "^2.1.3",
     "@sanity/client": "^0.142.0",
     "@selfaware/wool": "^0.0.8",
+    "bezier-easing": "^2.1.0",
     "choozy": "^0.0.4",
     "gsap": "^2.1.3",
     "nanoclass": "^0.0.2",

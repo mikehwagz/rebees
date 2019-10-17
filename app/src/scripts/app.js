@@ -6,12 +6,14 @@ import navToggle from '@/components/navToggle'
 import navToggleBurger from '@/components/navToggleBurger'
 import navToggleX from '@/components/navToggleX'
 import navOverlay from '@/components/navOverlay'
+import navScrim from '@/components/navScrim'
 
 const components = {
   navToggle,
   navToggleBurger,
   navToggleX,
   navOverlay,
+  navScrim,
 }
 
 const state = {
