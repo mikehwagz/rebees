@@ -6,8 +6,8 @@ export default component((node, ctx, { lines }) => {
   let tl = new TimelineMax({ paused: true })
 
   Animate.set(lines, {
-    xPercent: -150,
-    yPercent: -150,
+    xPercent: 55,
+    yPercent: 55,
   })
 
   Animate.set(node, { autoAlpha: 1 })

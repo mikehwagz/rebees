@@ -8,7 +8,7 @@ export default component(
     let itemsFromVars = {
       x: 50,
       y: 80,
-      rotation: -6,
+      rotation: -4,
       autoAlpha: 0,
     }
 
