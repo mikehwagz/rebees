@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles/index.css">
 </head>
 <body class="bg-parchment slate sans f20">
-  <div id="root" data-component="root">
+  <div id="root">
     <header class="nav fix x z9">
       <div class="nav__inner f jcb">
         <a class="nav__logo ph20 m:ph40 pv30 m:pv25" href="/">
@@ -26,32 +26,36 @@
             <path d="M56.3609 11.5982V0.983473C56.3621 0.854755 56.3379 0.727076 56.2898 0.607812C56.2416 0.488548 56.1704 0.380062 56.0802 0.288622C55.9901 0.197182 55.8828 0.1246 55.7646 0.0750684C55.6465 0.0255365 55.5197 3.69012e-05 55.3916 4.24193e-05H24.6823C24.5432 -0.00157172 24.4075 0.0429204 24.2961 0.126638C24.1847 0.210356 24.1039 0.328634 24.0661 0.463182C24.0283 0.59773 24.0356 0.74105 24.087 0.870977C24.1383 1.00091 24.2309 1.1102 24.3502 1.18196C25.891 2.06973 27.3533 3.08846 28.7212 4.22699C30.0365 5.41707 31.1678 6.79762 32.078 8.32311C32.634 9.27887 33.1359 10.2654 33.5814 11.2779C33.8277 11.8837 34.0257 12.5082 34.1738 13.1455C34.2187 13.326 34.2635 13.5064 34.3174 13.6824C34.7015 15.1777 34.8529 16.7238 34.7662 18.2657C34.7381 19.5713 34.5157 20.8653 34.1065 22.1047L33.9763 22.4926C33.7098 23.3576 33.3844 24.2032 33.0025 25.0234C32.0629 26.9172 30.8214 28.6438 29.3271 30.1345C28.7786 30.6712 28.1987 31.1743 27.5903 31.6412C27.4875 31.7234 27.4022 31.8256 27.3397 31.9418C27.2772 32.0579 27.2387 32.1856 27.2265 32.3171C27.2144 32.4486 27.2288 32.5812 27.2689 32.7069C27.3091 32.8326 27.3742 32.9489 27.4602 33.0487L31.001 37.1719L32.7602 39.2109L33.9898 40.6455C34.0808 40.7521 34.1937 40.8376 34.3208 40.896C34.4479 40.9544 34.586 40.9844 34.7258 40.9838H55.3961C55.6532 40.9838 55.8997 40.8812 56.0815 40.6984C56.2633 40.5157 56.3654 40.2679 56.3654 40.0094V29.3225C56.3654 29.0641 56.2633 28.8162 56.0815 28.6335C55.8997 28.4508 55.6532 28.3481 55.3961 28.3481H45.4514C45.1943 28.3481 44.9477 28.2454 44.7659 28.0627C44.5841 27.88 44.482 27.6321 44.482 27.3737V26.6158C44.482 26.3574 44.5841 26.1095 44.7659 25.9268C44.9477 25.7441 45.1943 25.6414 45.4514 25.6414H55.3916C55.6487 25.6414 55.8953 25.5388 56.077 25.356C56.2588 25.1733 56.3609 24.9254 56.3609 24.667V16.3214C56.3621 16.1927 56.3379 16.065 56.2898 15.9457C56.2416 15.8265 56.1704 15.718 56.0802 15.6265C55.9901 15.5351 55.8828 15.4625 55.7646 15.413C55.6465 15.3634 55.5197 15.3379 55.3916 15.338H45.4514C45.1943 15.338 44.9477 15.2353 44.7659 15.0526C44.5841 14.8698 44.482 14.622 44.482 14.3635V13.5335C44.482 13.2751 44.5841 13.0272 44.7659 12.8445C44.9477 12.6617 45.1943 12.5591 45.4514 12.5591H55.3916C55.6464 12.5591 55.8909 12.4583 56.0723 12.2785C56.2537 12.0987 56.3574 11.8543 56.3609 11.5982Z" fill="#3B3B3B"/>
           </svg>
         </a>
-        <button class="nav__toggle ph20 m:ph40 pv30 m:pv25">
-          <span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="nav__toggle ph20 m:ph40 pv30 m:pv25 rel z2" data-component="navToggle">
+          <span class="db rel x y">
+            <span class="nav__toggle__burger" data-component="navToggleBurger">
+              <span>
+                <span class="wct js-lines"></span>
+                <span class="wct js-lines"></span>
+                <span class="wct js-lines"></span>
+              </span>
+            </span>
+            <span class="nav__toggle__x" data-component="navToggleX">
+              <span>
+                <span class="wct js-lines"></span>
+                <span class="wct js-lines"></span>
+              </span>
+            </span>
           </span>
         </button>
       </div>
-      <div class="nav__overlay dn">
-        <div class="nav__overlay__drawer fix top right y ph80 pb40 bg-parchment z1">
-          <button class="nav__overlay__close abs top right ph40 pv30">
-            <span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
+      <div class="nav__overlay rel z1" data-component="navOverlay">
+        <div class="nav__overlay__drawer fix top right y ph80 pb40 bg-parchment z1 oh wct js-drawer">
           <div class="rel x y f aic">
             <nav role="navigation">
               <ul>
                 {% for link in config.navigation.links %}
-                  <li class="mb35">
+                  <li class="wcto js-items">
                     <a
-                      class="serif f58 lh112 hex-hover"
+                      class="serif f58 lh112 hex-hover pv15"
                       href="{{ '/' if link.slug == 'home' else ['/', link.slug, '/'] | join }}"
                     >
-                      <span class="abs y f aic">
+                      <span class="abs fill-y f aic">
                         <svg class="db" width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
                         </svg>
@@ -63,14 +67,17 @@
               </ul>
             </nav>
             <a
-              class="stroke-hover abs bottom left crimson f22 f114"
+              class="stroke-hover abs bottom left crimson f22 f114 wco js-email"
               href="mailto:{{ config.navigation.email }}"
             >
                 {{ config.navigation.email }}
               </a>
           </div>
+          <div class="abs top left x y bg-slate wco js-cover"></div>
         </div>
-        <div class="fix fill y bg-crimson o75"></div>
+        <div class="nav__overlay__backdrop fix fill y wco js-backdrop">
+          <div class="x y bg-crimson o75"></div>
+        </div>
       </div>
     </header>
     <main data-router-wrapper>

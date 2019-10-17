@@ -4,16 +4,18 @@ title: Home
 ---
 <div data-router-view="home">
   <div class="min-vh100 f aic">
-    <div class="ph120">
+    <div class="ph20 s:ph80 m:ph120">
       <div class="x max-w822">
-        <h2 class="serif f46 lh129 mb40">{{ home.headline }}</h2>
-        <a class="serif f28 lh129 crimson hex-hover" href="/projects/">
-          <span class="abs y f aic">
-            <svg class="db" width="13" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
-            </svg>
+        <h2 class="serif f25 m:f30 l:f38 xl:f46 lh139 m:lh129 mb35 m:mb40">{{ home.headline }}</h2>
+        <a class="serif f20 m:f22 l:f25 xl:f28 lh129 crimson dib stroke-hover stroke-hover--hex" href="/projects/">
+          <span class="f">
+            <span class="f aic mr15">
+              <svg class="db" width="15" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
+              </svg>
+            </span>
+            <span class="db rel z1">{{ home.projectsLinkText }}</span>
           </span>
-          <span class="rel z1">{{ home.projectsLinkText }}</span>
         </a>
       </div>
     </div>

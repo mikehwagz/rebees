@@ -11,19 +11,21 @@ export default function() {
   const isTwitter = checkTwitter()
   const isInstagram = checkInstagram()
   const isPinterest = checkPinterest()
-
   const isAppBrowser = isFacebook || isTwitter || isInstagram || isPinterest
 
+  const appBrowserInfo = cx([
+    isFacebook && 'is-facebook',
+    isTwitter && 'is-twitter',
+    isInstagram && 'is-instagram',
+    isPinterest && 'is-pinterest',
+    isAppBrowser && 'is-app-browser',
+  ])
+
   sniffer.addClasses(body)
-  body.className +=
-    ' ' +
-    cx([
-      isFacebook && 'is-facebook',
-      isTwitter && 'is-twitter',
-      isInstagram && 'is-instagram',
-      isPinterest && 'is-pinterest',
-      isAppBrowser && 'is-app-browser',
-    ])
+
+  if (appBrowserInfo.length) {
+    body.className += ' ' + appBrowserInfo
+  }
 
   return {
     ...info,

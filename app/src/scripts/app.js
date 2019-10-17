@@ -2,22 +2,22 @@ import { picoapp } from '@/lib/picoapp'
 import sniffer from '@/util/sniffer'
 import { size } from '@/util/dom'
 
-import root from '@/components/root'
-import test1 from '@/components/test1'
-import test2 from '@/components/test2'
+import navToggle from '@/components/navToggle'
+import navToggleBurger from '@/components/navToggleBurger'
+import navToggleX from '@/components/navToggleX'
+import navOverlay from '@/components/navOverlay'
 
 const components = {
-  root,
-  test1,
-  test2,
+  navToggle,
+  navToggleBurger,
+  navToggleX,
+  navOverlay,
 }
 
 const state = {
   ...size(),
   ...sniffer(),
-  // clientX: 0,
-  // clientY: 0,
-  // navState: 'hidden', // 'hidden' -> 'showing' -> 'shown' -> 'hiding' -> 'hidden'
+  isNavOpen: false,
 }
 
 export default picoapp(components, state)

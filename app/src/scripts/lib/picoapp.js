@@ -1,22 +1,27 @@
 import { create } from 'evx'
+import choozy from 'choozy'
 
 const isObj = (v) => typeof v === 'object' && !Array.isArray(v)
 const isFn = (v) => typeof v === 'function'
 
 // make sure evx and picoapp don't destroy the same events
 export function component(create) {
-  return function initialize(node, ctx) {
+  return function initialize(node, ctx, refs) {
     let subs = []
     return {
       subs,
-      unmount: create(node, {
-        ...ctx,
-        on: (evs, fn) => {
-          const u = ctx.on(evs, fn)
-          subs.push(u)
-          return u
+      unmount: create(
+        node,
+        {
+          ...ctx,
+          on: (evs, fn) => {
+            const u = ctx.on(evs, fn)
+            subs.push(u)
+            return u
+          },
         },
-      }),
+        refs,
+      ),
       node,
     }
   }
@@ -58,7 +63,7 @@ export function picoapp(components = {}, initialState = {}) {
               node.removeAttribute(attr) // so can't be bound twice
 
               try {
-                const instance = comp(node, evx)
+                const instance = comp(node, evx, choozy(node))
                 isFn(instance.unmount) && cache.push(instance)
               } catch (e) {
                 console.log(
