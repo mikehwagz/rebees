@@ -7,6 +7,7 @@ import navToggleBurger from '@/components/navToggleBurger'
 import navToggleX from '@/components/navToggleX'
 import navOverlay from '@/components/navOverlay'
 import navScrim from '@/components/navScrim'
+import lazyImage from '@/components/lazyImage'
 
 const components = {
   navToggle,
@@ -14,6 +15,7 @@ const components = {
   navToggleX,
   navOverlay,
   navScrim,
+  lazyImage,
 }
 
 const state = {

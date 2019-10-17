@@ -1,0 +1,23 @@
+.link-card {
+  transition: color 0.8s $ease-out-expo;
+
+  &__bg {
+    transition: opacity 0.8s $ease-out-expo;
+
+    .link-card:hover & {
+      opacity: 0;
+    }
+  }
+
+  &__hex {
+    transition: fill 0.8s $ease-out-expo;
+
+    .link-card:hover & {
+      fill: $crimson;
+    }
+  }
+
+  &:hover {
+    color: $crimson;
+  }
+}

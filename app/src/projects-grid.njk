@@ -3,32 +3,62 @@ layout: base.njk
 title: Projects
 permalink: /projects/
 ---
+{% import 'macros.njk' as macros with context %}
+
 <div data-router-view="projects-grid">
   <div class="min-vh100 ph40">
     {% pageTitle projects.title %}
     <ul class="f fw mb65 mhn20">
       {% for project in projects.selected %}
         <li class="w50 ph20 mb35">
-          <a class="tdn" href="/project/{{ project.slug }}/">
-            <div class="r r--project">
-              <div class="ro">
-                <img class="x y cover" src="{{ project.thumbnail.image.url }}" alt="{{ project.thumbnail.altText }}">
-              </div>
-              <div class="f26 lh125 parchment ro p20">
-                <p>{{ project.category }}</p>
-                <p>{{ project.location }}</p>
-                <p>{{ project.year }}</p>
+          <a class="projects-grid__card tdn" href="/project/{{ project.slug }}/">
+            <div class="rel">
+              {{ macros.lazyImage(
+                'r--project',
+                '',
+                '',
+                'x y cover',
+                project.thumbnail.image.metadata.lqip,
+                project.thumbnail.altText,
+                project.thumbnail.image.url,
+                project.thumbnail.altText,
+                false
+              ) }}
+              <div class="projects-grid__card__hover f26 lh125 parchment ro p20 abs fill">
+                <div class="abs fill bg-crimson o80"></div>
+                <div class="rel z1">
+                  <p class="projects-grid__card__hover__item">{{ project.category }}</p>
+                  <p class="projects-grid__card__hover__item">{{ project.location }}</p>
+                  <p class="projects-grid__card__hover__item">{{ project.year }}</p>
+                </div>
               </div>
             </div>
-            <h3 class="serif f28 lh129 mt10">{{ project.title }}</h3>
+            <h3 class="projects-grid__card__title serif f28 lh129 mt10">
+              <span class="abs fill-y f aic">
+                <svg class="db" width="16" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
+                </svg>
+              </span>
+              <span class="rel z1">{{ project.title }}</span>
+            </h3>
           </a>
         </li>
       {% endfor %}
       <li class="w50 ph20">
-        <a class="db r r--project ba bg-crimson parchment" href="/{{ projects.cta.link }}/">
-          <div class="ro f fc jcb ph40 pv30">
+        <a class="link-card db r r--project ba rel parchment" href="/{{ projects.cta.link }}/">
+          <div class="link-card__bg ro bg-crimson"></div>
+          <div class="ro f fc jcb ph40 pt30 pb35 z1">
             <h2 class="serif f58 lh112">{{ projects.cta.title }}</h2>
-            <p class="serif f28 lh129">{{ projects.cta.subtitle }}</p>
+            <p class="serif f28 lh129 f aic">
+              <span class="mr15">
+                <svg class="db" width="16" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
+                </svg>
+              </span>
+              <span>
+                {{ projects.cta.subtitle }}
+              </span>
+            </p>
           </div>
         </a>
       </li>

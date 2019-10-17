@@ -1,0 +1,40 @@
+{% macro lazyImage(
+  containerCx,
+  lqipCx,
+  imgWrapCx,
+  imgCx,
+  lqipSrc,
+  lqipAlt,
+  imgSrc,
+  imgAlt,
+  padding
+) %}
+  <div
+    class="lazy-image{{ [' ', containerCx] | join if containerCx }}"
+    data-deferred-component="lazyImage"
+    {# {% if padding %}
+      style="padding-bottom: {{ 1 / Image(image).aspect * 100 }}%"
+    {% endif %} #}
+  >
+    <div 
+      class="lazy-image__lqip js-lqip{{ [' ', lqipCx] | join if lqipCx }}"
+    >
+      <img
+        {% if imgCx %}
+          class="{{ imgCx }}"
+        {% endif %}
+        src="{{ lqipSrc }}"
+        alt="{{ lqipAlt }}"
+      >
+    </div>
+    <div
+      class="lazy-image__img-wrap js-imgWrap{{ [' ', imgWrapCx] | join if imgWrapCx }}"
+    >
+      <img
+        class="lazy-image__img js-img{{ [' ', imgCx] | join if imgCx }}"
+        data-lazy="{{ imgSrc }}"
+        alt="{{ imgAlt }}"
+      >
+    </div>
+  </div>
+{% endmacro %}

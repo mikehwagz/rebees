@@ -1,0 +1,20 @@
+.lazy-image {
+  @extend .r;
+  overflow: hidden;
+
+  &__lqip {
+    @extend .ro;
+    filter: blur(10px);
+    transform: scale(1.05);
+  }
+
+  &__img-wrap {
+    @extend .ro;
+    opacity: 0;
+    transition: opacity 1s $ease-out-expo;
+
+    .lazy-image.is-loaded & {
+      opacity: 1;
+    }
+  }
+}

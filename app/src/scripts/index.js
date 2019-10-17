@@ -14,6 +14,8 @@ router
     app.unmount()
     app.mount()
   })
-  .on('NAVIGATE_END', () => {})
+  .on('NAVIGATE_END', () => {
+    app.mount('data-deferred-component')
+  })
 
-app.mount()
+app.mount(['data-component', 'data-deferred-component'])

@@ -1,0 +1,67 @@
+.projects-grid {
+  &__card {
+    &__hover {
+      transition: opacity 0.8s $ease-out-expo;
+      opacity: 0;
+
+      .projects-grid__card:hover & {
+        opacity: 1;
+      }
+
+      &__item {
+        opacity: 0;
+        transform: translate3d(1rem, 0.5rem, 0) rotate(-4deg);
+        transition: transform, opacity;
+        transition-duration: 0.8s;
+        transition-timing-function: $ease-out-expo;
+
+        @for $i from 0 through 2 {
+          &:nth-child(#{$i + 1}) {
+            transition-delay: $i * -0.06s;
+          }
+        }
+
+        .projects-grid__card:hover & {
+          opacity: 1;
+          transform: none;
+
+          @for $i from 0 through 2 {
+            &:nth-child(#{$i + 1}) {
+              transition-delay: $i * 0.04s;
+            }
+          }
+        }
+      }
+    }
+
+    &__title {
+      position: relative;
+      display: flex;
+
+      span {
+        will-change: transform, opacity;
+        transition-property: transform, opacity;
+        transition-duration: 0.8s;
+        transition-timing-function: $ease-out-expo;
+
+        &:first-child {
+          opacity: 0;
+          transform: translateX(-2.5rem) scale(0.2) rotate(-45deg);
+        }
+      }
+
+      .projects-grid__card:hover & {
+        span {
+          &:first-child {
+            opacity: 1;
+            transform: none;
+          }
+
+          &:last-child {
+            transform: translateX(3rem) skewX(-12deg);
+          }
+        }
+      }
+    }
+  }
+}
