@@ -70,12 +70,12 @@ export default component((node, ctx, { lines }) => {
           xPercent: 0,
           ease: Expo.easeOut,
           delay: 0.4,
-          onComplete: () => {
-            isHidden = false
-          },
         },
         0.05,
         'a',
+        () => {
+          isHidden = false
+        },
       )
       .to(
         [lines[0], lines[2]],
