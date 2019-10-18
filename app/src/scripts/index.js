@@ -39,3 +39,5 @@ function navIn({ to, appear }) {
 function navEnd() {
   app.mount('data-deferred-component')
 }
+
+require('@/util/stats')()

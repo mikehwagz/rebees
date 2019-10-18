@@ -1,6 +1,6 @@
 const Stats = require('stats.js')
 
-export default function() {
+module.exports = function() {
   const stats = new Stats()
 
   stats.domElement.style.cssText =
