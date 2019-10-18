@@ -13,6 +13,7 @@ export default component((node) => {
     direction: '180deg',
     rgb: colors[theme],
     steps: 20,
-    bezier: [0.81, 0.01, 0.35, 0.68],
+    // bezier: [0.81, 0.01, 0.35, 0.68],
+    bezier: [0.3, 0.0, 0.7, 1.0],
   })
 })

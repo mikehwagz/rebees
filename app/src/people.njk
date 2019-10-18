@@ -3,10 +3,62 @@ layout: base.njk
 title: People
 permalink: /people/
 ---
+{% import 'macros.njk' as macros with context %}
+
 <div data-router-view="people">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
   <div class="min-vh100 ph40">
-    {% pageTitle "People" %}
+    {% pageTitle people.title %}
+    <ul class="f fw pt40 mb65 mhn20" data-component="peopleList">
+      {% for person in people.list %}
+        <li class="w50 ph20 mb35">
+          <a class="person tdn" href="/people/{{ person.slug }}/">
+            <div class="rel">
+              {{ macros.lazyImage(
+                'r--person',
+                '',
+                '',
+                'x y cover',
+                person.portrait.image.metadata.lqip,
+                person.portrait.altText,
+                person.portrait.image.url,
+                person.portrait.altText,
+                false
+              ) }}
+              <div class="person__hover ro abs fill">
+                <div class="abs fill bg-crimson o50"></div>
+              </div>
+            </div>
+            <h3 class="person__title serif f28 lh129 mt10">
+              <span class="abs fill-y f aic">
+                <svg class="db" width="16" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
+                </svg>
+              </span>
+              <span class="rel z1">{{ person.fullName }}</span>
+            </h3>
+          </a>
+        </li>
+      {% endfor %}
+      <li class="w50 ph20">
+        <a class="link-card db r r--person ba rel parchment" href="/{{ people.cta.link }}/">
+          <div class="link-card__bg ro bg-crimson"></div>
+          <div class="ro f fc jcb ph40 pt30 pb35 z1">
+            <h2 class="serif f58 lh112">{{ people.cta.title }}</h2>
+            <p class="serif f28 lh129 f aic">
+              <span class="mr15">
+                <svg class="db" width="16" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
+                </svg>
+              </span>
+              <span>
+                {{ people.cta.subtitle }}
+              </span>
+            </p>
+          </div>
+        </a>
+      </li>
+    </ul>
   </div>
   {% include "footer.njk" %}
 </div>

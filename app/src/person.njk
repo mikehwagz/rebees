@@ -1,0 +1,37 @@
+---
+layout: base.njk
+permalink: /people/{{ person.slug }}/
+pagination:
+  alias: person
+  data: people.list
+  size: 1
+renderData:
+  title: "{{ person.title }}"
+---
+{% import 'macros.njk' as macros with context %}
+
+<div class="parchment bg-slate" data-router-view="person" data-theme="slate">
+  <div class="scrim" data-component="scrim" data-theme="slate"></div>
+  <div class="min-vh100 ph40 f ais">
+    <div class="w50 pr20 pt150 sticky top">
+      {{ macros.lazyImage(
+        'r--person ba bc-parchment',
+        '',
+        '',
+        'x y cover',
+        person.portrait.image.metadata.lqip,
+        person.portrait.altText,
+        person.portrait.image.url,
+        person.portrait.altText,
+        false
+      ) }}
+    </div>
+    <div class="w50 pl20 pt150">
+      <h2 class="f38 lh105 mb30">{{ person.fullName }}</h2>
+      <div class="f26 lh125">
+        {{ person.bio | safe }}
+      </div>
+    </div>
+  </div>
+</div>
+

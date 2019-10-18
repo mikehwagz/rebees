@@ -8,6 +8,7 @@ import navToggleX from '@/components/navToggleX'
 import navOverlay from '@/components/navOverlay'
 import lazyImage from '@/components/lazyImage'
 import scrim from '@/components/scrim'
+import peopleList from '@/components/peopleList'
 
 const components = {
   navToggle,
@@ -16,6 +17,7 @@ const components = {
   navOverlay,
   lazyImage,
   scrim,
+  peopleList,
 }
 
 const state = {
