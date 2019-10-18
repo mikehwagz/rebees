@@ -4,7 +4,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode(
     'pageTitle',
     (title, color = 'slate', tag = `h2`) =>
-      `<${tag} class="serif f58 lh112 pt130 pb25 mb40 ${color} bb bc-${color}">${title}</${tag}>`,
+      `<${tag} class="serif f58 lh112 pt130 pb25 ${color} bb bc-${color}">${title}</${tag}>`,
   )
 
   eleventyConfig.addShortcode(
