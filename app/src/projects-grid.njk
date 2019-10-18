@@ -6,8 +6,12 @@ permalink: /projects/
 {% import 'macros.njk' as macros with context %}
 
 <div data-router-view="projects-grid">
-  <div class="min-vh100 ph40">
+  <div class="scrim" data-component="scrim" data-theme="parchment"></div>
+  <div class="min-vh100 ph40 rel">
     {% pageTitle projects.title %}
+    <div class="abs top right pt160 pr40">
+      <a href="/projects/list/">List View</a>
+    </div>
     <ul class="f fw mb65 mhn20">
       {% for project in projects.selected %}
         <li class="w50 ph20 mb35">

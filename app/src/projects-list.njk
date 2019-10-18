@@ -3,9 +3,10 @@ layout: base.njk
 title: Projects
 permalink: /projects/list/
 ---
-<div data-router-view="projects-list">
+<div class="bg-crimson parchment" data-router-view="projects-list" data-theme="crimson">
+  <div class="scrim" data-component="scrim" data-theme="crimson"></div>
   <div class="min-vh100 ph40">
-    {% pageTitle projects.title %}
+    {% pageTitle projects.title, 'parchment' %}
   </div>
   {% include "footer.njk" %}
 </div>

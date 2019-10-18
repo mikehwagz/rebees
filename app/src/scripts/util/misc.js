@@ -1,3 +1,6 @@
+import cubicBezier from 'bezier-easing'
+import { map as mapRange, round } from '@/util/math'
+
 export function poll(delay, cb, first = true) {
   first ? cb(done) : done()
   function done() {
@@ -28,4 +31,25 @@ export function hexToRGBA(hex, alpha) {
     console.warn('Bad hex')
     return hex
   }
+}
+
+export function easedGradient({ direction, rgb, steps, bezier }) {
+  let ease = cubicBezier(...bezier)
+  let vals = Array(steps)
+    .fill()
+    .map((_, i) => {
+      const percent = round(mapRange(i, 0, steps - 1, 0, 1))
+      const alpha = 1 - ease(percent)
+      return { percent: percent * 100, alpha }
+    })
+
+  const getColorStop = ({ rgb, alpha, percent }) =>
+    `rgba(${rgb.join(', ')}, ${alpha}) ${percent}%`
+
+  return `linear-gradient(
+    ${direction},
+    ${vals
+      .map(({ alpha, percent }) => getColorStop({ rgb, alpha, percent }))
+      .join(',\n')}
+  )`
 }

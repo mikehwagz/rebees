@@ -9,6 +9,9 @@ renderData:
   title: "{{ project.title }}"
 ---
 <div data-router-view="project">
-  {% pageTitle project.title %}
+  <div class="scrim" data-component="scrim" data-theme="parchment"></div>
+  <div class="min-vh100 ph40">
+    {% pageTitle project.title %}
+  </div>
 </div>
 

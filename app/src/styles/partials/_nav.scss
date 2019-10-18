@@ -6,16 +6,17 @@
       @media (query('m')) {
         width: 17.2rem;
       }
-    }
-  }
 
-  &__scrim {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 130%;
-    pointer-events: none;
+      path {
+        fill: $slate;
+        transition: fill 0.8s $ease-out-expo;
+
+        body[data-theme='slate'] &,
+        body[data-theme='crimson'] & {
+          fill: $parchment;
+        }
+      }
+    }
   }
 
   &__toggle {
@@ -37,7 +38,13 @@
           position: absolute;
           width: 100%;
           height: 0.3rem;
+          transition: background-color 0.8s $ease-out-quint;
           background-color: $slate;
+
+          body[data-theme='slate'] &,
+          body[data-theme='crimson'] & {
+            background-color: $parchment;
+          }
 
           &:first-child {
             top: 0;
@@ -99,6 +106,13 @@
       visibility: hidden;
       opacity: 0;
       cursor: pointer;
+    }
+
+    &__cover {
+      body[data-theme='crimson'] &,
+      body[data-theme='slate'] & {
+        display: none;
+      }
     }
   }
 }
