@@ -96,8 +96,6 @@
   }
 
   &__overlay {
-    pointer-events: none;
-
     &__drawer {
       transform: translateX(102%);
     }
