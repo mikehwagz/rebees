@@ -2,6 +2,10 @@ import app from '@/app'
 import router from '@/router'
 import { body } from '@/util/dom'
 
+if (process.env.NODE_ENV !== 'production') {
+  require('@/util/stats')()
+}
+
 let ctx = {
   location: window.location,
   to: { view: body.querySelector('[data-router-view]') },
@@ -39,5 +43,3 @@ function navIn({ to, appear }) {
 function navEnd() {
   app.mount('data-deferred-component')
 }
-
-require('@/util/stats')()
