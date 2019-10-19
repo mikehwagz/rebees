@@ -11,7 +11,7 @@
   &__img-wrap {
     @extend .ro;
     opacity: 0;
-    transition: opacity 1s $ease-out-expo;
+    transition: opacity 1s $ease-out-cubic;
 
     .lazy-image.is-loaded & {
       opacity: 1;
