@@ -10,6 +10,7 @@
   "scripts": {
     "start:sanity": "yarn workspace rebees-cms start",
     "test:sanity": "yarn workspace rebees-cms test",
+    "deploy:sanity": "yarn workspace rebees-cms deploy",
     "start": "yarn workspace rebees-site dev",
     "build": "yarn workspace rebees-site build"
   },
