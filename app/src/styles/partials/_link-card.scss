@@ -9,6 +9,14 @@
     }
   }
 
+  &__svg {
+    width: 10px;
+
+    @media (query('xl')) {
+      width: 1.6rem;
+    }
+  }
+
   &__hex {
     transition: fill 0.8s $ease-out-expo;
 
