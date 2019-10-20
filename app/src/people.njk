@@ -15,7 +15,7 @@ permalink: /people/
           <a class="person tdn" href="/people/{{ person.slug }}/">
             <div class="rel">
               {{ macros.lazyImage(
-                'r--person',
+                'r--cta',
                 '',
                 '',
                 'x y cover',
@@ -39,7 +39,7 @@ permalink: /people/
         </li>
       {% endfor %}
       <li class="w50 ph20">
-        <a class="link-card db r r--person ba rel parchment" href="/{{ people.cta.link }}/">
+        <a class="link-card db r r--cta ba rel parchment" href="/{{ people.cta.link }}/">
           <div class="link-card__bg ro bg-crimson"></div>
           <div class="ro f fc jcb ph40 pt30 pb35 z1">
             <h2 class="serif f58 lh112">{{ people.cta.title }}</h2>

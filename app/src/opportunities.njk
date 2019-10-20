@@ -5,8 +5,33 @@ permalink: /opportunities/
 ---
 <div data-router-view="opportunities">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
-  <div class="min-vh100 ph40">
-    {% pageTitle "Opportunities" %}
+  <div class="min-vh100 ph20 m:ph40">
+    {% pageTitle opportunities.title %}
+    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70">
+      {{ opportunities.body | safe }}
+    </div>
+    <div class="m:f fw mhn20 pb70">
+      {% for cta in opportunities.links %}
+        <div class="m:third ph20 mb20 m:mb0">
+          <a class="link-card db r r--cta ba rel parchment" href="/{{ cta.link }}/">
+          <div class="link-card__bg ro bg-crimson"></div>
+          <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">
+            <h2 class="serif f30 s:f38 m:f28 xl:f38 lh130">{{ cta.title }}</h2>
+            <p class="serif f20 l:f22 xl:f28 lh129 f aic">
+              <span class="mr10 xl:mr15">
+                <svg class="link-card__svg" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
+                </svg>
+              </span>
+              <span>
+                {{ cta.subtitle }}
+              </span>
+            </p>
+          </div>
+        </a>
+        </div>
+      {% endfor %}
+    </div>
   </div>
   {% include "footer.njk" %}
 </div>
