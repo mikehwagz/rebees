@@ -1,12 +1,11 @@
 .project {
   &__progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 6px;
-    background-color: $crimson;
-    z-index: 2;
     transform-origin: left;
+    transform: scaleX(0);
   }
+}
+
+.is-animateable {
+  transition: transform 0.4s $ease-in-out-cubic, opacity 0.4s $ease-in-out-cubic;
 }

@@ -12,10 +12,26 @@ renderData:
 
 <div class="project" data-router-view="project">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
-  <div class="project__progress dn s:db" data-component="projectProgress"></div>
-  <div class="project__progress db s:dn" data-component="projectProgressMobile"></div>
+  <h2 class="f30 f aic dn s:f fix top left pl250 pt35 z10 pen">
+    <span class="mr10">
+      <svg class="db" width="14" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
+      </svg>
+    </span>
+    <span>{{ project.title }}</span>
+  </h2>
   <div class="min-vh100 ph20 m:ph40 pt100">
-    <h2 class="f20 f aic mb25">
+    <div
+      class="project__progress is-animateable fix top left x bg-crimson dn s:db"
+      data-component="projectProgress"
+      style="z-index: {{ project.contentModules | length + 1 }}"
+    ></div>
+    <div
+      class="project__progress fix top left x bg-crimson db s:dn"
+      data-component="projectProgressMobile"
+      style="z-index: {{ project.contentModules | length + 1 }}"
+    ></div>
+    <h2 class="f20 f aic mb25 db s:dn">
       <span class="mr10">
         <svg class="db" width="10" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
@@ -23,39 +39,69 @@ renderData:
       </span>
       <span>{{ project.title }}</span>
     </h2>
-    <div class="mb85">
+    <div class="project__content-modules" data-component="projectSlider">
       {% for module in project.contentModules %}
         {% if module._type == 'richText' %}
-          <section class="project__rich-text serif f20 lh140 mb50">
-            {{ module.content | safe }}
+          <section
+            class="project__module mb50 s:mb0 s:abs s:fill f aic bg-parchment | js-slides"
+            style="z-index: {{ loop.length - loop.index0 }}"
+          >
+            <div class="s:ph40 l:ph120">
+              <div class="serif f20 s:f30 m:f38 l:f42 xl:f46 lh140 s:lh129 x max-w1080">
+                {{ module.content | safe }}
+              </div>
+            </div>
           </section>
         {% elif module._type == 'imageWithAltTextAndCaption' %}
-          <section class="project__image mb50 f14">
-            {{ macros.lazyImage(
-              'mb10',
-              '',
-              '',
-              'x',
-              module.image,
-              module.altText,
-              true
-            ) }}
-            {% if module.caption %}
-              <p class="f16 lh131">{{ module.caption }}</p>
-            {% endif %}
+          <section
+            class="project__module f14 mb50 s:mb0 s:abs s:fill bg-parchment | js-slides"
+            style="z-index: {{ loop.length - loop.index0 }}"
+          >
+            <div class="db s:dn">
+              {{ macros.lazyImage(
+                'mb10',
+                '',
+                '',
+                'x',
+                module.image,
+                module.altText,
+                true
+              ) }}
+              {% if module.caption %}
+                <p class="f16 lh131">{{ module.caption }}</p>
+              {% endif %}
+            </div>
+            <div class="ph40 pv100 x y dn s:db">
+              <div class="x y mb10">
+                <img
+                  class="x y o-contain"
+                  src="{{ module.image.url }}"
+                  alt="{{ module.altText }}"
+                >
+              </div>
+              {% if module.caption %}
+                <p class="f16 lh131 s:tc">{{ module.caption }}</p>
+              {% endif %}
+            </div>
           </section>
         {% endif %}
       {% endfor %}
+      <section
+        class="project__module pt85 pb100 s:abs s:fill bg-parchment | js-slides"
+        style="z-index: {{ project.contentModules | length }}"
+      >
+        {% set nextHref = pagination.nextPageHref if pagination.next else pagination.firstPageHref %}
+        {% set slug = nextHref | split('/') %}
+        {% set nextProject = projects.selected | find('slug', slug[2]) %}
+        <a class="tc" href="{{ nextHref }}">
+          <p class="f18 lh128 mb15">Next Project</p>
+          <p class="outline-text crimson serif f52 lh128">{{ nextProject.title }}</p>
+        </a>
+      </section>
     </div>
-    <div class="pb100">
-      {% set nextHref = pagination.nextPageHref if pagination.next else pagination.firstPageHref %}
-      {% set slug = nextHref | split('/') %}
-      {% set nextProject = projects.selected | find('slug', slug[2]) %}
-      <a class="tc" href="{{ nextHref }}">
-        <p class="f18 lh128 mb15">Next Project</p>
-        <p class="outline-text crimson serif f52 lh128">{{ nextProject.title }}</p>
-      </a>
-    </div>
+  </div>
+  <div class="db s:dn">
+    {% include 'footer.njk' %}
   </div>
 </div>
 

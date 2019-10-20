@@ -6,7 +6,7 @@
  * @param  {number} max Maximum boundary
  * @return {number}     Clamped value
  */
-export function clamp(value, min, max) {
+export function clamp(value, min = 0, max = 1) {
   return value < min ? min : value > max ? max : value
 }
 
@@ -82,17 +82,21 @@ export function norm(value, min, max) {
  * @return {number}    Rounded value
  */
 export function round(v, p = 1000) {
-  return ~~(v * p) / p
+  return Math.round(v * p) / p
 }
 
 /**
- * Loop on an index value
+ * Wrap a value around the given length using the modulo operator
+ *
+ * e.g. wrap(1, 3) // 1
+ *      wrap(3, 3) // 0
+ *      wrap(-1, 3) // 2
  *
  * @param  {number} index  Index
  * @param  {number} length Length
  * @return {number}        Looped index
  */
-export function loopIndex(index, length) {
+export function wrap(index, length) {
   if (index < 0) {
     index = length + (index % length)
   }

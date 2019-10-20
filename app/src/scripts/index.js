@@ -40,7 +40,11 @@ function navIn({ to, appear }) {
     body.setAttribute('data-theme', 'parchment')
   }
 
-  !appear && app.unmount()
+  if (!appear) {
+    app.unmount()
+    app.hydrate({ sliderIndex: 0 })
+  }
+
   app.mount()
   resize()
 }
