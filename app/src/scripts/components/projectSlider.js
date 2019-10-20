@@ -4,7 +4,6 @@ import { add, remove, body } from '@/util/dom'
 import { clamp } from '@/util/math'
 
 export default component((node, ctx, { slides }) => {
-  let hasRotation = false
   let isSliderInit = false
   let isAnimating = false
   let vs = null
@@ -30,11 +29,7 @@ export default component((node, ctx, { slides }) => {
         slide.style.pointerEvents = i === sliderIndex ? 'auto' : 'none'
         slide.style.transform = `translate3d(${
           i === sliderIndex ? 0 : i > sliderIndex ? 100 : -100
-        }%, 0, 0)${
-          hasRotation
-            ? ` rotate(${i === sliderIndex ? 0 : i > sliderIndex ? 6 : -6}deg)`
-            : ``
-        }`
+        }%, 0, 0)`
       }
     })
 
