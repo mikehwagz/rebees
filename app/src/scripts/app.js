@@ -9,6 +9,7 @@ import navOverlay from '@/components/navOverlay'
 import lazyImage from '@/components/lazyImage'
 import scrim from '@/components/scrim'
 import peopleList from '@/components/peopleList'
+import projectProgressMobile from '@/components/projectProgressMobile'
 
 const components = {
   navToggle,
@@ -18,6 +19,7 @@ const components = {
   lazyImage,
   scrim,
   peopleList,
+  projectProgressMobile,
 }
 
 const state = {

@@ -1,6 +1,7 @@
 import app from '@/app'
 import router from '@/router'
-import { body } from '@/util/dom'
+import { body, size, on } from '@/util/dom'
+import Animate from 'gsap'
 
 if (process.env.NODE_ENV !== 'production') {
   require('@/util/stats')()
@@ -12,13 +13,16 @@ let ctx = {
   appear: true,
 }
 
-navIn(ctx)
-navEnd(ctx)
+on(window, 'resize', resize)
+Animate.ticker.addEventListener('tick', update)
 
 router
   .on('NAVIGATE_OUT', navOut)
   .on('NAVIGATE_IN', navIn)
   .on('NAVIGATE_END', navEnd)
+
+navIn(ctx)
+navEnd(ctx)
 
 function navOut() {
   let { isNavOpen } = app.getState()
@@ -38,8 +42,17 @@ function navIn({ to, appear }) {
 
   !appear && app.unmount()
   app.mount()
+  resize()
 }
 
 function navEnd() {
   app.mount('data-deferred-component')
+}
+
+function resize() {
+  app.emit('resize', size)
+}
+
+function update() {
+  app.emit('update')
 }

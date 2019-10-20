@@ -13,6 +13,14 @@ module.exports = function(eleventyConfig) {
       `<pre class="pv100">${JSON.stringify(value, null, 2)}</pre>`,
   )
 
+  eleventyConfig.addFilter('split', (x, ch) => {
+    return x ? x.split(ch) : ''
+  })
+
+  eleventyConfig.addFilter('find', (arr, key, val) => {
+    return arr.find((item) => item[key] === val)
+  })
+
   return {
     dir: { input: 'src', output: 'dist', data: '_data' },
     passthroughFileCopy: true,

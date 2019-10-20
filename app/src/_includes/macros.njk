@@ -3,18 +3,16 @@
   lqipCx,
   imgWrapCx,
   imgCx,
-  lqipSrc,
-  lqipAlt,
-  imgSrc,
-  imgAlt,
+  image,
+  altText,
   padding
 ) %}
   <div
     class="lazy-image{{ [' ', containerCx] | join if containerCx }}"
     data-deferred-component="lazyImage"
-    {# {% if padding %}
-      style="padding-bottom: {{ 1 / Image(image).aspect * 100 }}%"
-    {% endif %} #}
+    {% if padding %}
+      style="padding-bottom: {{ image.metadata.dimensions.height / image.metadata.dimensions.width * 100 }}%"
+    {% endif %}
   >
     <div 
       class="lazy-image__lqip js-lqip{{ [' ', lqipCx] | join if lqipCx }}"
@@ -23,8 +21,8 @@
         {% if imgCx %}
           class="{{ imgCx }}"
         {% endif %}
-        src="{{ lqipSrc }}"
-        alt="{{ lqipAlt }}"
+        src="{{ image.metadata.lqip }}"
+        alt=""
       >
     </div>
     <div
@@ -32,8 +30,8 @@
     >
       <img
         class="lazy-image__img js-img{{ [' ', imgCx] | join if imgCx }}"
-        data-lazy="{{ imgSrc }}"
-        alt="{{ imgAlt }}"
+        data-lazy="{{ image.url }}"
+        alt="{{ altText }}"
       >
     </div>
   </div>
