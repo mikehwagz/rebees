@@ -12,8 +12,8 @@ renderData:
 
 <div class="parchment bg-slate" data-router-view="person" data-theme="slate">
   <div class="scrim" data-component="scrim" data-theme="slate"></div>
-  <div class="min-vh100 ph40 f ais">
-    <div class="w50 pr20 pt150 sticky top">
+  <div class="min-vh100 ph20 m:ph40 l:f ais">
+    <div class="mha m:w70 l:w50 l:pr20 pt100 l:pt150 l:sticky top mb30">
       {{ macros.lazyImage(
         'r--cta ba bc-parchment',
         '',
@@ -24,9 +24,9 @@ renderData:
         false
       ) }}
     </div>
-    <div class="w50 pl20 pt150">
-      <h2 class="f38 lh105 mb30">{{ person.fullName }}</h2>
-      <div class="f26 lh125">
+    <div class="mha m:w70 l:w50 l:pl20 l:pt150 pb70">
+      <h2 class="serif f25 m:f28 l:f38 lh105 mb30">{{ person.fullName }}</h2>
+      <div class="f18 m:f22 l:f26 lh129">
         {{ person.bio | safe }}
       </div>
     </div>
