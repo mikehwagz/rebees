@@ -1,7 +1,8 @@
-const pluginPWA = require('eleventy-plugin-pwa')
+// const pluginPWA = require('eleventy-plugin-pwa')
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/assets')
+  eleventyConfig.addPassthroughCopy({ 'src/scripts/sw.js': '/sw.js' })
 
   eleventyConfig.addShortcode(
     'pageTitle',
@@ -23,7 +24,7 @@ module.exports = function(eleventyConfig) {
     return arr.find((item) => item[key] === val)
   })
 
-  eleventyConfig.addPlugin(pluginPWA)
+  // eleventyConfig.addPlugin(pluginPWA)
 
   return {
     dir: { input: 'src', output: 'dist', data: '_data' },
