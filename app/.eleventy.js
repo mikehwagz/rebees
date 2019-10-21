@@ -1,7 +1,7 @@
 const pluginPWA = require('eleventy-plugin-pwa')
 
 module.exports = function(eleventyConfig) {
-  eleventyConfig.addPassthroughCopy('src/images')
+  eleventyConfig.addPassthroughCopy('src/assets')
 
   eleventyConfig.addShortcode(
     'pageTitle',
@@ -28,7 +28,7 @@ module.exports = function(eleventyConfig) {
   return {
     dir: { input: 'src', output: 'dist', data: '_data' },
     passthroughFileCopy: true,
-    templateFormats: ['njk', 'woff', 'woff2'],
+    templateFormats: ['njk'],
     htmlTemplateEngine: 'njk',
   }
 }
