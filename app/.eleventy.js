@@ -1,3 +1,5 @@
+const pluginPWA = require('eleventy-plugin-pwa')
+
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/images')
 
@@ -20,6 +22,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter('find', (arr, key, val) => {
     return arr.find((item) => item[key] === val)
   })
+
+  eleventyConfig.addPlugin(pluginPWA)
 
   return {
     dir: { input: 'src', output: 'dist', data: '_data' },
