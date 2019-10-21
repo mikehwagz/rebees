@@ -13,7 +13,7 @@ self.onfetch = (e) => {
   ) {
     e.respondWith(
       fetch(e.request.url).catch((error) => {
-        return caches.match(offlineUrl)
+        return caches.match(url)
       }),
     )
   }
