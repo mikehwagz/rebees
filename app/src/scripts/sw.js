@@ -1,4 +1,4 @@
-const name = 'sw@1.0.0'
+const name = 'sw@1.0.1'
 const url = 'offline.html'
 
 self.oninstall = (e) => {
