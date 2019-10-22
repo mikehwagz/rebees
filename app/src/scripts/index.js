@@ -13,14 +13,7 @@ let ctx = {
   appear: true,
 }
 
-on(window, 'resize', resize)
-Animate.ticker.addEventListener('tick', update)
-
-router
-  .on('NAVIGATE_OUT', navOut)
-  .on('NAVIGATE_IN', navIn)
-  .on('NAVIGATE_END', navEnd)
-
+addGlobalEvents()
 navIn(ctx)
 navEnd(ctx)
 
@@ -59,4 +52,14 @@ function resize() {
 
 function update() {
   app.emit('update')
+}
+
+function addGlobalEvents() {
+  on(window, 'resize', resize)
+  Animate.ticker.addEventListener('tick', update)
+
+  router
+    .on('NAVIGATE_OUT', navOut)
+    .on('NAVIGATE_IN', navIn)
+    .on('NAVIGATE_END', navEnd)
 }
