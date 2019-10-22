@@ -916,13 +916,26 @@
     in-publish "^2.0.0"
     promise-props-recursive "^1.0.0"
 
-"@sanity/client@0.142.0", "@sanity/client@^0.142.0":
+"@sanity/client@0.142.0":
   version "0.142.0"
   resolved "https://registry.yarnpkg.com/@sanity/client/-/client-0.142.0.tgz#361ed95f204b38a16c41bc1b495b5670063c058f"
   dependencies:
     "@sanity/eventsource" "0.142.0"
     "@sanity/generate-help-url" "0.142.0"
     "@sanity/observable" "0.142.0"
+    deep-assign "^2.0.0"
+    get-it "^5.0.0"
+    make-error "^1.3.0"
+    object-assign "^4.1.1"
+
+"@sanity/client@^0.142.6":
+  version "0.142.6"
+  resolved "https://registry.yarnpkg.com/@sanity/client/-/client-0.142.6.tgz#4b4867304fab48d968db978a1928bb32aa502311"
+  integrity sha512-i9x0dlo+6gi2k9KNMiRbquvk5nLAviWhpi9Z9899zNARDE2EHjAagJzjuWG01Z2+CW43D6g2Bhkq3aJVVvuMgg==
+  dependencies:
+    "@sanity/eventsource" "0.142.0"
+    "@sanity/generate-help-url" "0.142.0"
+    "@sanity/observable" "0.142.6"
     deep-assign "^2.0.0"
     get-it "^5.0.0"
     make-error "^1.3.0"
@@ -1230,6 +1243,14 @@
   dependencies:
     object-assign "^4.1.1"
     rxjs "^6.1.0"
+
+"@sanity/observable@0.142.6":
+  version "0.142.6"
+  resolved "https://registry.yarnpkg.com/@sanity/observable/-/observable-0.142.6.tgz#620ca921f58db06a45c3dd6a55f9787296ea4351"
+  integrity sha512-uP++1raxyGpfAQKIIWeUhHVFje57MGaoOfvBu04bdWq9Cese4fiPIPWaGOD9YjW2rVieqJ00kPTEM/5QjymyFQ==
+  dependencies:
+    object-assign "^4.1.1"
+    rxjs "^6.5.2"
 
 "@sanity/plugin-loader@0.142.0":
   version "0.142.0"
@@ -4916,6 +4937,11 @@ gray-matter@^4.0.2:
     kind-of "^6.0.2"
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
+
+groq@^0.142.0:
+  version "0.142.0"
+  resolved "https://registry.yarnpkg.com/groq/-/groq-0.142.0.tgz#405a107bf757e74ed60daad08fc850306a17b0cb"
+  integrity sha512-+PRyfIXLUtf2KsHTHiaxukzB8gmmwmZ7VAekjB66ILWX+YsFECthg0HWYt7FFuLVnPguzXHDlyNUAhCVdVBfLw==
 
 gsap@^2.1.3:
   version "2.1.3"

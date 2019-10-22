@@ -1,10 +1,11 @@
 const client = require('../util/client')
+const groq = require('groq')
 const blocksToHtml = require('@sanity/block-content-to-html')
 
 module.exports = async function() {
   const projects = await client
     .fetch(
-      `*[_id == "projectspage"] {
+      groq`*[_id == "projectspage"] {
         title,
         "selected": selectedProjects[]->{
           _id,

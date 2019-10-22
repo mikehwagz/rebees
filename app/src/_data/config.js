@@ -1,23 +1,24 @@
 const client = require('../util/client')
+const groq = require('groq')
 const blocksToHtml = require('@sanity/block-content-to-html')
-
-const first = (x) => x[0]
 
 module.exports = async function() {
   const config = await client
     .fetch(
-      `*[_id == "global-config"] {
-    navigation {
-      email,
-      "links": navigationLinks[] {
-        "slug": link->_type,
-        title
-      }
-    },
-    footer
-  }`,
+      groq`
+        *[_id == "global-config"] {
+          navigation {
+            email,
+            "links": navigationLinks[] {
+              "slug": link->_type,
+              title
+            }
+          },
+          footer
+        }
+      `,
     )
-    .then(first)
+    .then((x) => x[0])
 
   config.footer.columns.forEach((column) => {
     column.body = blocksToHtml(column.body)
