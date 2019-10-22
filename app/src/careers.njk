@@ -38,14 +38,16 @@ permalink: /careers/
         </dt>
         <dd class="accordion__panel js-panels">
           <div class="accordion__panel-inner js-inners">
-            <div class="db s:dn">
-              <h4 class="f16 mb10 lh128 crimson">Project</h4>
-              <div class="f20 lh115 crimson mb20">{{ job.project }}</p>
-              <h4 class="f16 mb10 lh128 crimson">Location</h4>
-              <div class="f20 lh115 crimson">{{ job.location }}</p>
-            </div>
-            <div class="x max-w1080 f18 s:f26 lh125 slate pt30 pb40">
-              {{ job.description | safe }}
+            <div>
+              <div class="db s:dn">
+                <h4 class="f16 mb10 lh128 crimson">Project</h4>
+                <p class="f20 lh115 crimson mb20">{{ job.project }}</p>
+                <h4 class="f16 mb10 lh128 crimson">Location</h4>
+                <p class="f20 lh115 crimson">{{ job.location }}</p>
+              </div>
+              <div class="x max-w1080 f18 s:f26 lh125 slate pt30 pb40">
+                {{ job.description | safe }}
+              </div>
             </div>
           </div>
         </dd>
