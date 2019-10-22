@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: careers
+title: Careers
 permalink: /careers/
 ---
 <div data-router-view="careers">
@@ -10,8 +10,47 @@ permalink: /careers/
     <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70">
       {{ careers.body | safe }}
     </div>
-
-    {% debug careers.list %}
+    <header class="pb10 l:pb15 f">
+      <div class="s:w50">
+        <h3 class="f16 l:f18 lh128 crimson">Position</h3>
+      </div>
+      <div class="dn s:db w25">
+        <h4 class="f16 l:f18 lh128 crimson">Project</h4>
+      </div>
+      <div class="dn s:db w25">
+        <h4 class="f16 l:f18 lh128 crimson">Location</h4>
+      </div>
+    </header>
+    <dl class="accordion mb95 bb bc-crimson" data-component="accordion">
+      {% for job in careers.list %}
+        <dt>
+          <button class="accordion__header x tl f aic pv20 l:pv30 bt bc-crimson js-headers">
+            <div class="s:w50 pr40">
+              <h3 class="serif f20 s:f24 m:f28 l:f32 xl:f38 lh125 crimson">{{ job.title }}</h3>
+            </div>
+            <div class="dn s:db w25">
+              <h4 class="f18 l:f22 xl:f26 lh125 crimson">{{ job.project }}</h4>
+            </div>
+            <div class="dn s:db w25">
+              <h4 class="f18 l:f22 xl:f26 lh125 crimson">{{ job.location }}</h4>
+            </div>
+          </button>
+        </dt>
+        <dd class="accordion__panel js-panels">
+          <div class="accordion__panel-inner js-inners">
+            <div class="db s:dn">
+              <h4 class="f16 mb10 lh128 crimson">Project</h4>
+              <div class="f20 lh115 crimson mb20">{{ job.project }}</p>
+              <h4 class="f16 mb10 lh128 crimson">Location</h4>
+              <div class="f20 lh115 crimson">{{ job.location }}</p>
+            </div>
+            <div class="x max-w1080 f18 s:f26 lh125 slate pt30 pb40">
+              {{ job.description | safe }}
+            </div>
+          </div>
+        </dd>
+      {% endfor %}
+    </dl>
   </div>
   {% include "footer.njk" %}
 </div>

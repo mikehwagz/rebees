@@ -12,6 +12,7 @@ import peopleList from '@/components/peopleList'
 import projectProgressMobile from '@/components/projectProgressMobile'
 import projectProgress from '@/components/projectProgress'
 import projectSlider from '@/components/projectSlider'
+import accordion from '@/components/accordion'
 
 const components = {
   navToggle,
@@ -24,6 +25,7 @@ const components = {
   projectProgressMobile,
   projectProgress,
   projectSlider,
+  accordion,
 }
 
 const state = {
