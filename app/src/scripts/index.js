@@ -5,6 +5,10 @@ import Animate from 'gsap'
 
 if (process.env.NODE_ENV !== 'production') {
   require('@/util/stats')()
+} else {
+  console.group('Site Credits')
+  console.log('🖥️ Design and development by https://selfaware.studio')
+  console.groupEnd()
 }
 
 let ctx = {
