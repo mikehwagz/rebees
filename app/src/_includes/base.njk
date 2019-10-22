@@ -19,8 +19,14 @@
     <link rel="stylesheet" href="/styles/index.css">
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/sw.js")
+        navigator.serviceWorker.register("/sw.js");
       }
+    </script>
+    <script>
+      console.group('Site Credits');
+      console.log('🖥️ Design and development by https://selfaware.studio');
+      console.groupEnd();
+      {# console.log = () => {} #}
     </script>
   </head>
   <body class="bg-parchment slate sans f20">
