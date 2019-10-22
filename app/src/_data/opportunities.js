@@ -3,9 +3,8 @@ const groq = require('groq')
 const blocksToHtml = require('@sanity/block-content-to-html')
 
 module.exports = async function() {
-  const opportunities = await client
-    .fetch(
-      groq`
+  const opportunities = await client.fetch(
+    groq`
       *[_id == "opportunitiespage"] {
         title,
         body,
@@ -14,10 +13,9 @@ module.exports = async function() {
           subtitle,
           "link": link->._type,
         }
-      }
+      } [0]
     `,
-    )
-    .then((x) => x[0])
+  )
 
   opportunities.body = blocksToHtml(opportunities.body)
 

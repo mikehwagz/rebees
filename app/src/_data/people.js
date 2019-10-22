@@ -3,16 +3,14 @@ const groq = require('groq')
 const blocksToHtml = require('@sanity/block-content-to-html')
 
 module.exports = async function() {
-  const people = await client
-    .fetch(
-      groq`
+  const people = await client.fetch(
+    groq`
       *[_id == "peoplepage"] {
         title,
         "cta": cta { title, subtitle, "link": link->_type }
-      }
+      } [0]
     `,
-    )
-    .then((x) => x[0])
+  )
 
   const list = await client.fetch(
     groq`
