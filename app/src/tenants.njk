@@ -1,0 +1,50 @@
+---
+layout: base.njk
+title: Tenants
+permalink: /tenants/
+---
+<div data-router-view="tenants">
+  <div class="scrim" data-component="scrim" data-theme="parchment"></div>
+  <div class="min-vh100 ph20 m:ph40">
+    {% pageTitle tenants.title %}
+    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70">
+      {{ tenants.body | safe }}
+    </div>
+    <header class="pb10 l:pb15 f">
+      <div class="s:w65">
+        <h3 class="f16 l:f18 lh128 crimson">Position</h3>
+      </div>
+      <div class="dn s:db w35">
+        <h4 class="f16 l:f18 lh128 crimson">Location</h4>
+      </div>
+    </header>
+    <dl class="accordion mb95 bb bc-crimson" data-component="accordion">
+      {% for vacancy in tenants.list %}
+        <dt>
+          <button class="accordion__header x tl f aic pv20 l:pv30 bt bc-crimson js-headers">
+            <div class="s:w65 pr40">
+              <h3 class="serif f20 s:f24 m:f28 l:f32 xl:f38 lh125 crimson">{{ vacancy.title }}</h3>
+            </div>
+            <div class="dn s:db w35">
+              <h4 class="f18 l:f22 xl:f26 lh125 crimson">{{ vacancy.location }}</h4>
+            </div>
+          </button>
+        </dt>
+        <dd class="accordion__panel js-panels">
+          <div class="accordion__panel-inner js-inners">
+            <div>
+              <div class="db s:dn">
+                <h4 class="f16 mb10 lh128 crimson">Location</h4>
+                <p class="f20 lh115 crimson">{{ vacancy.location }}</p>
+              </div>
+              <div class="x max-w1080 f18 s:f26 lh125 slate pt30 pb40">
+                {{ vacancy.description | safe }}
+              </div>
+            </div>
+          </div>
+        </dd>
+      {% endfor %}
+    </dl>
+  </div>
+  {% include "footer.njk" %}
+</div>
