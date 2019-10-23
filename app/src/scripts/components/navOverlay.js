@@ -8,13 +8,11 @@ export default component((node, ctx, refs) => {
 
   masterTl.seek('idle')
 
-  ctx.on('navToggle:click', ({ isNavOpen }) => {
+  ctx.on('navToggle', ({ isNavOpen }) => {
     isNavOpen ? show() : hide()
   })
 
-  on(refs.backdrop, 'click', () =>
-    ctx.emit('navToggle:click', { isNavOpen: false }),
-  )
+  on(refs.backdrop, 'click', () => ctx.emit('navToggle', { isNavOpen: false }))
 
   function show() {
     masterTl

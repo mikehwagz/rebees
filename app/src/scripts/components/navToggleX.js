@@ -11,7 +11,7 @@ export default component((node, ctx, { lines }) => {
 
   Animate.set(node, { autoAlpha: 1 })
 
-  ctx.on('navToggle:click', ({ isNavOpen }) => {
+  ctx.on('navToggle', ({ isNavOpen }) => {
     isNavOpen ? show() : hide()
   })
 

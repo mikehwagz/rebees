@@ -12,7 +12,7 @@ export default component((node, ctx, { lines }) => {
   ctx.on('navToggle:mouseleave', leave)
   ctx.on('navToggle:blur', leave)
 
-  ctx.on('navToggle:click', ({ isNavOpen }) => {
+  ctx.on('navToggle', ({ isNavOpen }) => {
     isNavOpen ? hide() : show()
   })
 

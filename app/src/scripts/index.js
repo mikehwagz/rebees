@@ -20,7 +20,7 @@ navEnd(ctx)
 function navOut() {
   let { isNavOpen } = app.getState()
   if (isNavOpen) {
-    app.emit('navToggle:click', ({ isNavOpen }) => ({
+    app.emit('navToggle', ({ isNavOpen }) => ({
       isNavOpen: !isNavOpen,
     }))
   }
