@@ -1,5 +1,11 @@
 .nav {
   &__logo {
+    z-index: 2;
+
+    @media (query('s')) {
+      z-index: 1;
+    }
+
     svg {
       width: 13.6rem;
 
@@ -9,11 +15,18 @@
 
       path {
         fill: $slate;
-        transition: fill 0.8s $ease-out-expo;
+        transition: fill 1.2s $ease-in-out-expo;
 
         body[data-theme='slate'] &,
-        body[data-theme='crimson'] & {
+        body[data-theme='crimson'] &,
+        body.is-nav-open & {
           fill: $parchment;
+        }
+
+        @media (query('s')) {
+          body.is-nav-open & {
+            fill: $slate;
+          }
         }
       }
     }
@@ -79,7 +92,11 @@
           position: absolute;
           top: 50%;
           left: 50%;
-          background-color: $slate;
+          background-color: $parchment;
+
+          @media (query('s')) {
+            background-color: $slate;
+          }
 
           &:first-child {
             width: 100%;
@@ -97,7 +114,19 @@
 
   &__overlay {
     &__drawer {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       transform: translateX(102%);
+      background-color: $slate;
+
+      @media (query('s')) {
+        width: unset;
+        left: unset;
+        right: 0;
+        background-color: $parchment;
+      }
     }
 
     &__backdrop {
@@ -110,6 +139,30 @@
       body[data-theme='crimson'] &,
       body[data-theme='slate'] & {
         display: none;
+      }
+    }
+
+    &__link {
+      color: $parchment;
+
+      path {
+        fill: $parchment;
+      }
+
+      @media (query('s')) {
+        color: $slate;
+
+        path {
+          fill: $crimson;
+        }
+      }
+    }
+
+    &__email {
+      color: $parchment;
+
+      @media (query('s')) {
+        color: $crimson;
       }
     }
   }

@@ -1,5 +1,4 @@
 import { component } from '@/lib/picoapp'
-import { on } from '@/util/dom'
 import Animate, { TimelineMax } from 'gsap'
 
 export default component((node, ctx, { lines }) => {

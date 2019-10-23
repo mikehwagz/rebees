@@ -35,14 +35,14 @@
     </button>
   </div>
   <div class="nav__overlay rel z1" data-component="navOverlay">
-    <div class="nav__overlay__drawer fix top right y ph80 pb40 bg-parchment z1 oh js-drawer">
+    <div class="nav__overlay__drawer fix ph20 s:ph80 pb40 bg-parchment z1 oh js-drawer">
       <div class="rel x y f aic">
         <nav role="navigation">
           <ul>
             {% for link in config.navigation.links %}
-              <li class=" js-items">
+              <li class="js-items">
                 <a
-                  class="serif f58 lh112 hex-hover pv15"
+                  class="nav__overlay__link serif f44 s:f52 m:f58 lh112 hex-hover pv15"
                   href="{{ '/' if link.slug == 'home' else ['/', link.slug, '/'] | join }}"
                 >
                   <span class="abs fill-y f aic">
@@ -57,13 +57,13 @@
           </ul>
         </nav>
         <a
-          class="nav__overlay__email stroke-hover abs bottom left crimson f22 f114 wco js-items"
+          class="nav__overlay__email stroke-hover abs bottom left f20 s:f22 f114 wco js-items"
           href="mailto:{{ config.navigation.email }}"
         >
             {{ config.navigation.email }}
           </a>
       </div>
-      <div class="nav__overlay__cover abs top left x y bg-slate wco js-cover"></div>
+      <div class="nav__overlay__cover abs top left x y bg-slate wco dn s:db js-cover"></div>
     </div>
     <div class="nav__overlay__backdrop fix fill y wco js-backdrop">
       <div class="x y bg-crimson o75"></div>
