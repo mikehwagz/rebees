@@ -93,7 +93,7 @@ renderData:
         {% set nextHref = pagination.nextPageHref if pagination.next else pagination.firstPageHref %}
         {% set slug = nextHref | split('/') %}
         {% set nextProject = projects.selected | find('slug', slug[2]) %}
-        <a class="tc" href="{{ nextHref }}">
+        <a class="project__pagination tc" href="{{ nextHref }}">
           <p class="f18 m:f26 lh128 mb15 m:mb30">Next Project</p>
           <p class="outline-text crimson serif f52 m:f100 lh128">{{ nextProject.title }}</p>
         </a>
@@ -102,6 +102,16 @@ renderData:
   </div>
   <div class="db s:dn">
     {% include 'footer.njk' %}
+  </div>
+  <div class="project__cursor pen fix top left z10 dn s:db" data-component="projectCursor">
+    <div class="rel">
+      <div class="project__cursor__arrow js-arrow">
+        <svg class="db" viewBox="0 0 55 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M31.8825 0L54.4152 22.5L31.8825 45H21.6114L40.7052 26.2254H0V18.7746H40.7052L21.6114 0H31.8825ZM43.1484 19.7746H1V25.2254H43.1484L24.0547 44H31.4688L53 22.5L31.4688 1H24.0547L43.1484 19.7746Z" fill="#652D30"/>
+        </svg>
+      </div>
+      <div class="project__cursor__counter crimson f14 abs bottom right js-counter"></div>
+    </div>
   </div>
 </div>
 

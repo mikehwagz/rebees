@@ -12,6 +12,7 @@ import peopleList from '@/components/peopleList'
 import projectProgressMobile from '@/components/projectProgressMobile'
 import projectProgress from '@/components/projectProgress'
 import projectSlider from '@/components/projectSlider'
+import projectCursor from '@/components/projectCursor'
 import accordion from '@/components/accordion'
 
 const components = {
@@ -25,6 +26,7 @@ const components = {
   projectProgressMobile,
   projectProgress,
   projectSlider,
+  projectCursor,
   accordion,
 }
 

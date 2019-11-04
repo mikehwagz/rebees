@@ -47,6 +47,9 @@ export default component((node, ctx, { slides }) => {
     )
 
     isSliderInit = true
+
+    ctx.on('slider:increment', () => onSlide({ deltaY: -1 }))
+    ctx.on('slider:decrement', () => onSlide({ deltaY: 1 }))
   }
 
   function onSlide({ deltaY }) {

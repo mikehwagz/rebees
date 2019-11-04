@@ -4,6 +4,15 @@
     transform-origin: left;
     transform: scaleX(0);
   }
+
+  &__cursor {
+    width: 5.5rem;
+
+    &__counter {
+      font-variant-numeric: tabular-nums;
+      transform: translate(100%, 100%);
+    }
+  }
 }
 
 .is-animateable {
