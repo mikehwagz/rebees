@@ -95,7 +95,12 @@ renderData:
         {% set nextProject = projects.selected | find('slug', slug[2]) %}
         <a class="project__pagination tc" href="{{ nextHref }}">
           <p class="f18 m:f26 lh128 mb15 m:mb30">Next Project</p>
-          <p class="outline-text crimson serif f52 m:f100 lh128">{{ nextProject.title }}</p>
+          <div class="rel">
+            <p class="outline-text crimson serif f52 m:f100 lh128">{{ nextProject.title }}</p>
+            <div class="project__pagination__outer abs top left oh pen">
+              <p class="project__pagination__inner crimson serif f52 m:f100 lh128">{{ nextProject.title }}</p>
+            </div>
+          </div>
         </a>
       </section>
     </div>

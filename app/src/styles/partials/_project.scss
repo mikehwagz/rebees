@@ -5,6 +5,31 @@
     transform: scaleX(0);
   }
 
+  &__pagination {
+    &__outer,
+    &__inner {
+      transition: transform 0.8s $ease-out-expo;
+    }
+
+    &__outer {
+      transform: translateY(100%);
+    }
+
+    &__inner {
+      transform: translateY(-100%);
+    }
+
+    &:hover {
+      .project__pagination__outer {
+        transform: translateY(10%);
+      }
+
+      .project__pagination__inner {
+        transform: translateY(-10%);
+      }
+    }
+  }
+
   &__cursor {
     width: 5.5rem;
     opacity: 0;
