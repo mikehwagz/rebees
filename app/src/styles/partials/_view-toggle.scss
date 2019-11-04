@@ -1,0 +1,48 @@
+.view-toggle {
+  &__label {
+    transition: opacity 0.3s;
+  }
+
+  &__switch {
+    &__track {
+      display: block;
+      height: 2px;
+      background-color: currentColor;
+      width: 2.6rem;
+
+      @media (query('m')) {
+        width: 3.6rem;
+      }
+    }
+
+    &__handle {
+      path {
+        fill: currentColor;
+      }
+
+      [data-router-view='projects-grid'] & {
+        transform: translateX(-0.2rem);
+      }
+
+      [data-router-view='projects-list'] & {
+        transform: translateX(1.6rem);
+      }
+
+      @media (query('m')) {
+        [data-router-view='projects-grid'] & {
+          transform: translate(-0.2rem, -1px);
+        }
+
+        [data-router-view='projects-list'] & {
+          transform: translate(2.6rem, -1px);
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .view-toggle__label.o50 {
+      opacity: 1;
+    }
+  }
+}
