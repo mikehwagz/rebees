@@ -16,6 +16,8 @@
     }
 
     &__handle {
+      width: 1.2rem;
+
       path {
         fill: currentColor;
       }
@@ -30,11 +32,11 @@
 
       @media (query('m')) {
         [data-router-view='projects-grid'] & {
-          transform: translate(-0.2rem, -1px);
+          transform: translateX(-0.2rem);
         }
 
         [data-router-view='projects-list'] & {
-          transform: translate(2.6rem, -1px);
+          transform: translateX(2.6rem);
         }
       }
     }
