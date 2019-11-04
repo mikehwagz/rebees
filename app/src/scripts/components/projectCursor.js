@@ -9,16 +9,24 @@ export default component((node, ctx, { arrow, counter }) => {
   let ty = 0
   let cx = 0
   let cy = 0
+  let isWaitingForFirstMouseMoveEvent = true
 
   let offMove = on(document, 'mousemove', ({ clientX, clientY }) => {
     tx = clientX
     ty = clientY
+
+    if (isWaitingForFirstMouseMoveEvent) {
+      cx = tx
+      cy = ty
+
+      isWaitingForFirstMouseMoveEvent = false
+    }
   })
 
   let offClick = on(document, 'click', (ev) => {
     if (
       ctx.getState().width < 650 ||
-      ev.target.closest('.nav__toggle, .project__pagination')
+      ev.target.closest('.nav, .project__pagination')
     ) {
       return
     }
@@ -50,7 +58,10 @@ export default component((node, ctx, { arrow, counter }) => {
     })
 
     Animate.to(node, 0.5, {
-      opacity: sliderIndex + 1 === sliderLength ? 0 : 1,
+      opacity:
+        isWaitingForFirstMouseMoveEvent || sliderIndex + 1 === sliderLength
+          ? 0
+          : 1,
     })
   })
 
