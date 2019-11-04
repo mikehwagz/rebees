@@ -15,7 +15,7 @@
 
       path {
         fill: $slate;
-        transition: fill 1.2s $ease-in-out-expo;
+        transition: fill 1s $ease-in-out-cubic;
 
         body[data-theme='slate'] &,
         body[data-theme='crimson'] &,
@@ -24,7 +24,7 @@
         }
 
         @media (query('s')) {
-          body.is-nav-open & {
+          body[data-theme='parchment'].is-nav-open & {
             fill: $slate;
           }
         }
