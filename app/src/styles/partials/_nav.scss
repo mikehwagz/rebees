@@ -1,11 +1,5 @@
 .nav {
   &__logo {
-    z-index: 2;
-
-    @media (query('s')) {
-      z-index: 1;
-    }
-
     svg {
       width: 13.6rem;
 
@@ -15,18 +9,11 @@
 
       path {
         fill: $slate;
-        transition: fill 1s $ease-in-out-cubic;
+        transition: background-color 1s $ease-out-quint;
 
         body[data-theme='slate'] &,
-        body[data-theme='crimson'] &,
-        body.is-nav-open & {
+        body[data-theme='crimson'] & {
           fill: $parchment;
-        }
-
-        @media (query('s')) {
-          body[data-theme='parchment'].is-nav-open & {
-            fill: $slate;
-          }
         }
       }
     }
@@ -51,7 +38,7 @@
           position: absolute;
           width: 100%;
           height: 0.3rem;
-          transition: background-color 0.8s $ease-out-quint;
+          transition: background-color 1s $ease-out-quint;
           background-color: $slate;
 
           body[data-theme='slate'] &,
