@@ -1,4 +1,4 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
 import { body, on, add, remove } from '@/util/dom'
 
 export default component((node, ctx) => {

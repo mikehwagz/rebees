@@ -1,7 +1,10 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
+import choozy from 'choozy'
 import { on, add } from '../util/dom'
 
-export default component((node, ctx, { img, imgWrap, lqip }) => {
+export default component((node, ctx) => {
+  const { img, imgWrap, lqip } = choozy(node)
+
   img.onload = () => {
     img.onload = null
     requestAnimationFrame(() => {

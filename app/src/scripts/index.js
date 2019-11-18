@@ -1,65 +1,81 @@
 import app from '@/app'
 import router from '@/router'
-import { body, size, on } from '@/util/dom'
-import Animate from 'gsap'
+import { ready, body, size, on } from '@/util/dom'
+import gsap from 'gsap'
 
-if (process.env.NODE_ENV !== 'production') {
-  require('@/util/stats')()
-}
+ready(() => {
+  if (process.env.NODE_ENV !== 'production') {
+    require('@/util/stats')()
+  }
 
-let ctx = {
-  location: window.location,
-  to: { view: body.querySelector('[data-router-view]') },
-  appear: true,
-}
+  // Mimics the data passed to navigation event handlers by our router (Highway.js)
+  // Note the addition of the `appear` flag for initial page load
+  let ctx = {
+    location: window.location,
+    to: { view: body.querySelector('[data-router-view]') },
+    appear: true,
+  }
 
-addGlobalEvents()
-navIn(ctx)
-navEnd(ctx)
+  addGlobalEvents()
 
-function navOut() {
-  let { isNavOpen } = app.getState()
-  if (isNavOpen) {
-    app.emit('navToggle', ({ isNavOpen }) => ({
-      isNavOpen: !isNavOpen,
+  // Fire navigation event handlers with out context object
+  navIn(ctx)
+
+  function navOut() {
+    // Hide nav if it's open
+    let { isNavOpen } = app.getState()
+    if (isNavOpen) {
+      app.emit('navToggle', ({ isNavOpen }) => ({
+        isNavOpen: !isNavOpen,
+      }))
+    }
+  }
+
+  function navIn({ to, appear }) {
+    // Update page theme using `data-theme` attribute on body element (default `parchment`)
+    if (to.view.dataset.theme) {
+      body.setAttribute('data-theme', to.view.dataset.theme)
+    } else {
+      body.setAttribute('data-theme', 'parchment')
+    }
+
+    // here's where that `appear` flag comes in handy
+    if (appear) {
+      gsap.to(to.view, {
+        duration: 0.5,
+        autoAlpha: 1,
+        onComplete: () => navEnd(ctx),
+      })
+    } else {
+      app.unmount()
+      app.hydrate({ sliderIndex: 0 })
+    }
+
+    app.mount()
+    resize()
+  }
+
+  function navEnd() {
+    app.mount('data-deferred-component')
+  }
+
+  function resize() {
+    app.emit('resize', size)
+  }
+
+  function update() {
+    app.emit('update', ({ frameCount }) => ({
+      frameCount: frameCount + 1,
     }))
   }
-}
 
-function navIn({ to, appear }) {
-  if (to.view.dataset.theme) {
-    body.setAttribute('data-theme', to.view.dataset.theme)
-  } else {
-    body.setAttribute('data-theme', 'parchment')
+  function addGlobalEvents() {
+    on(window, 'resize', resize)
+    gsap.ticker.add(update)
+
+    router
+      .on('NAVIGATE_OUT', navOut)
+      .on('NAVIGATE_IN', navIn)
+      .on('NAVIGATE_END', navEnd)
   }
-
-  if (!appear) {
-    app.unmount()
-    app.hydrate({ sliderIndex: 0 })
-  }
-
-  app.mount()
-  resize()
-}
-
-function navEnd() {
-  app.mount('data-deferred-component')
-}
-
-function resize() {
-  app.emit('resize', size)
-}
-
-function update() {
-  app.emit('update')
-}
-
-function addGlobalEvents() {
-  on(window, 'resize', resize)
-  Animate.ticker.addEventListener('tick', update)
-
-  router
-    .on('NAVIGATE_OUT', navOut)
-    .on('NAVIGATE_IN', navIn)
-    .on('NAVIGATE_END', navEnd)
-}
+})

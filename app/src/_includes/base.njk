@@ -31,11 +31,13 @@
   </head>
   <body class="bg-parchment slate sans f20">
     <div id="root">
-      {% include "nav.njk" %}
-      <main data-router-wrapper>
+      {# {% include "nav.njk" %} #}
+      {# <main class="rel z1" data-router-wrapper> #}
+      <main class="rel z1 pen" style="opacity: 0;" data-router-wrapper>
         {{ content | safe }}
       </main>
       <div id="size" class="fix fill pen"></div>
+      <div class="fix fill pen" data-component="webglCanvas"></div>
     </div>
     <script src="/scripts/index.js"></script>
   </body>

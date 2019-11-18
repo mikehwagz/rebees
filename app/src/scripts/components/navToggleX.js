@@ -1,15 +1,17 @@
-import { component } from '@/lib/picoapp'
-import Animate, { TimelineMax } from 'gsap'
+import { component } from 'picoapp'
+import choozy from 'choozy'
+import gsap from 'gsap'
 
-export default component((node, ctx, { lines }) => {
-  let tl = new TimelineMax({ paused: true })
+export default component((node, ctx) => {
+  const { lines } = choozy(node)
+  let tl = gsap.timeline({ paused: true })
 
-  Animate.set(lines, {
+  gsap.set(lines, {
     xPercent: 55,
     yPercent: 55,
   })
 
-  Animate.set(node, { autoAlpha: 1 })
+  gsap.set(node, { autoAlpha: 1 })
 
   ctx.on('navToggle', ({ isNavOpen }) => {
     isNavOpen ? show() : hide()
@@ -17,30 +19,27 @@ export default component((node, ctx, { lines }) => {
 
   function hide() {
     tl.clear()
-      .staggerTo(
-        lines,
-        0.8,
-        {
-          xPercent: 55,
-          yPercent: 55,
-          ease: Expo.easeOut,
-        },
-        -0.1,
-      )
+      .to(lines, {
+        duration: 0.8,
+        stagger: -0.1,
+        xPercent: 55,
+        yPercent: 55,
+        ease: 'expo',
+      })
       .restart()
   }
 
   function show() {
     tl.clear()
-      .staggerTo(
+      .to(
         lines,
-        0.8,
         {
+          duration: 0.8,
+          stagger: 0.075,
           xPercent: -50,
           yPercent: -50,
-          ease: Expo.easeOut,
+          ease: 'expo',
         },
-        0.075,
         0.4,
       )
       .restart()

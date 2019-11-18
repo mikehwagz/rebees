@@ -1,9 +1,11 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
+import choozy from 'choozy'
 import { on } from '@/util/dom'
 import { lerp, round } from '@/util/math'
-import Animate from 'gsap'
+import gsap from 'gsap'
 
-export default component((node, ctx, { arrow, counter }) => {
+export default component((node, ctx) => {
+  const { arrow, counter } = choozy(node)
   let ease = 0.2
   let tx = 0
   let ty = 0
@@ -48,16 +50,18 @@ export default component((node, ctx, { arrow, counter }) => {
     cx = round(lerp(cx, tx, ease))
     cy = round(lerp(cy, ty, ease))
 
-    Animate.set(node, {
+    gsap.set(node, {
       x: cx,
       y: cy,
     })
 
-    Animate.to(arrow, 0.5, {
+    gsap.to(arrow, {
+      duration: 0.5,
       rotation: tx < width / 2 ? -180 : 0,
     })
 
-    Animate.to(node, 0.5, {
+    gsap.to(node, {
+      duration: 0.5,
       opacity:
         isWaitingForFirstMouseMoveEvent || sliderIndex + 1 === sliderLength
           ? 0

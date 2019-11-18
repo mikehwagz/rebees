@@ -1,6 +1,6 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
 import { map, clamp, lerp, round } from '@/util/math'
-import Animate from 'gsap'
+import gsap from 'gsap'
 
 export default component((node, ctx) => {
   let t = 0
@@ -21,7 +21,7 @@ export default component((node, ctx) => {
     if (d < 0) d *= -1
     if (d < 0.01) c = t
 
-    Animate.set(node, { scaleX: c })
+    gsap.set(node, { scaleX: c })
   })
 
   function resize({ width, height }) {
