@@ -12,8 +12,8 @@ uniform sampler2D positions; // ms({ value: null })
 uniform float size; // ms({ value: 2.0, range: [0, 20], step: 0.1 })
 uniform float time; // ms({ value: 0.0 })
 uniform float speed; // ms({ value: 0.01, range: [0, 0.03], step: 0.000001 })
-uniform float frequency; // ms({ value: 0.02, range: [0, 0.04], step: 0.00001 })
-uniform float amplitude; // ms({ value: 1.0, range: [0, 20], step: 1 })
+uniform float frequency; // ms({ value: 0.011, range: [0, 0.04], step: 0.00001 })
+uniform float amplitude; // ms({ value: 0.5, range: [0, 20], step: 1 })
 
 void main() {
     vec3 p = texture2D(positions, position.xy).xyz;

@@ -1,34 +1,37 @@
 import * as THREE from 'three'
 import MagicShader from 'magicshader'
-import FBO from '@/webgl/fbo'
+import gsap from 'gsap'
+import FBO from './fbo'
 import simulationVert from './simulation.vert'
 import simulationFrag from './simulation.frag'
 import renderVert from './render.vert'
 import renderFrag from './render.frag'
+import QuadTree, { Point, Rectangle } from './quadtree'
 import { randomPointsInGeometry } from '@/util/math'
-import QuadTree, { Point, Rectangle } from '@/webgl/quadtree'
 
 class Particles extends THREE.Object3D {
   constructor(gl) {
     super()
+
     this.gl = gl
+    this.tl = gsap.timeline({ paused: true })
+    this.activeTexture = 0
+    this.isAnimating = false
+    this.duration = 3
+    this.size = 256
   }
 
   init() {
-    const width = 256
-    const height = 256
-
-    const textureA = this.getTexture(width)
+    const textureA = this.getTexture(this.size)
     textureA.needsUpdate = true
 
-    const textureB = this.getTexture(width)
+    const textureB = this.getTexture(this.size)
     textureB.needsUpdate = true
 
     this.fbo = new FBO({
-      width,
-      height,
+      width: this.size,
+      height: this.size,
       renderer: this.gl.renderer,
-      // Simulation material
       simulationMaterial: new MagicShader({
         name: '🎮 Particle FBO Simulation',
         uniforms: {
@@ -38,7 +41,6 @@ class Particles extends THREE.Object3D {
         vertexShader: simulationVert,
         fragmentShader: simulationFrag,
       }),
-      // Render material
       renderMaterial: new MagicShader({
         name: '✨ Particle FBO Render',
         transparent: true,
@@ -49,6 +51,45 @@ class Particles extends THREE.Object3D {
     })
 
     this.add(this.fbo.points)
+  }
+
+  animate() {
+    if (this.isAnimating) return
+
+    this.isAnimating = true
+
+    this.tl
+      .clear()
+      .to(
+        this.fbo.simulationMaterial.uniforms.transition,
+        {
+          value: this.activeTexture ? 0.0 : 1.0,
+          duration: this.duration,
+          ease: 'quint.inOut',
+          onComplete: () => {
+            this.isAnimating = false
+
+            this.fbo.simulationMaterial.uniforms[
+              this.activeTexture ? 'textureB' : 'textureA'
+            ].value = this.getTexture(this.size)
+
+            this.activeTexture = this.activeTexture ? 0 : 1
+          },
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.amplitude,
+        {
+          value: 20.0,
+          duration: this.duration / 2,
+          yoyo: true,
+          repeat: 1,
+          ease: 'power1.inOut',
+        },
+        'a',
+      )
+      .restart()
   }
 
   getTexture(size) {
@@ -72,7 +113,7 @@ class Particles extends THREE.Object3D {
     }
 
     let geom = new THREE.Geometry()
-    qtree.show(geom)
+    qtree.show(geom, this.size)
 
     let vertices = randomPointsInGeometry(geom, size * size)
     let len = vertices.length
@@ -87,11 +128,6 @@ class Particles extends THREE.Object3D {
     }
 
     return data
-  }
-
-  resize({ width, height }) {
-    this.width = width
-    this.height = height
   }
 
   update({ frameCount }) {

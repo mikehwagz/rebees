@@ -76,18 +76,18 @@ class QuadTree {
     }
   }
 
-  show(geom) {
+  show(geom, size) {
     const { x, y, w, h } = this.boundary
 
-    let depth = Math.random() * 256
-    let gap = Math.random() * 20
+    let depth = Math.random() * size
+    let gap = (Math.random() * size) / 10
 
     const mesh = new THREE.Mesh(
       new THREE.BoxGeometry(w * 2 - gap, depth, h * 2 - gap),
     )
-    mesh.position.x = x - 128
-    mesh.position.y = depth / 2 - 128
-    mesh.position.z = y - 128
+    mesh.position.x = x - size / 2
+    mesh.position.y = depth / 2 - size / 2
+    mesh.position.z = y - size / 2
 
     if (Math.random() > 0.5 && this.depth > 1) {
       mesh.updateMatrix()
@@ -96,7 +96,7 @@ class QuadTree {
 
     if (this.subdivisions.length) {
       for (let i = 0; i < this.subdivisions.length; i++) {
-        this.subdivisions[i].show(geom)
+        this.subdivisions[i].show(geom, size)
       }
     }
   }
