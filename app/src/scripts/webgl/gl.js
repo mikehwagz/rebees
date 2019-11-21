@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { CameraHelper, AxesHelper } from 'three'
 
 export default class GL {
   constructor(renderer, scene, camera) {
@@ -6,8 +6,11 @@ export default class GL {
     this.camera = camera
     this.scene = scene
 
-    // this.helper = new THREE.CameraHelper(this.camera)
-    // this.scene.add(this.helper)
+    // var cameraHelper = new CameraHelper(this.camera)
+    // this.scene.add(cameraHelper)
+
+    // var axesHelper = new AxesHelper(500)
+    // this.scene.add(axesHelper)
   }
 
   init = (node) => {

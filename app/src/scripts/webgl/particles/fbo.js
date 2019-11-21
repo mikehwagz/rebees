@@ -108,6 +108,7 @@ class FBO {
 
     const geometry = new BufferGeometry()
     geometry.setAttribute('position', new BufferAttribute(vertices, 3))
+    geometry.computeBoundingSphere()
 
     this.points = new Points(geometry, this.renderMaterial)
   }

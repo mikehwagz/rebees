@@ -11,6 +11,7 @@ class Renderer extends WebGLRenderer {
     // this.gammaFactor = 2.2
     // this.gammaInput = true
     // this.gammaOutput = true
+    // this.sortObjects = false
   }
 
   resize({ width, height, dpr }) {

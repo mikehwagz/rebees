@@ -63,6 +63,10 @@ ready(() => {
     app.emit('resize', size)
   }
 
+  function move({ clientX, clientY }) {
+    app.emit('mousemove', { clientX, clientY })
+  }
+
   function update() {
     app.emit('update', ({ frameCount }) => ({
       frameCount: frameCount + 1,
@@ -71,6 +75,7 @@ ready(() => {
 
   function addGlobalEvents() {
     on(window, 'resize', resize)
+    on(document, 'mousemove', move)
     gsap.ticker.add(update)
 
     router

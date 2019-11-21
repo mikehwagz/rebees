@@ -10,15 +10,20 @@ export default component((node, ctx) => {
   gl.scene.add(particles)
   particles.init()
 
-  let btn = document.createElement('button')
-  btn.className += 'fix bottom right bg-slate parchment p10 m20'
-  btn.textContent = 'Animate'
-  document.body.appendChild(btn)
+  addBtn(() => particles.animate())
 
-  on(btn, 'click', () => {
-    particles.animate()
+  ctx.on('mousemove', ({ clientX, clientY }) => {
+    particles.handlePointerMove({ clientX, clientY })
   })
 
   ctx.on('resize', gl.resize)
   ctx.on('update', gl.update)
 })
+
+function addBtn(fn) {
+  let btn = document.createElement('button')
+  btn.className += 'fix bottom right bg-slate parchment p10 m20'
+  btn.textContent = 'Animate'
+  document.body.appendChild(btn)
+  on(btn, 'click', fn)
+}

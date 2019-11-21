@@ -1,4 +1,4 @@
-import { Scene } from 'three'
+import { Scene, Fog } from 'three'
 
 class Stage extends Scene {
   constructor() {

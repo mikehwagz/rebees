@@ -1,5 +1,4 @@
-import * as THREE from 'three'
-import { colors } from '@/settings'
+import { Mesh, BoxGeometry } from 'three'
 
 class Point {
   constructor(x, y) {
@@ -80,11 +79,10 @@ class QuadTree {
     const { x, y, w, h } = this.boundary
 
     let depth = Math.random() * size
-    let gap = (Math.random() * size) / 10
+    let gap = (Math.random() * size) / 25
+    // let gap = 0
 
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(w * 2 - gap, depth, h * 2 - gap),
-    )
+    const mesh = new Mesh(new BoxGeometry(w * 2 - gap, depth, h * 2 - gap))
     mesh.position.x = x - size / 2
     mesh.position.y = depth / 2 - size / 2
     mesh.position.z = y - size / 2

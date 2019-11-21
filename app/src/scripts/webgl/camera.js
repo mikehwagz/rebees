@@ -5,9 +5,10 @@ class Camera extends PerspectiveCamera {
   constructor() {
     super(60, window.innerWidth / window.innerHeight, 1, 10000)
 
-    this.position.z = 500
+    this.position.z = 650
 
     this.lookAt(new Vector3(0, 0, 0))
+    this.updateMatrix()
 
     this.orbitControls = this.initOrbitControl()
   }

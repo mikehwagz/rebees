@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Vector3 } from 'three'
 
 /**
  * Clamp a value between two bounds
@@ -190,8 +190,8 @@ export function randomPointsInGeometry(geometry, n) {
 }
 
 export function triangleArea(vectorA, vectorB, vectorC) {
-  let vector1 = new THREE.Vector3()
-  let vector2 = new THREE.Vector3()
+  let vector1 = new Vector3()
+  let vector2 = new Vector3()
 
   vector1.subVectors(vectorB, vectorA)
   vector2.subVectors(vectorC, vectorA)
@@ -211,8 +211,8 @@ export function randomPointInFace(face, geometry) {
 }
 
 export function randomPointInTriangle(vectorA, vectorB, vectorC) {
-  var vector = new THREE.Vector3()
-  var point = new THREE.Vector3()
+  var vector = new Vector3()
+  var point = new Vector3()
 
   var a = Math.random()
   var b = Math.random()
