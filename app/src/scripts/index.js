@@ -9,11 +9,9 @@ ready(() => {
   }
 
   // Mimics the data passed to navigation event handlers by our router (Highway.js)
-  // Note the addition of the `appear` flag for initial page load
   let ctx = {
     location: window.location,
     to: { view: body.querySelector('[data-router-view]') },
-    appear: true,
   }
 
   addGlobalEvents()
@@ -31,7 +29,7 @@ ready(() => {
     }
   }
 
-  function navIn({ to, appear }) {
+  function navIn({ to }) {
     // Update page theme using `data-theme` attribute on body element (default `parchment`)
     if (to.view.dataset.theme) {
       body.setAttribute('data-theme', to.view.dataset.theme)
@@ -39,8 +37,7 @@ ready(() => {
       body.setAttribute('data-theme', 'parchment')
     }
 
-    // here's where that `appear` flag comes in handy
-    if (appear) {
+    if (app.getState().isAppear) {
       gsap.to(to.view, {
         duration: 0.5,
         autoAlpha: 1,
@@ -56,6 +53,10 @@ ready(() => {
   }
 
   function navEnd() {
+    if (app.getState().isAppear) {
+      app.hydrate({ isAppear: false })
+    }
+
     app.mount('data-deferred-component')
   }
 

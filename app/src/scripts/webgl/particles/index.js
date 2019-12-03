@@ -12,7 +12,7 @@ import {
   MeshNormalMaterial,
   PlaneGeometry,
 } from 'three'
-import MagicShader from 'magicshader'
+import MagicShader, { gui } from 'magicshader'
 import gsap from 'gsap'
 import FBO from './fbo'
 import simulationVert from './simulation.vert'
@@ -20,14 +20,23 @@ import simulationFrag from './simulation.frag'
 import renderVert from './render.vert'
 import renderFrag from './render.frag'
 import QuadTree, { Point, Rectangle } from './quadtree'
-import { randomPointsInGeometry, lerp } from '@/util/math'
+import { randomPointsInGeometry, lerp, map } from '@/util/math'
+import { add, on, toggle } from '@/util/dom'
+
+gui.destroy()
+// let guiEl = document.querySelector('.dg.ac')
+// guiEl.style.zIndex = '99999'
+// add(guiEl, 'dn')
+// on(window, 'keyup', ({ key }) => {
+//   key === 'g' && toggle(guiEl, 'dn')
+// })
 
 class Particles extends Object3D {
   constructor(gl) {
     super()
 
     this.gl = gl
-    this.size = 256
+    this.size = 320
 
     this.tl = gsap.timeline({ paused: true })
     this.isAnimating = false
@@ -40,10 +49,6 @@ class Particles extends Object3D {
     this.targetHit = new Vector3()
     this.currentHit = new Vector3()
     this.maxRadius = 100
-  }
-
-  get activeTextureIndex() {
-    return this.hiddenMeshIndex % 2
   }
 
   init() {
@@ -85,12 +90,181 @@ class Particles extends Object3D {
 
     this.add(this.fbo.points)
     this.add(this.hiddenMeshes[this.hiddenMeshIndex])
+
+    this.position.x = 450
+    this.position.y = -130
   }
+
+  // EVENTS
 
   handlePointerMove(ev) {
     this.mouse.x = (ev.clientX / this.width) * 2 - 1
     this.mouse.y = (ev.clientY / this.height) * -2 + 1
   }
+
+  resize({ width, height }) {
+    this.width = width
+    this.height = height
+  }
+
+  update({ frameCount }) {
+    let tx = map(this.mouse.y, -1, 1, 0.1, 0.5) * -1
+    let ty = this.mouse.x * 0.5
+
+    this.rotation.x = lerp(this.rotation.x, tx, 0.05)
+    this.rotation.y = lerp(this.rotation.y, ty, 0.05)
+
+    this.fbo.update(frameCount)
+
+    this.updateRaycaster()
+  }
+
+  updateRaycaster() {
+    this.raycaster.setFromCamera(this.mouse, this.gl.camera)
+
+    let hits = this.raycaster.intersectObject(this.hiddenMesh)
+    let hit = hits.length ? hits[0] : null
+
+    let targetRadius = 0.0
+
+    if (hit) {
+      this.currentHit.lerp(hit.point, 0.1)
+      this.fbo.renderMaterial.uniforms.mouse.value.copy(this.currentHit)
+
+      targetRadius = this.maxRadius
+    } else {
+      targetRadius = 0.0
+    }
+
+    this.fbo.renderMaterial.uniforms.radius.value = lerp(
+      this.fbo.renderMaterial.uniforms.radius.value,
+      targetRadius,
+      0.05,
+    )
+  }
+
+  // ANIMATIONS
+
+  animate() {
+    if (this.isAnimating) return
+
+    this.isAnimating = true
+
+    return this.tl
+      .clear()
+      .to(
+        this.fbo.simulationMaterial.uniforms.cityTransition,
+        {
+          value: this.activeTextureIndex ? 0.0 : 1.0,
+          duration: this.duration,
+          ease: 'quint.inOut',
+          onComplete: () => {
+            this.isAnimating = false
+
+            this.fbo.simulationMaterial.uniforms[
+              this.activeTextureIndex ? 'textureB' : 'textureA'
+            ].value = this.getTexture(this.size)
+
+            this.remove(this.hiddenMesh)
+            this.hiddenMeshIndex = this.hiddenMeshIndex + 1
+            this.add(this.hiddenMesh)
+
+            this.fbo.simulationMaterial.uniforms.activeTextureIndex = this.activeTextureIndex
+          },
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.amplitude,
+        {
+          value: 20.0,
+          duration: this.duration / 2,
+          yoyo: true,
+          repeat: 1,
+          ease: 'power1.inOut',
+        },
+        'a',
+      )
+      .restart()
+  }
+
+  animateToPlane() {
+    return new Promise((resolve) => {
+      this.tl
+        .clear()
+        .to(
+          this.fbo.simulationMaterial.uniforms.planeTransition,
+          {
+            value: 1,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .to(
+          this.scale,
+          {
+            x: 20.0,
+            y: 20.0,
+            z: 20.0,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .to(
+          this.position,
+          {
+            x: 0,
+            y: 0,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .to(
+          this.fbo.renderMaterial.uniforms.speed,
+          {
+            value: 0.0001,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .to(
+          this.fbo.renderMaterial.uniforms.frequency,
+          {
+            value: 0.04,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .to(
+          this.fbo.renderMaterial.uniforms.size,
+          {
+            value: 2.5,
+            duration: 2,
+            ease: 'quart.inOut',
+          },
+          'a',
+        )
+        .add(() => resolve())
+        .restart()
+    })
+  }
+
+  // GETTERS
+
+  get activeTextureIndex() {
+    return this.hiddenMeshIndex % 2
+  }
+
+  get hiddenMesh() {
+    return this.hiddenMeshes[this.hiddenMeshIndex]
+  }
+
+  // TEXTURE GENERATION
 
   getTexture(size) {
     let qtree = new QuadTree({
@@ -143,77 +317,6 @@ class Particles extends Object3D {
     }
 
     return new DataTexture(data, size, size, RGBFormat, FloatType)
-  }
-
-  resize({ width, height }) {
-    this.width = width
-    this.height = height
-  }
-
-  update({ frameCount }) {
-    this.raycaster.setFromCamera(this.mouse, this.gl.camera)
-
-    let hiddenMesh = this.hiddenMeshes[this.hiddenMeshIndex]
-    let hits = this.raycaster.intersectObject(hiddenMesh)
-    let hit = hits.length ? hits[0] : null
-
-    let targetRadius = 0.0
-
-    if (hit) {
-      this.currentHit.lerp(hit.point, 0.1)
-      this.fbo.renderMaterial.uniforms.mouse.value.copy(this.currentHit)
-
-      targetRadius = this.maxRadius
-    } else {
-      targetRadius = 0.0
-    }
-
-    this.fbo.renderMaterial.uniforms.radius.value = lerp(
-      this.fbo.renderMaterial.uniforms.radius.value,
-      targetRadius,
-      0.05,
-    )
-
-    this.fbo.update(frameCount)
-  }
-
-  animate() {
-    if (this.isAnimating) return
-
-    this.isAnimating = true
-
-    this.tl
-      .clear()
-      .to(
-        this.fbo.simulationMaterial.uniforms.transition,
-        {
-          value: this.activeTextureIndex ? 0.0 : 1.0,
-          duration: this.duration,
-          ease: 'quint.inOut',
-          onComplete: () => {
-            this.isAnimating = false
-
-            this.fbo.simulationMaterial.uniforms[
-              this.activeTextureIndex ? 'textureB' : 'textureA'
-            ].value = this.getTexture(this.size)
-
-            this.hiddenMeshIndex = this.hiddenMeshIndex + 1
-          },
-        },
-        'a',
-      )
-      .to(
-        this.fbo.renderMaterial.uniforms.amplitude,
-        {
-          value: 20.0,
-          duration: this.duration / 2,
-          yoyo: true,
-          repeat: 1,
-          ease: 'power1.inOut',
-        },
-        'a',
-      )
-      .restart()
   }
 }
 

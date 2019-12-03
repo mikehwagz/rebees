@@ -25,7 +25,7 @@ class FBO {
     try {
       this.checkSupport(renderer)
     } catch (e) {
-      // handle error
+      // TODO: handle error
       if (typeof onError === 'function') {
         onError(e)
       } else {
@@ -111,6 +111,7 @@ class FBO {
     geometry.computeBoundingSphere()
 
     this.points = new Points(geometry, this.renderMaterial)
+    // this.add(this.points)
   }
 
   createRenderTarget() {

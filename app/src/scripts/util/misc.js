@@ -2,9 +2,29 @@ import cubicBezier from 'bezier-easing'
 import { map as mapRange, round } from '@/util/math'
 
 export function poll(delay, cb, first = true) {
-  first ? cb(done) : done()
+  let lastCb = Promise.resolve()
+  let timeoutId = null
+  let off = false
+
+  if (first) {
+    handleCallback()
+  } else {
+    done()
+  }
+
   function done() {
-    setTimeout(() => cb(done), delay)
+    if (off) return
+    timeoutId = setTimeout(handleCallback, delay)
+  }
+
+  function handleCallback() {
+    lastCb = cb(done)
+  }
+
+  return () => {
+    clearTimeout(timeoutId)
+    off = true
+    return lastCb || Promise.resolve()
   }
 }
 

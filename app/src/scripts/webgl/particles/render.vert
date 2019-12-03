@@ -24,7 +24,11 @@ void main() {
 
     p += curlNoise(frequency * p + time * speed) * amplitude;
 
-    float dist = distance(p, mouse);
+    vec3 m = mouse;
+    m.x -= 500.0;
+    m.y += 145.0;
+
+    float dist = distance(p, m);
     if (dist < radius) {
         float norm = 1.0 - dist / radius;
         float a = amplitude * 50.0 * norm;

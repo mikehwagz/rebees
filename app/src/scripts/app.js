@@ -39,6 +39,7 @@ const state = {
   sliderIndex: 4,
   sliderLength: null,
   frameCount: 0,
+  isAppear: true,
 }
 
 export default picoapp(components, state)

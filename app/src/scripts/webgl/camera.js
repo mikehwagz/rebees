@@ -1,22 +1,31 @@
-import { PerspectiveCamera, Vector3 } from 'three'
+import { PerspectiveCamera, OrthographicCamera, Vector3 } from 'three'
 import OrbitControls from 'orbit-controls-es6'
 
-class Camera extends PerspectiveCamera {
+class Camera extends OrthographicCamera {
+  // class Camera extends PerspectiveCamera {
   constructor() {
-    super(60, window.innerWidth / window.innerHeight, 1, 10000)
+    super(
+      window.innerWidth / -2,
+      window.innerWidth / 2,
+      window.innerHeight / 2,
+      window.innerHeight / -2,
+      1,
+      10000,
+    )
+    // super(60, window.innerWidth / window.innerHeight, 1, 10000)
 
-    this.position.z = 650
+    this.position.z = 500
 
-    this.lookAt(new Vector3(0, 0, 0))
+    this.lookAt(new Vector3())
     this.updateMatrix()
 
-    this.orbitControls = this.initOrbitControl()
+    // this.orbitControls = this.initOrbitControl()
   }
 
   initOrbitControl() {
     const controls = new OrbitControls(this, document.getElementById('root'))
 
-    controls.enabled = true
+    controls.enabled = false
     controls.enableDamping = true
     controls.dampingFactor = 0.1
     controls.rotateSpeed = 0.1
@@ -38,7 +47,17 @@ class Camera extends PerspectiveCamera {
   }
 
   resize({ width, height }) {
-    this.aspect = width / height
+    if (this.isPerspectiveCamera) {
+      this.aspect = width / height
+    }
+
+    if (this.isOrthographicCamera) {
+      this.left = -width / 2
+      this.right = width / 2
+      this.top = height / 2
+      this.bottom = -height / 2
+    }
+
     this.unit = this.calculateUnitSize()
     this.updateProjectionMatrix()
   }
