@@ -7,10 +7,10 @@ permalink: /careers/
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
   <div class="min-vh100 ph20 m:ph40">
     {% pageTitle careers.title %}
-    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70">
+    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70 a-items">
       {{ careers.body | safe }}
     </div>
-    <header class="pb10 l:pb15 f">
+    <header class="pb10 l:pb15 f a-items">
       <div class="s:w50">
         <h3 class="f16 l:f18 lh128 crimson">Position</h3>
       </div>
@@ -21,7 +21,7 @@ permalink: /careers/
         <h4 class="f16 l:f18 lh128 crimson">Location</h4>
       </div>
     </header>
-    <dl class="accordion mb95 bb bc-crimson" data-component="accordion">
+    <dl class="accordion mb95 bb bc-crimson a-items" data-component="accordion">
       {% for job in careers.list %}
         <dt>
           <button class="accordion__header x tl f aic pv20 l:pv30 bt bc-crimson js-headers">
@@ -47,6 +47,25 @@ permalink: /careers/
               </div>
               <div class="x max-w1080 f18 s:f26 lh125 slate pt30 pb40">
                 {{ job.description | safe }}
+                {% if job.typeformLink.title and job.typeformLink.typeformUrl %}
+                  <a
+                    class="typeform-share serif f20 m:f22 l:f25 xl:f28 lh129 crimson dib stroke-hover stroke-hover--hex a-items"
+                    href="{{ job.typeformLink.typeformUrl }}"
+                    data-mode="popup"
+                    data-hide-headers=true
+                    data-hide-footer=true
+                    target="_blank"
+                  >
+                    <span class="f">
+                      <span class="f aic mr15">
+                        <svg class="db" width="15" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" fill="#652D30"/>
+                        </svg>
+                      </span>
+                      <span class="db rel z1">{{ job.typeformLink.title }}</span>
+                    </span>
+                  </a>
+                {% endif %}
               </div>
             </div>
           </div>

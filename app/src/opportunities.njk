@@ -7,12 +7,12 @@ permalink: /opportunities/
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
   <div class="min-vh100 ph20 m:ph40">
     {% pageTitle opportunities.title %}
-    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70">
+    <div class="f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70 a-items">
       {{ opportunities.body | safe }}
     </div>
     <div class="m:f fw mhn20 pb70">
       {% for cta in opportunities.links %}
-        <div class="m:third ph20 mb20 m:mb0">
+        <div class="m:third ph20 mb20 m:mb0 a-items">
           <a class="link-card db r r--cta ba rel parchment" href="/{{ cta.link }}/">
           <div class="link-card__bg ro bg-crimson"></div>
           <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">

@@ -2,10 +2,12 @@ import app from '@/app'
 import router from '@/router'
 import { ready, body, size, on } from '@/util/dom'
 import gsap from 'gsap'
+import { toggleVisibilityOnKey } from '@/util/misc'
 
 ready(() => {
   if (process.env.NODE_ENV !== 'production') {
     require('@/util/stats')()
+    toggleVisibilityOnKey('#stats', 's')
   }
 
   // Mimics the data passed to navigation event handlers by our router (Highway.js)
@@ -20,8 +22,14 @@ ready(() => {
   navIn(ctx)
 
   function navOut() {
+    let { route, isNavOpen } = app.getState()
+
+    app.hydrate({
+      prevRoute: route,
+      route: getRoute(),
+    })
+
     // Hide nav if it's open
-    let { isNavOpen } = app.getState()
     if (isNavOpen) {
       app.emit('navToggle', ({ isNavOpen }) => ({
         isNavOpen: !isNavOpen,
@@ -38,6 +46,8 @@ ready(() => {
     }
 
     if (app.getState().isAppear) {
+      app.hydrate({ route: getRoute() })
+
       gsap.to(to.view, {
         duration: 0.5,
         autoAlpha: 1,
@@ -83,5 +93,31 @@ ready(() => {
       .on('NAVIGATE_OUT', navOut)
       .on('NAVIGATE_IN', navIn)
       .on('NAVIGATE_END', navEnd)
+  }
+
+  function getRoute() {
+    let path = window.location.pathname
+    let staticRoutes = {
+      '/': 'home',
+      '/projects/': 'projectsGrid',
+      '/projects/list/': 'projectsList',
+      '/opportunities/': 'opportunities',
+      '/people/': 'people',
+      '/partners/': 'partners',
+      '/careers/': 'careers',
+      '/tenants/': 'tenants',
+    }
+
+    let route = staticRoutes[path]
+
+    if (route) {
+      return route
+    } else if (path.indexOf('/project/') > -1) {
+      return 'project'
+    } else if (path.indexOf('/people/') > -1) {
+      return 'person'
+    } else {
+      return 'error'
+    }
   }
 })

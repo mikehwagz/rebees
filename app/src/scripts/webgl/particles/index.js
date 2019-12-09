@@ -20,46 +20,69 @@ import simulationFrag from './simulation.frag'
 import renderVert from './render.vert'
 import renderFrag from './render.frag'
 import QuadTree, { Point, Rectangle } from './quadtree'
-import { randomPointsInGeometry, lerp, map } from '@/util/math'
-import { add, on, toggle } from '@/util/dom'
+import { randomPointsInGeometry, lerp, map, wrap } from '@/util/math'
+import { toggleVisibilityOnKey } from '@/util/misc'
+import app from '@/app'
 
-gui.destroy()
-// let guiEl = document.querySelector('.dg.ac')
-// guiEl.style.zIndex = '99999'
-// add(guiEl, 'dn')
-// on(window, 'keyup', ({ key }) => {
-//   key === 'g' && toggle(guiEl, 'dn')
-// })
+// gui.destroy()
+toggleVisibilityOnKey('.dg.ac', 'g')
 
 class Particles extends Object3D {
   constructor(gl) {
     super()
 
     this.gl = gl
-    this.size = 320
+    this.size = 400
 
-    this.tl = gsap.timeline({ paused: true })
+    this.tl = gsap.timeline()
     this.isAnimating = false
     this.duration = 3
-    this.hiddenMeshes = []
-    this.hiddenMeshIndex = 0
 
     this.raycaster = new Raycaster()
     this.mouse = new Vector2()
     this.targetHit = new Vector3()
     this.currentHit = new Vector3()
     this.maxRadius = 100
+
+    this.cache = []
+    this.seedIndex = 0
+    this.seedCount = 4
   }
 
-  init() {
-    const textureA = this.getTexture(this.size)
-    textureA.needsUpdate = true
+  // GETTERS
 
-    const textureB = this.getTexture(this.size)
-    textureB.needsUpdate = true
+  get activeTextureIndex() {
+    return this.seedIndex % 2
+  }
+
+  get activeTextureUniformName() {
+    return this.activeTextureIndex ? 'textureB' : 'textureA'
+  }
+
+  get idleTextureUniformName() {
+    return this.activeTextureIndex ? 'textureA' : 'textureB'
+  }
+
+  get activeMesh() {
+    return this.cache[this.seedIndex].mesh
+  }
+
+  get activeTexture() {
+    return this.cache[this.seedIndex].texture
+  }
+
+  get isHome() {
+    return app.getState().route === 'home'
+  }
+
+  // INITIALIZE
+
+  init() {
+    for (let i = 0; i < this.seedCount; i++) {
+      this.cache.push(this.getSeed(this.size))
+    }
 
     const textureC = this.getPlaneTexture(this.size)
-    textureC.needsUpdate = true
 
     this.fbo = new FBO({
       width: this.size,
@@ -68,8 +91,10 @@ class Particles extends Object3D {
       simulationMaterial: new MagicShader({
         name: '🎮 Particle FBO Simulation',
         uniforms: {
-          textureA: { value: textureA },
-          textureB: { value: textureB },
+          textureA: { value: this.cache[this.seedIndex].texture },
+          textureB: {
+            value: this.cache[wrap(this.seedIndex + 1, this.seedCount)].texture,
+          },
           textureC: { value: textureC },
         },
         vertexShader: simulationVert,
@@ -89,10 +114,13 @@ class Particles extends Object3D {
     })
 
     this.add(this.fbo.points)
-    this.add(this.hiddenMeshes[this.hiddenMeshIndex])
+    this.add(this.activeMesh)
 
-    this.position.x = 450
-    this.position.y = -130
+    if (this.isHome) {
+      this.resizeCity(window.innerWidth, window.innerHeight)
+    } else {
+      this.showPlane()
+    }
   }
 
   // EVENTS
@@ -105,6 +133,23 @@ class Particles extends Object3D {
   resize({ width, height }) {
     this.width = width
     this.height = height
+
+    this.resizeCity(width, height)
+  }
+
+  resizeCity(width, height) {
+    this.posX = (31.25 * width) / 100
+    this.posY = (-16.25 * height) / 100
+    this.s = map(width, 0, 1440, 0.5, 1)
+
+    if (this.isHome) {
+      this.position.x = this.posX
+      this.position.y = this.posY
+
+      this.scale.x = this.s
+      this.scale.y = this.s
+      this.scale.z = this.s
+    }
   }
 
   update({ frameCount }) {
@@ -122,7 +167,7 @@ class Particles extends Object3D {
   updateRaycaster() {
     this.raycaster.setFromCamera(this.mouse, this.gl.camera)
 
-    let hits = this.raycaster.intersectObject(this.hiddenMesh)
+    let hits = this.raycaster.intersectObject(this.activeMesh)
     let hit = hits.length ? hits[0] : null
 
     let targetRadius = 0.0
@@ -145,31 +190,31 @@ class Particles extends Object3D {
 
   // ANIMATIONS
 
-  animate() {
+  animateToNextSeed() {
     if (this.isAnimating) return
 
     this.isAnimating = true
 
-    return this.tl
+    this.tl
       .clear()
       .to(
         this.fbo.simulationMaterial.uniforms.cityTransition,
         {
-          value: this.activeTextureIndex ? 0.0 : 1.0,
+          value: this.activeTextureIndex ? 0 : 1,
           duration: this.duration,
           ease: 'quint.inOut',
           onComplete: () => {
             this.isAnimating = false
 
+            this.remove(this.activeMesh)
+            this.seedIndex = wrap(this.seedIndex + 1, this.seedCount)
+            this.add(this.activeMesh)
+
             this.fbo.simulationMaterial.uniforms[
-              this.activeTextureIndex ? 'textureB' : 'textureA'
-            ].value = this.getTexture(this.size)
-
-            this.remove(this.hiddenMesh)
-            this.hiddenMeshIndex = this.hiddenMeshIndex + 1
-            this.add(this.hiddenMesh)
-
-            this.fbo.simulationMaterial.uniforms.activeTextureIndex = this.activeTextureIndex
+              this.idleTextureUniformName
+            ].value = this.cache[
+              wrap(this.seedIndex + 1, this.seedCount)
+            ].texture
           },
         },
         'a',
@@ -185,88 +230,215 @@ class Particles extends Object3D {
         },
         'a',
       )
-      .restart()
   }
 
-  animateToPlane() {
-    return new Promise((resolve) => {
-      this.tl
-        .clear()
-        .to(
-          this.fbo.simulationMaterial.uniforms.planeTransition,
-          {
-            value: 1,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .to(
-          this.scale,
-          {
-            x: 20.0,
-            y: 20.0,
-            z: 20.0,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .to(
-          this.position,
-          {
-            x: 0,
-            y: 0,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .to(
-          this.fbo.renderMaterial.uniforms.speed,
-          {
-            value: 0.0001,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .to(
-          this.fbo.renderMaterial.uniforms.frequency,
-          {
-            value: 0.04,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .to(
-          this.fbo.renderMaterial.uniforms.size,
-          {
-            value: 2.5,
-            duration: 2,
-            ease: 'quart.inOut',
-          },
-          'a',
-        )
-        .add(() => resolve())
-        .restart()
-    })
+  showPlane() {
+    this.tl
+      .clear()
+      .set(this.fbo.simulationMaterial.uniforms.cityTransition, {
+        value: this.activeTextureIndex,
+      })
+      .set(this.fbo.simulationMaterial.uniforms.planeTransition, {
+        value: 0.9,
+      })
+      .set(this.scale, {
+        x: 20,
+        y: 20,
+        z: 20,
+      })
+      .set(this.position, {
+        x: 0,
+        y: 0,
+      })
+      .set(this.fbo.renderMaterial.uniforms.speed, {
+        value: 0.0001,
+      })
+      .set(this.fbo.renderMaterial.uniforms.frequency, {
+        value: 0.04,
+      })
+      .set(this.fbo.renderMaterial.uniforms.amplitude, {
+        value: 1,
+      })
+      .set(this.fbo.renderMaterial.uniforms.alpha, {
+        value: 0.6,
+      })
+      .set(this.fbo.renderMaterial.uniforms.size, {
+        value: 2.5,
+      })
   }
 
-  // GETTERS
-
-  get activeTextureIndex() {
-    return this.hiddenMeshIndex % 2
+  animateFromCityToPlane(duration = 2) {
+    this.tl
+      .clear()
+      .to(
+        this.fbo.simulationMaterial.uniforms.cityTransition,
+        {
+          value: this.activeTextureIndex,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.simulationMaterial.uniforms.planeTransition,
+        {
+          value: 0.9,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.scale,
+        {
+          x: 20,
+          y: 20,
+          z: 20,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.position,
+        {
+          x: 0,
+          y: 0,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.speed,
+        {
+          value: 0.0001,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.frequency,
+        {
+          value: 0.04,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.amplitude,
+        {
+          value: 1,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.alpha,
+        {
+          value: 0.6,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.size,
+        {
+          value: 2.5,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
   }
 
-  get hiddenMesh() {
-    return this.hiddenMeshes[this.hiddenMeshIndex]
+  animateFromPlaneToCity(duration = 2) {
+    this.tl
+      .clear()
+      .to(
+        this.fbo.simulationMaterial.uniforms.planeTransition,
+        {
+          value: 0,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.scale,
+        {
+          x: this.s,
+          y: this.s,
+          z: this.s,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.position,
+        {
+          x: this.posX,
+          y: this.posY,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.speed,
+        {
+          value: 0.01,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.frequency,
+        {
+          value: 0.011,
+          duration: 2,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.amplitude,
+        {
+          value: 0.5,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.alpha,
+        {
+          value: 1,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
+      .to(
+        this.fbo.renderMaterial.uniforms.size,
+        {
+          value: 2,
+          duration,
+          ease: 'expo.inOut',
+        },
+        'a',
+      )
   }
 
   // TEXTURE GENERATION
 
-  getTexture(size) {
+  getSeed(size) {
     let qtree = new QuadTree({
       boundary: new Rectangle(size / 2, size / 2, size / 2, size / 2),
       capacity: 1,
@@ -277,7 +449,7 @@ class Particles extends Object3D {
     }
 
     let geom = new Geometry()
-    qtree.show(geom, this.size)
+    qtree.show(geom, size)
 
     let mesh = new Mesh(
       geom,
@@ -285,7 +457,6 @@ class Particles extends Object3D {
     )
 
     mesh.renderOrder = 1
-    this.hiddenMeshes.push(mesh)
 
     let points = randomPointsInGeometry(geom, size * size)
     let len = points.length
@@ -299,7 +470,13 @@ class Particles extends Object3D {
       data[i3 + 2] = v.z
     }
 
-    return new DataTexture(data, size, size, RGBFormat, FloatType)
+    let texture = new DataTexture(data, size, size, RGBFormat, FloatType)
+    texture.needsUpdate = true
+
+    return {
+      texture,
+      mesh,
+    }
   }
 
   getPlaneTexture(size) {
@@ -316,7 +493,10 @@ class Particles extends Object3D {
       data[i3 + 2] = v.z
     }
 
-    return new DataTexture(data, size, size, RGBFormat, FloatType)
+    let texture = new DataTexture(data, size, size, RGBFormat, FloatType)
+    texture.needsUpdate = true
+
+    return texture
   }
 }
 

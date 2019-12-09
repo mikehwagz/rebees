@@ -9,9 +9,10 @@ module.exports = async function() {
     groq`*[_type == "career"] | order(_updatedAt desc) {
       title,
       description,
+      typeformLink,
       "location": location->title,
       "project": project->title,
-      "slug": slug.current
+      "slug": slug.current,
     }`,
   )
 

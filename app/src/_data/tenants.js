@@ -9,6 +9,7 @@ module.exports = async function() {
     groq`*[_type == "tenantVacancy"] | order(_updatedAt desc) {
       title,
       description,
+      typeformLink,
       "location": location->title,
       "slug": slug.current
     }`,

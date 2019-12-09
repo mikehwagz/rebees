@@ -9,7 +9,7 @@ class Camera extends OrthographicCamera {
       window.innerWidth / 2,
       window.innerHeight / 2,
       window.innerHeight / -2,
-      1,
+      -10000,
       10000,
     )
     // super(60, window.innerWidth / window.innerHeight, 1, 10000)

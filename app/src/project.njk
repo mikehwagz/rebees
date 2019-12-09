@@ -43,7 +43,7 @@ renderData:
       {% for module in project.contentModules %}
         {% if module._type == 'richText' %}
           <section
-            class="project__module mb50 s:mb0 s:abs s:fill f aic bg-parchment | js-slides"
+            class="project__module mb50 s:mb0 s:abs s:fill f aic | js-slides"
             style="z-index: {{ loop.length - loop.index0 }}"
           >
             <div class="s:ph40 l:ph120">
@@ -54,7 +54,7 @@ renderData:
           </section>
         {% elif module._type == 'imageWithAltTextAndCaption' %}
           <section
-            class="project__module f14 mb50 s:mb0 s:abs s:fill bg-parchment | js-slides"
+            class="project__module f14 mb50 s:mb0 s:abs s:fill | js-slides"
             style="z-index: {{ loop.length - loop.index0 }}"
           >
             <div class="db s:dn">
@@ -87,7 +87,7 @@ renderData:
         {% endif %}
       {% endfor %}
       <section
-        class="project__module pt85 pb100 s:abs s:fill f jcc aic bg-parchment | js-slides"
+        class="project__module pt85 pb100 s:abs s:fill f jcc aic | js-slides"
         style="z-index: {{ project.contentModules | length }}"
       >
         {% set nextHref = pagination.nextPageHref if pagination.next else pagination.firstPageHref %}
