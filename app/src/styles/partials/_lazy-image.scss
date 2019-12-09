@@ -1,11 +1,12 @@
 .lazy-image {
   @extend .r;
+  z-index: 1; // do not remove, see here https://stackoverflow.com/questions/28112770/chrome-css-filter-blur-and-scale-at-children-and-overflow-hidden-on-parent-resu
   overflow: hidden;
 
   &__lqip {
     @extend .ro;
     filter: blur(10px);
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
 
   &__img-wrap {

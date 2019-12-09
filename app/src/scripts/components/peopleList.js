@@ -1,4 +1,4 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
 
 export default component((node) => {
   let children = Array.from(node.children)

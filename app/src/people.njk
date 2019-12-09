@@ -11,7 +11,7 @@ permalink: /people/
     {% pageTitle people.title %}
     <ul class="f fw pt20 s:pt30 l:pt40 pb60 m:pb65 m:mhn20" data-component="peopleList">
       {% for person in people.list %}
-        <li class="x m:w50 m:ph20 mb25 m:mb35">
+        <li class="x m:w50 m:ph20 mb25 m:mb35 a-items">
           <a class="person tdn" href="/people/{{ person.slug }}/">
             <div class="rel">
               {{ macros.lazyImage(
@@ -38,7 +38,7 @@ permalink: /people/
           </a>
         </li>
       {% endfor %}
-      <li class="x m:w50 m:ph20 mt25 m:mt0">
+      <li class="x m:w50 m:ph20 mt25 m:mt0 a-items">
         <a class="link-card db r r--cta ba rel parchment" href="/{{ people.cta.link }}/">
           <div class="link-card__bg ro bg-crimson"></div>
           <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">

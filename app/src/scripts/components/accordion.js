@@ -1,5 +1,4 @@
-import { component } from '@/lib/picoapp'
-
+import { component } from 'picoapp'
 import squeezebox from '@/lib/squeezebox'
 
 export default component((node, ctx) => {

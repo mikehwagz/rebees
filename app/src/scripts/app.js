@@ -1,4 +1,4 @@
-import { picoapp } from '@/lib/picoapp'
+import { picoapp } from 'picoapp'
 import sniffer from '@/util/sniffer'
 import { size } from '@/util/dom'
 
@@ -14,6 +14,7 @@ import projectProgress from '@/components/projectProgress'
 import projectSlider from '@/components/projectSlider'
 import projectCursor from '@/components/projectCursor'
 import accordion from '@/components/accordion'
+import webglCanvas from '@/components/webglCanvas'
 
 const components = {
   navToggle,
@@ -28,6 +29,7 @@ const components = {
   projectSlider,
   projectCursor,
   accordion,
+  webglCanvas,
 }
 
 const state = {
@@ -36,6 +38,8 @@ const state = {
   isNavOpen: false,
   sliderIndex: 4,
   sliderLength: null,
+  frameCount: 0,
+  isAppear: true,
 }
 
 export default picoapp(components, state)

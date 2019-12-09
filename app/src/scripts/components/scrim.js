@@ -1,4 +1,4 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
 import { easedGradient } from '@/util/misc'
 
 export default component((node) => {

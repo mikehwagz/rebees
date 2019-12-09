@@ -1,10 +1,31 @@
 import cubicBezier from 'bezier-easing'
+import { on, add, toggle } from '@/util/dom'
 import { map as mapRange, round } from '@/util/math'
 
 export function poll(delay, cb, first = true) {
-  first ? cb(done) : done()
+  let lastCb = Promise.resolve()
+  let timeoutId = null
+  let off = false
+
+  if (first) {
+    handleCallback()
+  } else {
+    done()
+  }
+
   function done() {
-    setTimeout(() => cb(done), delay)
+    if (off) return
+    timeoutId = setTimeout(handleCallback, delay)
+  }
+
+  function handleCallback() {
+    lastCb = cb(done)
+  }
+
+  return () => {
+    clearTimeout(timeoutId)
+    off = true
+    return lastCb || Promise.resolve()
   }
 }
 
@@ -52,4 +73,13 @@ export function easedGradient({ direction, rgb, steps, bezier }) {
       .map(({ alpha, percent }) => getColorStop({ rgb, alpha, percent }))
       .join(',\n')}
   )`
+}
+
+export function toggleVisibilityOnKey(s, k) {
+  let el = document.querySelector(s)
+  el.style.zIndex = '99999'
+  add(el, 'dn')
+  on(window, 'keyup', ({ key }) => {
+    key === k && toggle(el, 'dn')
+  })
 }

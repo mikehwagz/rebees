@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html class="bg-slate" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/styles/index.css">
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/sw.js");
+        navigator.serviceWorker.register('/sw.js');
       }
     </script>
     <script>
@@ -32,11 +32,13 @@
   <body class="bg-parchment slate sans f20">
     <div id="root">
       {% include "nav.njk" %}
-      <main data-router-wrapper>
+      <main class="rel z1" data-router-wrapper>
         {{ content | safe }}
       </main>
       <div id="size" class="fix fill pen"></div>
+      <div class="fix fill pen" data-component="webglCanvas"></div>
     </div>
+    <script src="https://embed.typeform.com/embed.js"></script>
     <script src="/scripts/index.js"></script>
   </body>
 </html>

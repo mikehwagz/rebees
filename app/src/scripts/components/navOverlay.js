@@ -1,10 +1,12 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
+import choozy from 'choozy'
 import { on } from '@/util/dom'
-import { TimelineMax } from 'gsap'
+import gsap from 'gsap'
 
-export default component((node, ctx, refs) => {
+export default component((node, ctx) => {
+  const refs = choozy(node)
   let tl = createTimeline({ node, ...refs })
-  let masterTl = new TimelineMax({ paused: true })
+  let masterTl = gsap.timeline({ paused: true })
 
   masterTl.seek('idle')
 
@@ -17,9 +19,10 @@ export default component((node, ctx, refs) => {
   function show() {
     masterTl
       .clear()
-      .to(tl, 1.2, {
-        time: tl.getLabelTime('afterShow'),
-        ease: Linear.easeNone,
+      .to(tl, {
+        duration: 1.2,
+        time: tl.labels.afterShow,
+        ease: 'none',
       })
       .restart()
   }
@@ -27,16 +30,17 @@ export default component((node, ctx, refs) => {
   function hide() {
     masterTl
       .clear()
-      .to(tl, 1.2, {
-        time: tl.getLabelTime('afterHide'),
-        ease: Linear.easeNone,
+      .to(tl, {
+        duration: 1.2,
+        time: tl.labels.afterHide,
+        ease: 'none',
       })
       .restart()
   }
 })
 
 function createTimeline({ drawer, cover, backdrop, items }) {
-  let tl = new TimelineMax({ paused: true })
+  let tl = gsap.timeline({ paused: true })
   let itemsFromVars = {
     x: 50,
     y: 80,
@@ -46,90 +50,93 @@ function createTimeline({ drawer, cover, backdrop, items }) {
 
   tl.set(items, itemsFromVars)
 
-  tl.addLabel('idle')
+  tl.add('idle')
     .to(
       backdrop,
-      1.2,
       {
+        duration: 1.2,
         autoAlpha: 1,
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'show',
     )
     .to(
       drawer,
-      1.2,
       {
+        duration: 1.2,
         x: '0%',
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'show',
     )
     .to(
       cover,
-      1.2,
       {
+        duration: 1.2,
         autoAlpha: 0,
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'show',
     )
-    .staggerTo(
+    .to(
       items,
-      1.2,
       {
+        duration: 1.2,
+        stagger: 0.04,
         x: 0,
         y: 0,
         rotation: 0,
         autoAlpha: 1,
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
-      0.04,
       'show',
     )
 
-  tl.addLabel('afterShow')
+  tl.add('afterShow')
 
-  tl.addLabel('beforeHide')
-    .staggerTo(
+  tl.add('beforeHide')
+    .to(
       items,
-      1,
       {
-        ...itemsFromVars,
-        ease: Expo.easeInOut,
+        duration: 1,
+        stagger: -0.04,
+        x: itemsFromVars.x,
+        y: itemsFromVars.y,
+        rotation: itemsFromVars.rotation,
+        autoAlpha: itemsFromVars.autoAlpha,
+        ease: 'expo.inOut',
       },
-      -0.04,
       'hide',
     )
     .to(
       drawer,
-      1.2,
       {
+        duration: 1.2,
         x: '102%',
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'hide',
     )
     .to(
       cover,
-      1.2,
       {
+        duration: 1.2,
         autoAlpha: 1,
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'hide',
     )
     .to(
       backdrop,
-      1.2,
       {
+        duration: 1.2,
         autoAlpha: 0,
-        ease: Expo.easeInOut,
+        ease: 'expo.inOut',
       },
       'hide',
     )
 
-  tl.addLabel('afterHide')
+  tl.add('afterHide')
 
   return tl
 }

@@ -40,7 +40,7 @@
         <nav role="navigation">
           <ul>
             {% for link in config.navigation.links %}
-              <li class="js-items">
+              <li class="wcto js-items">
                 <a
                   class="nav__overlay__link serif f44 s:f52 m:f58 lh112 hex-hover pv15"
                   href="{{ '/' if link.slug == 'home' else ['/', link.slug, '/'] | join }}"

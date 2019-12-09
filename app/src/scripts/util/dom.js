@@ -70,8 +70,9 @@ export function size() {
   const bounds = sizeReferenceElement.getBoundingClientRect()
   const width = bounds.width
   const height = bounds.height
+  const dpr = window.devicePixelRatio
   const isLandscape = width > height
-  return { width, height, isLandscape }
+  return { width, height, dpr, isLandscape }
 }
 
 export const parser = new DOMParser()

@@ -1,9 +1,12 @@
-import { component } from '@/lib/picoapp'
+import { component } from 'picoapp'
+import choozy from 'choozy'
 import VirtualScroll from 'virtual-scroll'
 import { add, remove, body } from '@/util/dom'
 import { clamp } from '@/util/math'
 
-export default component((node, ctx, { slides }) => {
+export default component((node, ctx) => {
+  const { slides } = choozy(node)
+
   let isSliderInit = false
   let isAnimating = false
   let vs = null

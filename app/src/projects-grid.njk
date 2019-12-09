@@ -5,16 +5,20 @@ permalink: /projects/
 ---
 {% import 'macros.njk' as macros with context %}
 
-<div data-router-view="projects-grid">
+<div data-router-view="projectsGrid">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
   <div class="min-vh100 ph20 m:ph40 rel">
     {% pageTitle projects.title %}
-    <a class="view-toggle abs top right mt120 s:mt140 l:mt170 mr20 m:mr40" href="/projects/list/" aria-label="Go to list view">
+    <a
+      class="view-toggle abs top right mt120 s:mt140 l:mt170 mr20 m:mr40 a-viewToggle"
+      href="/projects/list/"
+      aria-label="Go to list view"
+    >
       <div class="f aic" aria-hidden="true">
         <span class="view-toggle__label f14 m:f18 lh128">Grid</span>
-        <span class="view-toggle__switch f aic ph5 m:ph10">
+        <span class="view-toggle__switch f aic mh5 ph5 rel">
           <span class="view-toggle__switch__track"></span>
-          <svg class="view-toggle__switch__handle db abs" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="view-toggle__switch__handle db abs left" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z"/>
           </svg>
         </span>
@@ -23,7 +27,7 @@ permalink: /projects/
     </a>
     <ul class="f fw pt20 s:pt30 l:pt40 pb60 m:pb65 m:mhn20">
       {% for project in projects.selected %}
-        <li class="x m:w50 m:ph20 mb25 m:mb35">
+        <li class="x m:w50 m:ph20 mb25 m:mb35 wct a-items">
           <a class="projects-grid__card tdn" href="/project/{{ project.slug }}/">
             <div class="rel">
               {{ macros.lazyImage(
@@ -35,7 +39,7 @@ permalink: /projects/
                 project.thumbnail.altText,
                 false
               ) }}
-              <div class="projects-grid__card__hover f26 lh125 parchment ro p20 abs fill dn m:db">
+              <div class="projects-grid__card__hover f26 lh125 parchment ro p20 abs fill z2 dn m:db">
                 <div class="abs fill bg-crimson o80"></div>
                 <div class="rel z1">
                   <p class="projects-grid__card__hover__item">{{ project.category }}</p>
@@ -55,7 +59,7 @@ permalink: /projects/
           </a>
         </li>
       {% endfor %}
-      <li class="x m:w50 m:ph20 mt25 m:mt0">
+      <li class="x m:w50 m:ph20 mt25 m:mt0 wct a-items">
         <a class="link-card db r r--project ba rel parchment" href="/{{ projects.cta.link }}/">
           <div class="link-card__bg ro bg-crimson"></div>
           <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">

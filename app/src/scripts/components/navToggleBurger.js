@@ -1,8 +1,10 @@
-import { component } from '@/lib/picoapp'
-import { TimelineMax } from 'gsap'
+import { component } from 'picoapp'
+import choozy from 'choozy'
+import gsap from 'gsap'
 
-export default component((node, ctx, { lines }) => {
-  let tl = new TimelineMax({ paused: true })
+export default component((node, ctx) => {
+  const { lines } = choozy(node)
+  let tl = gsap.timeline({ paused: true })
 
   let isHidden = false
 
@@ -20,17 +22,12 @@ export default component((node, ctx, { lines }) => {
     if (isHidden) return
 
     tl.clear()
-      .staggerTo(
-        [lines[0], lines[2]],
-        0.6,
-        {
-          cycle: {
-            y: [3, -3],
-          },
-          ease: Expo.easeOut,
-        },
-        0,
-      )
+      .to([lines[0], lines[2]], {
+        duration: 0.6,
+        stagger: 0,
+        y: (i) => gsap.utils.wrap([3, -3], i),
+        ease: 'expo',
+      })
       .restart()
   }
 
@@ -38,9 +35,10 @@ export default component((node, ctx, { lines }) => {
     if (isHidden) return
 
     tl.clear()
-      .to([lines[0], lines[2]], 0.6, {
+      .to([lines[0], lines[2]], {
+        duration: 0.6,
         y: 0,
-        ease: Expo.easeOut,
+        ease: 'expo',
       })
       .restart()
   }
@@ -49,40 +47,37 @@ export default component((node, ctx, { lines }) => {
     isHidden = true
 
     tl.clear()
-      .staggerTo(
-        lines,
-        0.8,
-        {
-          xPercent: -105,
-          ease: Expo.easeOut,
-        },
-        -0.05,
-      )
+      .to(lines, {
+        duration: 0.8,
+        stagger: -0.05,
+        xPercent: -105,
+        ease: 'expo',
+      })
       .restart()
   }
 
   function show() {
     tl.clear()
-      .staggerTo(
+      .to(
         lines,
-        0.8,
         {
+          duration: 0.8,
+          stagger: 0.05,
           xPercent: 0,
-          ease: Expo.easeOut,
+          ease: 'expo',
           delay: 0.4,
+          onComplete: () => {
+            isHidden = false
+          },
         },
-        0.05,
         'a',
-        () => {
-          isHidden = false
-        },
       )
       .to(
         [lines[0], lines[2]],
-        0.8,
         {
+          duration: 0.8,
           y: 0,
-          ease: Expo.easeOut,
+          ease: 'expo',
         },
         'a',
       )
