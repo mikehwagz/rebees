@@ -14,7 +14,8 @@
     }
   }
 
-  &:hover {
+  &:hover,
+  &.is-active {
     span {
       &:first-child {
         opacity: 1;

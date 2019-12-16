@@ -1,6 +1,6 @@
 import app from '@/app'
 import router from '@/router'
-import { ready, body, size, on } from '@/util/dom'
+import { ready, body, size, on, add, remove } from '@/util/dom'
 import gsap from 'gsap'
 // import { toggleVisibilityOnKey } from '@/util/misc'
 
@@ -11,6 +11,7 @@ ready(() => {
   // }
 
   // Mimics the data passed to navigation event handlers by our router (Highway.js)
+  let links = document.querySelectorAll('nav a')
   let ctx = {
     location: window.location,
     to: { view: body.querySelector('[data-router-view]') },
@@ -37,12 +38,24 @@ ready(() => {
     }
   }
 
-  function navIn({ to }) {
+  function navIn({ to, location }) {
     // Update page theme using `data-theme` attribute on body element (default `parchment`)
     if (to.view.dataset.theme) {
       body.setAttribute('data-theme', to.view.dataset.theme)
     } else {
       body.setAttribute('data-theme', 'parchment')
+    }
+
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i]
+
+      // Clean class
+      remove(link, 'is-active')
+
+      // Active link
+      if (link.href === location.href) {
+        add(link, 'is-active')
+      }
     }
 
     if (app.getState().isAppear) {
