@@ -44,7 +44,6 @@ permalink: /projects/
                 <div class="rel z1">
                   <p class="projects-grid__card__hover__item">{{ project.category }}</p>
                   <p class="projects-grid__card__hover__item">{{ project.location }}</p>
-                  <p class="projects-grid__card__hover__item">{{ project.year }}</p>
                 </div>
               </div>
             </div>
@@ -59,24 +58,26 @@ permalink: /projects/
           </a>
         </li>
       {% endfor %}
-      <li class="x m:w50 m:ph20 mt25 m:mt0 wct a-items">
-        <a class="link-card db r r--project ba rel parchment" href="/{{ projects.cta.link }}/">
-          <div class="link-card__bg ro bg-crimson"></div>
-          <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">
-            <h2 class="serif f26 xs:f46 m:f30 l:f46 xl:f58 lh130">{{ projects.cta.title }}</h2>
-            <p class="serif f16 xs:f18 m:f20 l:f22 xl:f28 lh129 f aic">
-              <span class="mr10 xl:mr15">
-                <svg class="link-card__svg" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
-                </svg>
-              </span>
-              <span>
-                {{ projects.cta.subtitle }}
-              </span>
-            </p>
-          </div>
-        </a>
-      </li>
+      {% if projects.cta.isEnabled %}
+        <li class="x m:w50 m:ph20 mt25 m:mt0 wct a-items">
+          <a class="link-card db r r--project ba rel parchment" href="/{{ projects.cta.link }}/">
+            <div class="link-card__bg ro bg-crimson"></div>
+            <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">
+              <h2 class="serif f26 xs:f46 m:f30 l:f46 xl:f58 lh130">{{ projects.cta.title }}</h2>
+              <p class="serif f16 xs:f18 m:f20 l:f22 xl:f28 lh129 f aic">
+                <span class="mr10 xl:mr15">
+                  <svg class="link-card__svg" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
+                  </svg>
+                </span>
+                <span>
+                  {{ projects.cta.subtitle }}
+                </span>
+              </p>
+            </div>
+          </a>
+        </li>
+      {% endif %}
     </ul>
   </div>
   {% include "footer.njk" %}

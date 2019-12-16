@@ -93,7 +93,7 @@ renderData:
         {% set nextHref = pagination.nextPageHref if pagination.next else pagination.firstPageHref %}
         {% set slug = nextHref | split('/') %}
         {% set nextProject = projects.selected | find('slug', slug[2]) %}
-        <a class="project__pagination tc" href="{{ nextHref }}">
+        <a class="project__pagination tc ph20 m:ph40" href="{{ nextHref }}">
           <p class="f18 m:f26 lh128 mb15 m:mb30">Next Project</p>
           <div class="rel">
             <p class="outline-text crimson serif f52 m:f100 lh128">{{ nextProject.title }}</p>

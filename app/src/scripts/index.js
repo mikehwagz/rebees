@@ -2,13 +2,13 @@ import app from '@/app'
 import router from '@/router'
 import { ready, body, size, on } from '@/util/dom'
 import gsap from 'gsap'
-import { toggleVisibilityOnKey } from '@/util/misc'
+// import { toggleVisibilityOnKey } from '@/util/misc'
 
 ready(() => {
-  if (process.env.NODE_ENV !== 'production') {
-    require('@/util/stats')()
-    toggleVisibilityOnKey('#stats', 's')
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   require('@/util/stats')()
+  //   toggleVisibilityOnKey('#stats', 's')
+  // }
 
   // Mimics the data passed to navigation event handlers by our router (Highway.js)
   let ctx = {

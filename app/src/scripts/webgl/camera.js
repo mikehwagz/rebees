@@ -1,8 +1,6 @@
-import { PerspectiveCamera, OrthographicCamera, Vector3 } from 'three'
-import OrbitControls from 'orbit-controls-es6'
+import { OrthographicCamera, Vector3 } from 'three'
 
-class Camera extends OrthographicCamera {
-  // class Camera extends PerspectiveCamera {
+export default class Camera extends OrthographicCamera {
   constructor() {
     super(
       window.innerWidth / -2,
@@ -12,7 +10,6 @@ class Camera extends OrthographicCamera {
       -10000,
       10000,
     )
-    // super(60, window.innerWidth / window.innerHeight, 1, 10000)
 
     this.position.z = 500
 
@@ -22,18 +19,18 @@ class Camera extends OrthographicCamera {
     // this.orbitControls = this.initOrbitControl()
   }
 
-  initOrbitControl() {
-    const controls = new OrbitControls(this, document.getElementById('root'))
+  // initOrbitControl() {
+  //   const controls = new OrbitControls(this, document.getElementById('root'))
 
-    controls.enabled = false
-    controls.enableDamping = true
-    controls.dampingFactor = 0.1
-    controls.rotateSpeed = 0.1
-    controls.maxDistance = 1500
-    controls.minDistance = 0
+  //   controls.enabled = false
+  //   controls.enableDamping = true
+  //   controls.dampingFactor = 0.1
+  //   controls.rotateSpeed = 0.1
+  //   controls.maxDistance = 1500
+  //   controls.minDistance = 0
 
-    return controls
-  }
+  //   return controls
+  // }
 
   calculateUnitSize(distance = this.position.z) {
     const vFov = (this.fov * Math.PI) / 180
@@ -47,20 +44,12 @@ class Camera extends OrthographicCamera {
   }
 
   resize({ width, height }) {
-    if (this.isPerspectiveCamera) {
-      this.aspect = width / height
-    }
-
-    if (this.isOrthographicCamera) {
-      this.left = -width / 2
-      this.right = width / 2
-      this.top = height / 2
-      this.bottom = -height / 2
-    }
+    this.left = -width / 2
+    this.right = width / 2
+    this.top = height / 2
+    this.bottom = -height / 2
 
     this.unit = this.calculateUnitSize()
     this.updateProjectionMatrix()
   }
 }
-
-export default new Camera()

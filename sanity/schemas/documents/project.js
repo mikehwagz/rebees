@@ -34,11 +34,6 @@ export default {
       to: [{ type: 'location' }],
     },
     {
-      title: 'Year',
-      name: 'year',
-      type: 'number',
-    },
-    {
       title: 'Thumbnail Image',
       name: 'thumbnail',
       type: 'imageWithAltText',

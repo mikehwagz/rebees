@@ -7,7 +7,12 @@ module.exports = async function() {
     groq`
       *[_id == "peoplepage"] {
         title,
-        "cta": cta { title, subtitle, "link": link->_type }
+        "cta": cta {
+          title,
+          subtitle,
+          isEnabled,
+          "link": link->_type
+        }
       } [0]
     `,
   )

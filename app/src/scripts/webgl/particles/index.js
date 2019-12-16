@@ -21,11 +21,11 @@ import renderVert from './render.vert'
 import renderFrag from './render.frag'
 import QuadTree, { Point, Rectangle } from './quadtree'
 import { randomPointsInGeometry, lerp, map, wrap } from '@/util/math'
-import { toggleVisibilityOnKey } from '@/util/misc'
+// import { toggleVisibilityOnKey } from '@/util/misc'
 import app from '@/app'
 
-// gui.destroy()
-toggleVisibilityOnKey('.dg.ac', 'g')
+gui.destroy()
+// toggleVisibilityOnKey('.dg.ac', 'g')
 
 class Particles extends Object3D {
   constructor(gl) {

@@ -27,19 +27,18 @@ permalink: /projects/list/
       <div class="w50">
         <h3 class="f16 l:f18 lh128">Title</h3>
       </div>
-      <div class="w25">
+      <div class="f w35">
         <h4 class="f16 l:f18 lh128">Category</h4>
       </div>
-      <div class="f jcb w25">
+      <div class="f w15">
         <h4 class="f16 l:f18 lh128">Location</h4>
-        <h4 class="f16 l:f18 lh128">Year</h4>
       </div>
     </header>
     <ul class="mb65 a-items">
       {% for project in projects.selected %}
         <li>
           <a class="projects-list__item db tdn pv20 l:pv30 bb bc-parchment f aic" href="/project/{{ project.slug }}/">
-            <div class="s:w50">
+            <div class="s:w50 pr40">
               <h3 class="projects-list__item__title serif f20 xs:f26 m:f32 l:f38 lh125">
                 <span class="abs fill-y f aic">
                   <svg class="db" width="16" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,35 +48,36 @@ permalink: /projects/list/
                 <span class="rel z1">{{ project.title }}</span>
               </h3>
             </div>
-            <div class="dn s:db w25">
+            <div class="dn s:db w30 m:w35 pr25">
               <p class="f18 l:f22 xl:f26 lh125">{{ project.category }}</p>
             </div>
-            <div class="dn s:f w25 jcb">
+            <div class="dn s:f w20 m:w15">
               <p class="f18 l:f22 xl:f26 lh125">{{ project.location }}</p>
-              <p class="f18 l:f22 xl:f26 lh125">{{ project.year }}</p>
             </div>
           </a>
         </li>
       {% endfor %}
     </ul>
-    <div class="x m:w50 m:pr20 mb80 a-items">
-      <a class="link-card db r r--project ba bc-parchment rel parchment bg-parchment" href="/{{ projects.cta.link }}/">
-        <div class="link-card__bg ro bg-crimson"></div>
-        <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">
-          <h2 class="serif f26 xs:f38 m:f30 l:f46 xl:f58 lh130">{{ projects.cta.title }}</h2>
-          <p class="serif f16 xs:f18 m:f20 l:f22 xl:f28 lh129 f aic">
-            <span class="mr10 xl:mr15">
-              <svg class="link-card__svg" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
-              </svg>
-            </span>
-            <span>
-              {{ projects.cta.subtitle }}
-            </span>
-          </p>
-        </div>
-      </a>
-    </div>
+    {% if projects.cta.isEnabled %}
+      <div class="x m:w50 m:pr20 mb80 a-items">
+        <a class="link-card db r r--project ba bc-parchment rel parchment bg-parchment" href="/{{ projects.cta.link }}/">
+          <div class="link-card__bg ro bg-crimson"></div>
+          <div class="ro f fc jcb p20 xl:ph40 xl:pt30 xl:pb35 z1">
+            <h2 class="serif f26 xs:f38 m:f30 l:f46 xl:f58 lh130">{{ projects.cta.title }}</h2>
+            <p class="serif f16 xs:f18 m:f20 l:f22 xl:f28 lh129 f aic">
+              <span class="mr10 xl:mr15">
+                <svg class="link-card__svg" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="link-card__hex" fill="#FFFCF5" d="M22 10L16.5 19.5263L5.5 19.5263L1.42652e-06 10L5.5 0.47372L16.5 0.47372L22 10Z" />
+                </svg>
+              </span>
+              <span>
+                {{ projects.cta.subtitle }}
+              </span>
+            </p>
+          </div>
+        </a>
+      </div>
+    {% endif %}
   </div>
   {% include "footer.njk" %}
 </div>

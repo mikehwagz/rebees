@@ -5,6 +5,7 @@ import {
   NearestFilter,
   RGBAFormat,
   FloatType,
+  HalfFloatType,
   BufferGeometry,
   BufferAttribute,
   Mesh,
@@ -123,7 +124,7 @@ class FBO {
       depthBuffer: false,
       depthWrite: false,
       depthTest: false,
-      type: FloatType, // TODO: half float for ios maybe?
+      type: HalfFloatType, // TODO: half float for ios maybe?
     })
   }
 

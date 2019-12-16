@@ -4,6 +4,11 @@ export default {
   type: 'object',
   fields: [
     {
+      title: 'Enable CTA',
+      name: 'isEnabled',
+      type: 'boolean',
+    },
+    {
       title: 'Title',
       name: 'title',
       type: 'string',

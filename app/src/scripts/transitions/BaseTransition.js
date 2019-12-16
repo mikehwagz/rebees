@@ -28,7 +28,9 @@ class BaseTransition extends Highway.Transition {
     this.ui.from = choozy(from, 'a-')
 
     if (this.route === 'home') {
-      this.tl.add(() => gl.particles.animateFromPlaneToCity(1.7), 0)
+      this.tl.add(() => {
+        app.getState().glEnabled && gl.particles.animateFromPlaneToCity(1.7)
+      }, 0)
     }
   }
 

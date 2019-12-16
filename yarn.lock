@@ -1545,10 +1545,10 @@
     "@sanity/util" "0.142.0"
     loader-utils "1.1.0"
 
-"@selfaware/wool@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@selfaware/wool/-/wool-0.1.0.tgz#be1a09676a683f7561e36bfeb3b5078897c7bbf6"
-  integrity sha512-IxGgQeczGQJshLBreVu34SIX0X6KtWTptRacPo0tPqyB2PSxGw9T83h34YgVVJICT2t7P36sGhx4/A9ZHaC8hA==
+"@selfaware/wool@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@selfaware/wool/-/wool-0.2.1.tgz#05f5939f6fa888065ccb22335d6bed33cf35cdbd"
+  integrity sha512-bbK0OY7IQig4RlA1DPCF1YRJKpClO1VL9/wPZIEnadPoeprTPT3MIpqcowuyF+m9ZFDkeaOpfVDRPIyVAvY8qA==
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.7"

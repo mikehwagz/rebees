@@ -1,6 +1,7 @@
 import Highway from '@dogstudio/highway'
 import gl from '@/webgl'
 import { poll } from '@/util/misc'
+import app from '@/app'
 
 class HomeRenderer extends Highway.Renderer {
   onEnterCompleted() {
@@ -8,7 +9,7 @@ class HomeRenderer extends Highway.Renderer {
   }
 
   updatePoll(done) {
-    gl.particles.animateToNextSeed()
+    app.getState().glEnabled && gl.particles.animateToNextSeed()
     done()
   }
 

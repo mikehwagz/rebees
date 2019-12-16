@@ -9,7 +9,6 @@ module.exports = async function() {
         "selected": selectedProjects[]->{
           _id,
           title,
-          year,
           "thumbnail": {
             "altText": thumbnail.altText,
             "image": thumbnail.image.asset->,
@@ -25,6 +24,7 @@ module.exports = async function() {
         "cta": cta {
           title,
           subtitle,
+          isEnabled,
           "link": link->_type
         }
       } [0]`,

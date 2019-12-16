@@ -1,5 +1,6 @@
 import BaseTransition from '@/transitions/BaseTransition'
 import gl from '@/webgl'
+import app from '@/app'
 import SplitText from '@/lib/gsap/SplitText'
 
 class HomeTransition extends BaseTransition {
@@ -29,7 +30,7 @@ class HomeTransition extends BaseTransition {
   out(props) {
     super.out(props)
 
-    let { title, link, footer } = this.ui.from
+    let { title, link } = this.ui.from
     let splits = new SplitText(title, { type: 'lines' })
 
     this.tl
@@ -44,16 +45,11 @@ class HomeTransition extends BaseTransition {
         },
         'a',
       )
-      .to(
-        footer,
-        {
-          duration: 1.2,
-          autoAlpha: 0,
-          ease: 'expo.inOut',
-        },
-        'a+=0.05',
+      .add(
+        () =>
+          app.getState().glEnabled && gl.particles.animateFromCityToPlane(1.5),
+        'a',
       )
-      .add(() => gl.particles.animateFromCityToPlane(1.5), 'a')
       .add(() => props.done(), 'a+=1.2')
   }
 }

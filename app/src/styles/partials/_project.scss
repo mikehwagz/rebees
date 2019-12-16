@@ -21,11 +21,11 @@
 
     &:hover {
       .project__pagination__outer {
-        transform: translateY(10%);
+        transform: translateY(0%);
       }
 
       .project__pagination__inner {
-        transform: translateY(-10%);
+        transform: translateY(0%);
       }
     }
   }

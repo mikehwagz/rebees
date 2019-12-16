@@ -1,16 +1,19 @@
 import { component } from 'picoapp'
 import gl from '@/webgl'
-// import { on } from '@/util/dom'
 
 export default component((node, ctx) => {
-  gl.init(node)
+  if (!ctx.getState().isDevice) {
+    ctx.hydrate({ glEnabled: true })
 
-  ctx.on('mousemove', ({ clientX, clientY }) => {
-    gl.particles.handlePointerMove({ clientX, clientY })
-  })
+    gl.init(node)
 
-  ctx.on('resize', gl.resize)
-  ctx.on('update', gl.update)
+    ctx.on('mousemove', ({ clientX, clientY }) => {
+      gl.particles.handlePointerMove({ clientX, clientY })
+    })
+
+    ctx.on('resize', gl.resize)
+    ctx.on('update', gl.update)
+  }
 })
 
 // addBtn(() => gl.particles.animateToPlane())
