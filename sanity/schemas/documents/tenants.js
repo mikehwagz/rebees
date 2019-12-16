@@ -13,5 +13,10 @@ export default {
       name: 'body',
       type: 'richText',
     },
+    {
+      title: 'Empty State',
+      name: 'emptyState',
+      type: 'string',
+    },
   ],
 }

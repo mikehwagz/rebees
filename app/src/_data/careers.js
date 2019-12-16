@@ -10,6 +10,7 @@ module.exports = async function() {
       title,
       description,
       typeformLink,
+      emptyState,
       "location": location->title,
       "project": project->title,
       "slug": slug.current,

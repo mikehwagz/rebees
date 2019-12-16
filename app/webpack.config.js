@@ -5,7 +5,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist/scripts'),
     filename: 'index.js',
-    chunkFilename: '[name].bundle.js',
   },
   resolve: {
     alias: {
