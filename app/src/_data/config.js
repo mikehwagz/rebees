@@ -13,7 +13,8 @@ module.exports = async function() {
             title
           }
         },
-        footer
+        footer,
+        seo,
       } [0]
     `,
   )
