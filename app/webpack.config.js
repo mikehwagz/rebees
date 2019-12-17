@@ -1,4 +1,5 @@
 const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   entry: './src/scripts/index.js',
@@ -33,6 +34,15 @@ module.exports = {
         exclude: /node_modules/,
         use: ['raw-loader', 'glslify-loader'],
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: 'all',
+      }),
     ],
   },
 }

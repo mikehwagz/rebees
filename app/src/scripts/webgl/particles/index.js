@@ -12,7 +12,7 @@ import {
   MeshNormalMaterial,
   PlaneGeometry,
 } from 'three'
-import MagicShader, { gui } from 'magicshader'
+import MagicShader, { gui } from '@/lib/magicShader'
 import gsap from 'gsap'
 import FBO from './fbo'
 import simulationVert from './simulation.vert'

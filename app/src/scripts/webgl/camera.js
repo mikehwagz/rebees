@@ -15,22 +15,7 @@ export default class Camera extends OrthographicCamera {
 
     this.lookAt(new Vector3())
     this.updateMatrix()
-
-    // this.orbitControls = this.initOrbitControl()
   }
-
-  // initOrbitControl() {
-  //   const controls = new OrbitControls(this, document.getElementById('root'))
-
-  //   controls.enabled = false
-  //   controls.enableDamping = true
-  //   controls.dampingFactor = 0.1
-  //   controls.rotateSpeed = 0.1
-  //   controls.maxDistance = 1500
-  //   controls.minDistance = 0
-
-  //   return controls
-  // }
 
   calculateUnitSize(distance = this.position.z) {
     const vFov = (this.fov * Math.PI) / 180
