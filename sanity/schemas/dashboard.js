@@ -7,8 +7,8 @@ export default {
         sites: [
           {
             title: 'Website',
-            apiId: 'c3a71644-a48b-426d-8627-071e4e719e0f',
-            buildHookId: '5d71d74bdf65f46039c157a6',
+            apiId: '9df26ea6-73aa-4c20-9527-e772a0c4e60f',
+            buildHookId: '5df8d08f213535018e1b507b',
             name: 'rebees',
           },
         ],
