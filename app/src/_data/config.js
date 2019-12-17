@@ -14,7 +14,11 @@ module.exports = async function() {
           }
         },
         footer,
-        seo,
+        seo {
+          title,
+          description,
+          "image": image.asset->,
+        },
       } [0]
     `,
   )
