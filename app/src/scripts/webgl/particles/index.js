@@ -12,7 +12,7 @@ import {
   MeshNormalMaterial,
   PlaneGeometry,
 } from 'three'
-import MagicShader, { gui } from '@/lib/magicShader'
+import MagicShader from '@/lib/magicShader'
 import gsap from 'gsap'
 import FBO from './fbo'
 import simulationVert from './simulation.vert'
@@ -21,11 +21,7 @@ import renderVert from './render.vert'
 import renderFrag from './render.frag'
 import QuadTree, { Point, Rectangle } from './quadtree'
 import { randomPointsInGeometry, lerp, map, wrap } from '@/util/math'
-// import { toggleVisibilityOnKey } from '@/util/misc'
 import app from '@/app'
-
-gui.destroy()
-// toggleVisibilityOnKey('.dg.ac', 'g')
 
 class Particles extends Object3D {
   constructor(gl) {
@@ -47,6 +43,7 @@ class Particles extends Object3D {
     this.cache = []
     this.seedIndex = 0
     this.seedCount = 4
+    this.randomPointsInGeometry = randomPointsInGeometry(Vector3)
   }
 
   // GETTERS
@@ -121,6 +118,11 @@ class Particles extends Object3D {
     } else {
       this.showPlane()
     }
+
+    let offReady = app.on('ready', () => {
+      offReady()
+      this.animateIn(this.isHome ? 1 : 0.6)
+    })
   }
 
   // EVENTS
@@ -162,6 +164,13 @@ class Particles extends Object3D {
     this.fbo.update(frameCount)
 
     this.updateRaycaster()
+  }
+
+  animateIn(value) {
+    gsap.to(this.fbo.renderMaterial.uniforms.alpha, {
+      value,
+      duration: 0.5,
+    })
   }
 
   updateRaycaster() {
@@ -258,9 +267,6 @@ class Particles extends Object3D {
       })
       .set(this.fbo.renderMaterial.uniforms.amplitude, {
         value: 1,
-      })
-      .set(this.fbo.renderMaterial.uniforms.alpha, {
-        value: 0.6,
       })
       .set(this.fbo.renderMaterial.uniforms.size, {
         value: 2.5,
@@ -458,7 +464,7 @@ class Particles extends Object3D {
 
     mesh.renderOrder = 1
 
-    let points = randomPointsInGeometry(geom, size * size)
+    let points = this.randomPointsInGeometry(geom, size * size)
     let len = points.length
     let data = new Float32Array(len * 3)
 
@@ -481,7 +487,7 @@ class Particles extends Object3D {
 
   getPlaneTexture(size) {
     let geom = new PlaneGeometry(size, size)
-    let points = randomPointsInGeometry(geom, size * size)
+    let points = this.randomPointsInGeometry(geom, size * size)
     let len = points.length
     let data = new Float32Array(len * 3)
 

@@ -5,7 +5,7 @@ import HomeRenderer from '@/renderers/HomeRenderer'
 import ProjectsGridRenderer from '@/renderers/ProjectsGridRenderer'
 
 // Transitions
-import DefaultTransition from '@/transitions/DefaultTransition'
+import FadeTransition from '@/transitions/FadeTransition'
 import HomeTransition from '@/transitions/HomeTransition'
 import StaggerTransition from '@/transitions/StaggerTransition'
 
@@ -15,15 +15,9 @@ const router = new Highway.Core({
     projectsGrid: ProjectsGridRenderer,
   },
   transitions: {
-    default: DefaultTransition,
+    default: StaggerTransition,
     home: HomeTransition,
-    projectsGrid: StaggerTransition,
-    projectsList: StaggerTransition,
-    people: StaggerTransition,
-    opportunities: StaggerTransition,
-    tenants: StaggerTransition,
-    careers: StaggerTransition,
-    partners: StaggerTransition,
+    person: FadeTransition,
   },
 })
 

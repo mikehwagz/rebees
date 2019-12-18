@@ -2,7 +2,6 @@ import Highway from '@dogstudio/highway'
 import gsap from 'gsap'
 import choozy from 'choozy'
 import app from '@/app'
-import gl from '@/webgl'
 
 class BaseTransition extends Highway.Transition {
   constructor(props) {
@@ -29,7 +28,7 @@ class BaseTransition extends Highway.Transition {
 
     if (this.route === 'home') {
       this.tl.add(() => {
-        app.getState().glEnabled && gl.particles.animateFromPlaneToCity(1.7)
+        app.gl && app.gl.particles.animateFromPlaneToCity(1.7)
       }, 0)
     }
   }

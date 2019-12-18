@@ -1,27 +1,28 @@
 import { component } from 'picoapp'
-import gl from '@/webgl'
+import app from '@/app'
 
 export default component((node, ctx) => {
   if (!ctx.getState().isDevice) {
-    ctx.hydrate({ glEnabled: true })
+    getWebGL().then((GL) => {
+      app.gl = new GL(node)
+      app.gl.resize(ctx.getState())
 
-    gl.init(node)
+      ctx.on('mousemove', ({ clientX, clientY }) => {
+        app.gl.particles.handlePointerMove({ clientX, clientY })
+      })
 
-    ctx.on('mousemove', ({ clientX, clientY }) => {
-      gl.particles.handlePointerMove({ clientX, clientY })
+      ctx.on('resize', app.gl.resize)
+      ctx.on('update', app.gl.update)
+
+      ctx.emit('ready')
     })
-
-    ctx.on('resize', gl.resize)
-    ctx.on('update', gl.update)
+  } else {
+    ctx.emit('ready')
   }
 })
 
-// addBtn(() => gl.particles.animateToPlane())
-// function addBtn(fn) {
-//   let btn = document.createElement('button')
-//   btn.className += 'fix bottom right bg-slate parchment p10 m20'
-//   btn.style.zIndex = 9999999
-//   btn.textContent = 'Animate'
-//   document.body.appendChild(btn)
-//   on(btn, 'click', fn)
-// }
+function getWebGL() {
+  return import(/* webpackChunkName: 'webgl' */ '@/webgl')
+    .then(({ default: GL }) => GL)
+    .catch((error) => 'An error occurred while loading the component')
+}

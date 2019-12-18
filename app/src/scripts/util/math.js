@@ -1,5 +1,3 @@
-import { Vector3 } from 'three'
-
 /**
  * Clamp a value between two bounds
  *
@@ -112,130 +110,138 @@ export function toRadians(degrees) {
   return degrees * (Math.PI / 180)
 }
 
-export function randomPointsInGeometry(geometry, n) {
-  var face,
-    i,
-    faces = geometry.faces,
-    vertices = geometry.vertices,
-    il = faces.length,
-    totalArea = 0,
-    cumulativeAreas = [],
-    vA,
-    vB,
-    vC
+export function randomPointsInGeometry(Vector3) {
+  return (geometry, n) => {
+    var face,
+      i,
+      faces = geometry.faces,
+      vertices = geometry.vertices,
+      il = faces.length,
+      totalArea = 0,
+      cumulativeAreas = [],
+      vA,
+      vB,
+      vC
 
-  // precompute face areas
+    // precompute face areas
 
-  for (i = 0; i < il; i++) {
-    face = faces[i]
+    for (i = 0; i < il; i++) {
+      face = faces[i]
 
-    vA = vertices[face.a]
-    vB = vertices[face.b]
-    vC = vertices[face.c]
+      vA = vertices[face.a]
+      vB = vertices[face.b]
+      vC = vertices[face.c]
 
-    face._area = triangleArea(vA, vB, vC)
+      face._area = triangleArea(Vector3)(vA, vB, vC)
 
-    totalArea += face._area
+      totalArea += face._area
 
-    cumulativeAreas[i] = totalArea
-  }
+      cumulativeAreas[i] = totalArea
+    }
 
-  // binary search cumulative areas array
+    // binary search cumulative areas array
 
-  function binarySearchIndices(value) {
-    function binarySearch(start, end) {
-      // return closest larger index
-      // if exact number is not found
+    function binarySearchIndices(value) {
+      function binarySearch(start, end) {
+        // return closest larger index
+        // if exact number is not found
 
-      if (end < start) return start
+        if (end < start) return start
 
-      var mid = start + Math.floor((end - start) / 2)
+        var mid = start + Math.floor((end - start) / 2)
 
-      if (cumulativeAreas[mid] > value) {
-        return binarySearch(start, mid - 1)
-      } else if (cumulativeAreas[mid] < value) {
-        return binarySearch(mid + 1, end)
+        if (cumulativeAreas[mid] > value) {
+          return binarySearch(start, mid - 1)
+        } else if (cumulativeAreas[mid] < value) {
+          return binarySearch(mid + 1, end)
+        } else {
+          return mid
+        }
+      }
+
+      var result = binarySearch(0, cumulativeAreas.length - 1)
+      return result
+    }
+
+    // pick random face weighted by face area
+
+    var r,
+      index,
+      result = []
+
+    var stats = {}
+
+    for (i = 0; i < n; i++) {
+      r = Math.random() * totalArea
+
+      index = binarySearchIndices(r)
+
+      result[i] = randomPointInFace(Vector3)(faces[index], geometry)
+
+      if (!stats[index]) {
+        stats[index] = 1
       } else {
-        return mid
+        stats[index] += 1
       }
     }
 
-    var result = binarySearch(0, cumulativeAreas.length - 1)
     return result
   }
+}
 
-  // pick random face weighted by face area
+export function triangleArea(Vector3) {
+  return (vectorA, vectorB, vectorC) => {
+    let vector1 = new Vector3()
+    let vector2 = new Vector3()
 
-  var r,
-    index,
-    result = []
+    vector1.subVectors(vectorB, vectorA)
+    vector2.subVectors(vectorC, vectorA)
+    vector1.cross(vector2)
 
-  var stats = {}
+    return 0.5 * vector1.length()
+  }
+}
 
-  for (i = 0; i < n; i++) {
-    r = Math.random() * totalArea
+export function randomPointInFace(Vector3) {
+  return (face, geometry) => {
+    var vA, vB, vC
 
-    index = binarySearchIndices(r)
+    vA = geometry.vertices[face.a]
+    vB = geometry.vertices[face.b]
+    vC = geometry.vertices[face.c]
 
-    result[i] = randomPointInFace(faces[index], geometry)
+    return randomPointInTriangle(Vector3)(vA, vB, vC)
+  }
+}
 
-    if (!stats[index]) {
-      stats[index] = 1
-    } else {
-      stats[index] += 1
+export function randomPointInTriangle(Vector3) {
+  return (vectorA, vectorB, vectorC) => {
+    var vector = new Vector3()
+    var point = new Vector3()
+
+    var a = Math.random()
+    var b = Math.random()
+
+    if (a + b > 1) {
+      a = 1 - a
+      b = 1 - b
     }
+
+    var c = 1 - a - b
+
+    point.copy(vectorA)
+    point.multiplyScalar(a)
+
+    vector.copy(vectorB)
+    vector.multiplyScalar(b)
+
+    point.add(vector)
+
+    vector.copy(vectorC)
+    vector.multiplyScalar(c)
+
+    point.add(vector)
+
+    return point
   }
-
-  return result
-}
-
-export function triangleArea(vectorA, vectorB, vectorC) {
-  let vector1 = new Vector3()
-  let vector2 = new Vector3()
-
-  vector1.subVectors(vectorB, vectorA)
-  vector2.subVectors(vectorC, vectorA)
-  vector1.cross(vector2)
-
-  return 0.5 * vector1.length()
-}
-
-export function randomPointInFace(face, geometry) {
-  var vA, vB, vC
-
-  vA = geometry.vertices[face.a]
-  vB = geometry.vertices[face.b]
-  vC = geometry.vertices[face.c]
-
-  return randomPointInTriangle(vA, vB, vC)
-}
-
-export function randomPointInTriangle(vectorA, vectorB, vectorC) {
-  var vector = new Vector3()
-  var point = new Vector3()
-
-  var a = Math.random()
-  var b = Math.random()
-
-  if (a + b > 1) {
-    a = 1 - a
-    b = 1 - b
-  }
-
-  var c = 1 - a - b
-
-  point.copy(vectorA)
-  point.multiplyScalar(a)
-
-  vector.copy(vectorB)
-  vector.multiplyScalar(b)
-
-  point.add(vector)
-
-  vector.copy(vectorC)
-  vector.multiplyScalar(c)
-
-  point.add(vector)
-
-  return point
 }

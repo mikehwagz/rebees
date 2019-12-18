@@ -1,6 +1,6 @@
 import BaseTransition from '@/transitions/BaseTransition'
 
-class DefaultTransition extends BaseTransition {
+class FadeTransition extends BaseTransition {
   in(props) {
     super.in(props)
 
@@ -26,4 +26,4 @@ class DefaultTransition extends BaseTransition {
   }
 }
 
-export default DefaultTransition
+export default FadeTransition

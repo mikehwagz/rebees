@@ -4,8 +4,10 @@ const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   entry: './src/scripts/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist/scripts'),
     filename: 'index.js',
+    chunkFilename: '[name].chunk.js',
+    publicPath: 'scripts/',
+    path: path.resolve(__dirname, 'dist/scripts'),
   },
   resolve: {
     alias: {

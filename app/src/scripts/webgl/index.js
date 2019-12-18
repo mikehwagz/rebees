@@ -4,10 +4,12 @@ import Camera from '@/webgl/camera'
 import Particles from '@/webgl/particles'
 
 class GL {
-  constructor() {
+  constructor(node) {
     this.renderer = new Renderer()
     this.camera = new Camera()
     this.scene = new Scene()
+
+    this.init(node)
   }
 
   init = (node) => {
@@ -39,4 +41,4 @@ class GL {
   }
 }
 
-export default new GL()
+export default GL

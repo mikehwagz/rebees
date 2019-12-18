@@ -1,5 +1,4 @@
 import BaseTransition from '@/transitions/BaseTransition'
-import gl from '@/webgl'
 import app from '@/app'
 import SplitText from '@/lib/gsap/SplitText'
 
@@ -45,11 +44,7 @@ class HomeTransition extends BaseTransition {
         },
         'a',
       )
-      .add(
-        () =>
-          app.getState().glEnabled && gl.particles.animateFromCityToPlane(1.5),
-        'a',
-      )
+      .add(() => app.gl && app.gl.particles.animateFromCityToPlane(1.5), 'a')
       .add(() => props.done(), 'a+=1.2')
   }
 }

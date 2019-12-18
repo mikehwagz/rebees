@@ -60,11 +60,13 @@ ready(() => {
 
     if (app.getState().isAppear) {
       app.hydrate({ route: getRoute() })
-
-      gsap.to(to.view, {
-        duration: 0.5,
-        autoAlpha: 1,
-        onComplete: () => navEnd(ctx),
+      let offReady = app.on('ready', () => {
+        offReady()
+        gsap.to(to.view, {
+          duration: 0.5,
+          autoAlpha: 1,
+          onComplete: () => navEnd(ctx),
+        })
       })
     } else {
       app.unmount()
