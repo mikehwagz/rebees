@@ -18,6 +18,7 @@ const router = new Highway.Core({
     default: StaggerTransition,
     home: HomeTransition,
     person: FadeTransition,
+    project: FadeTransition,
   },
 })
 
