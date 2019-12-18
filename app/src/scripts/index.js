@@ -36,6 +36,17 @@ ready(() => {
         isNavOpen: !isNavOpen,
       }))
     }
+
+    let state = app.getState()
+
+    if (state.route === 'person') {
+      app.emit('hideBurger')
+    }
+
+    if (state.prevRoute === 'person') {
+      app.emit('hideX')
+      router.once('NAVIGATE_IN', () => app.emit('showBurger'))
+    }
   }
 
   function navIn({ to, location }) {
@@ -58,7 +69,9 @@ ready(() => {
       }
     }
 
-    if (app.getState().isAppear) {
+    let isAppear = app.getState().isAppear
+
+    if (isAppear) {
       app.hydrate({ route: getRoute() })
       let offReady = app.on('ready', () => {
         offReady()
@@ -75,6 +88,11 @@ ready(() => {
 
     app.mount()
     resize()
+
+    if (app.getState().route === 'person') {
+      isAppear && app.emit('hideBurger')
+      app.emit('showX')
+    }
   }
 
   function navEnd() {

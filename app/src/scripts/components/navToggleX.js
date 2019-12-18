@@ -1,6 +1,7 @@
 import { component } from 'picoapp'
 import choozy from 'choozy'
 import gsap from 'gsap'
+import { add, remove } from '@/util/dom'
 
 export default component((node, ctx) => {
   const { lines } = choozy(node)
@@ -17,6 +18,9 @@ export default component((node, ctx) => {
     isNavOpen ? show() : hide()
   })
 
+  ctx.on('hideX', hide)
+  ctx.on('showX', show)
+
   function hide() {
     tl.clear()
       .to(lines, {
@@ -30,6 +34,14 @@ export default component((node, ctx) => {
   }
 
   function show() {
+    if (ctx.getState().route === 'person') {
+      remove(lines, 'bg-slate')
+      add(lines, 'bg-parchment')
+    } else {
+      add(lines, 'bg-slate')
+      remove(lines, 'bg-parchment')
+    }
+
     tl.clear()
       .to(
         lines,

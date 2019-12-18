@@ -82,7 +82,9 @@
           background-color: $parchment;
 
           @media (query('s')) {
-            background-color: $slate;
+            &:not(.bg-parchment) {
+              background-color: $slate;
+            }
           }
 
           &:first-child {

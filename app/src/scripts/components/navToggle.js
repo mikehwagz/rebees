@@ -1,5 +1,6 @@
 import { component } from 'picoapp'
 import { body, on, add, remove } from '@/util/dom'
+import router from '@/router'
 
 export default component((node, ctx) => {
   on(node, 'mouseenter', () => ctx.emit('navToggle:mouseenter'))
@@ -8,9 +9,14 @@ export default component((node, ctx) => {
   on(node, 'blur', () => ctx.emit('navToggle:blur'))
 
   on(node, 'click', () => {
-    ctx.emit('navToggle', ({ isNavOpen }) => ({
-      isNavOpen: !isNavOpen,
-    }))
+    let { route } = ctx.getState()
+    if (route === 'person') {
+      router.redirect(`${window.location.origin}/people/`)
+    } else {
+      ctx.emit('navToggle', ({ isNavOpen }) => ({
+        isNavOpen: !isNavOpen,
+      }))
+    }
   })
 
   ctx.on('navToggle', ({ isNavOpen }) => {

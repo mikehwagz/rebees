@@ -18,6 +18,9 @@ export default component((node, ctx) => {
     isNavOpen ? hide() : show()
   })
 
+  ctx.on('hideBurger', hide)
+  ctx.on('showBurger', show)
+
   function enter() {
     if (isHidden) return
 
