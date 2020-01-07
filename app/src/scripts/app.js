@@ -36,7 +36,7 @@ const state = {
   ...size(),
   ...sniffer(),
   isNavOpen: false,
-  sliderIndex: 4,
+  sliderIndex: 0,
   sliderLength: null,
   frameCount: 0,
   isAppear: true,
