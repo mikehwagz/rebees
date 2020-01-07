@@ -4,10 +4,10 @@ title: Home
 ---
 <div data-router-view="home">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
-  <div class="vh100 f aic">
-    <div class="ph20 s:ph80 m:ph120">
-      <div class="x max-w822">
-        <h2 class="serif f25 m:f30 l:f38 xl:f46 lh139 m:lh129 mb35 m:mb40 a-title">{{ home.headline }}</h2>
+  <div class="vh100 f l:aic">
+    <div class="ph20 m:ph40 l:ph100 pt110 s:pt140 l:pt0">
+      <div class="headline">
+        <h2 class="serif f25 m:f30 l:f36 xl:f42 lh139 m:lh129 mb35 m:mb40 a-title">{{ home.headline }}</h2>
         {% if home.projectsLinkText | length %}
           <a class="serif f20 m:f22 l:f25 xl:f28 lh129 crimson dib stroke-hover stroke-hover--hex a-link" href="/projects/">
             <span class="f">

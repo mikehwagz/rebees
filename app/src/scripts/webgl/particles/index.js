@@ -28,7 +28,7 @@ class Particles extends Object3D {
     super()
 
     this.gl = gl
-    this.size = 400
+    this.size = 350
 
     this.tl = gsap.timeline()
     this.isAnimating = false
@@ -140,8 +140,8 @@ class Particles extends Object3D {
   }
 
   resizeCity(width, height) {
-    this.posX = (31.25 * width) / 100
-    this.posY = (-16.25 * height) / 100
+    this.posX = (33 * width) / 100
+    this.posY = (-19 * height) / 100
     this.s = map(width, 0, 1440, 0.5, 1)
 
     if (this.isHome) {

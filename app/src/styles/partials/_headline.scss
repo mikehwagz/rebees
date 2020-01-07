@@ -1,0 +1,11 @@
+.headline {
+  max-width: 64rem;
+
+  @media (query('l')) {
+    max-width: 79rem;
+  }
+
+  @media (query('xl')) {
+    max-width: 90rem;
+  }
+}
