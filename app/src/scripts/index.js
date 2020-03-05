@@ -1,3 +1,4 @@
+import '@/lib/requestIdleCallback'
 import app from '@/app'
 import router from '@/router'
 import { ready, body, size, on, add, remove } from '@/util/dom'
