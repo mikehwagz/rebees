@@ -44,6 +44,7 @@ export default {
       description: 'Add modules to compose a case study for the project',
       type: 'array',
       of: [{ type: 'richText' }, { type: 'imageWithAltTextAndCaption' }],
+      validation: (Rule) => Rule.min(1).required(),
     },
   ],
   preview: {
