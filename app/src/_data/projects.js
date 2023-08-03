@@ -31,11 +31,13 @@ module.exports = async function() {
   )
 
   projects.selected.forEach((project) => {
-    project.contentModules.forEach((module) => {
-      if (module._type === 'richText') {
-        module.content = blocksToHtml(module)
-      }
-    })
+    if (project.contentModules && project.contentModules.length > 0) {
+      project.contentModules.forEach((module) => {
+        if (module._type === 'richText') {
+          module.content = blocksToHtml(module)
+        }
+      })
+    }
   })
 
   return projects
