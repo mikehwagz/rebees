@@ -2,11 +2,10 @@
 @import 'tools';
 @import 'reset';
 @import 'fonts';
-@import '../node_modules/@selfaware/wool/src/index.scss';
+@import 'wool/src/index.scss';
 @import 'global';
 
 @import 'partials/nav';
-@import 'partials/footer';
 @import 'partials/hex-hover';
 @import 'partials/stroke-hover';
 @import 'partials/scrim';
