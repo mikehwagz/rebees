@@ -1,5 +1,5 @@
 {
-  "name": "rebees-site",
+  "name": "app",
   "private": true,
   "version": "1.0.0",
   "description": "Rebees website front-end using 11ty",
@@ -8,8 +8,8 @@
   "license": "NONE",
   "scripts": {
     "clean": "rm -rf dist",
-    "eleventy:default": "npx eleventy",
-    "eleventy:watch": "npx eleventy --watch",
+    "eleventy:default": "eleventy",
+    "eleventy:watch": "eleventy --watch",
     "saved": "&& postcss ./dist/styles/*.css --replace",
     "styles:prod": "sass --load-path=node_modules/@selfaware src/styles/:dist/styles/",
     "styles:dev": "sass --load-path=node_modules/@selfaware src/styles/:dist/styles/ --source-map",

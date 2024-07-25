@@ -8,16 +8,12 @@
   "license": "NONE",
   "private": true,
   "scripts": {
-    "start:sanity": "yarn workspace rebees-cms start",
-    "test:sanity": "yarn workspace rebees-cms test",
-    "deploy:sanity": "yarn workspace rebees-cms deploy",
-    "start": "yarn workspace rebees-site dev",
-    "build": "yarn workspace rebees-site build"
+    "start:sanity": "pnpm --filter sanity run start",
+    "test:sanity": "pnpm --filter sanity run test",
+    "deploy:sanity": "pnpm --filter sanity run deploy",
+    "start": "pnpm --filter app run dev",
+    "build": "pnpm --filter app run build"
   },
-  "workspaces": [
-    "sanity",
-    "app"
-  ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
