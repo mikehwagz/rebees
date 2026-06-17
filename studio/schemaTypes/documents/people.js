@@ -4,6 +4,11 @@ export default {
   type: 'document',
   fields: [
     {
+      title: 'Leaders Heading',
+      name: 'leadersHeading',
+      type: 'string'
+    },
+    {
       title: 'Title',
       name: 'title',
       type: 'string'

@@ -7,6 +7,7 @@ module.exports = async function() {
     groq`
       *[_id == "peoplepage"] {
         title,
+        leadersHeading,
         "cta": cta {
           title,
           subtitle,
@@ -19,8 +20,23 @@ module.exports = async function() {
 
   const list = await client.fetch(
     groq`
-      *[_type == "person"] {
+      *[_type == "person" && isLeader != true] {
         fullName,
+        bio,
+        "slug": slug.current,
+        "portrait": {
+          "altText": portrait.altText,
+          "image": portrait.image.asset->,
+        }
+      }
+    `,
+  )
+
+  const leaders = await client.fetch(
+    groq`
+      *[_type == "person" && isLeader] {
+        fullName,
+        isLeader,
         bio,
         "slug": slug.current,
         "portrait": {
@@ -35,7 +51,12 @@ module.exports = async function() {
     person.bio = blocksToHtml(person.bio)
   })
 
+  leaders.forEach((person) => {
+    person.bio = blocksToHtml(person.bio)
+  })
+
   people.list = list
+  people.leaders = leaders
 
   return people
 }

@@ -18,6 +18,12 @@ export default {
       }
     },
     {
+      title: 'Is Leader?',
+      name: 'isLeader',
+      type: 'boolean',
+      description: 'Mark this if this person is a Leader'
+    },
+    {
       title: 'Bio',
       name: 'bio',
       type: 'richText'
