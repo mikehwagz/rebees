@@ -13,7 +13,7 @@ import career from './documents/career'
 import tenants from './documents/tenants'
 import tenantVacancy from './documents/tenantVacancy'
 import partners from './documents/partners'
-import privacyPolicy from './documents/privacy-policy'
+import privacyPolicy from './documents/privacyPolicy'
 
 // Objects
 import imageWithAltText from './objects/imageWithAltText'
