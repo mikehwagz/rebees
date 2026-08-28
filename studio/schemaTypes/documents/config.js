@@ -28,7 +28,8 @@ export default {
                     {type: 'project'},
                     {type: 'person'},
                     {type: 'people'},
-                    {type: 'opportunities'}
+                    {type: 'opportunities'},
+                    {type: 'privacyPolicy'}
                   ]
                 },
                 {

@@ -140,6 +140,7 @@ ready(() => {
       '/partners/': 'partners',
       '/careers/': 'careers',
       '/tenants/': 'tenants',
+      '/privacy-policy/': 'privacyPolicy',
     }
 
     let route = staticRoutes[path]

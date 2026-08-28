@@ -54,6 +54,15 @@ export default defineConfig({
               .icon(() => <Emoji style={{fontSize: 20}} text="🤝" />)
               .child(S.editor().id('Partners').schemaType('partners').documentId('partnerspage')),
             S.listItem()
+              .title('Privacy Policy Page')
+              .icon(() => <Emoji style={{fontSize: 20}} text="📄" />)
+              .child(
+                S.editor()
+                  .id('privacyPolicy')
+                  .schemaType('privacyPolicy')
+                  .documentId('privacyPolicypage'),
+              ),
+            S.listItem()
               .title('Global Configuration')
               .icon(() => <Emoji style={{fontSize: 20}} text="💕" />)
               .child(S.editor().id('config').schemaType('config').documentId('global-config')),
