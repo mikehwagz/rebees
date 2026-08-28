@@ -8,7 +8,8 @@ permalink: /privacy-policy/
   <div class="min-vh100 ph20 m:ph40">
     {% pageTitle privacyPolicy.title %}
     <div class="rich-text f18 s:f26 lh128 s:lh125 x max-w880 mt35 m:mt50 mb60 m:mb70 a-items">
-      {{ privacyPolicy.body | safe }}
+      {{ privacyPolicy.lastUpdated | safe }}
+      {{ privacyPolicy.content | safe }}
     </div>
   </div>
   {% include "footer.njk" %}
