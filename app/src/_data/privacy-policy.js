@@ -13,7 +13,17 @@ module.exports = async function() {
     `,
   )
 
-  privacyPolicy.body = blocksToHtml(privacyPolicy.body)
+  // Safety check: If the document doesn't exist in Sanity yet, return a fallback
+  if (!privacyPolicy) {
+    console.warn(
+      '⚠️ WARNING: Privacy Policy document not found in Sanity. Please publish it.',
+    )
+    return { title: 'Privacy Policy', content: '<p>Content coming soon.</p>' }
+  }
 
+  // Only convert to HTML if the content field actually has data
+  if (privacyPolicy.content) {
+    privacyPolicy.content = blocksToHtml(privacyPolicy.content)
+  }
   return privacyPolicy
 }
