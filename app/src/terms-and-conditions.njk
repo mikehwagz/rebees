@@ -1,15 +1,15 @@
 ---
 layout: base.njk
-title: Privacy Policy
-permalink: /privacy-policy/
+title: Terms and Conditions
+permalink: /terms-and-conditions/
 ---
-<div data-router-view="privacyPolicy">
+<div data-router-view="termsAndConditions">
   <div class="scrim" data-component="scrim" data-theme="parchment"></div>
   <div class="min-vh100 ph20 m:ph40">
-    {% pageTitle privacyPolicy.title %}
+    {% pageTitle termsAndConditions.title %}
     <div class="rich-text f18 s:f26 lh128 s:lh125 x mt35 m:mt50 mb60 m:mb70 a-items">
-      {{ privacyPolicy.effectiveDate | safe }}
-      {{ privacyPolicy.content | safe }}
+      {{ termsAndConditions.effectiveDate | safe }}
+      {{ termsAndConditions.content | safe }}
     </div>
   </div>
   {% include "footer.njk" %}

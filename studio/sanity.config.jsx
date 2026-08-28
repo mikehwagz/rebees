@@ -63,6 +63,15 @@ export default defineConfig({
                   .documentId('privacyPolicypage'),
               ),
             S.listItem()
+              .title('Terms and Conditions Page')
+              .icon(() => <Emoji style={{fontSize: 20}} text="🗒️" />)
+              .child(
+                S.editor()
+                  .id('termsAndConditions')
+                  .schemaType('termsAndConditions')
+                  .documentId('termsAndConditionspage'),
+              ),
+            S.listItem()
               .title('Global Configuration')
               .icon(() => <Emoji style={{fontSize: 20}} text="💕" />)
               .child(S.editor().id('config').schemaType('config').documentId('global-config')),

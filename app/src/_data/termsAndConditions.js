@@ -25,9 +25,9 @@ function blockSerializer(props) {
 }
 
 module.exports = async function() {
-  const privacyPolicy = await client.fetch(
+  const termsAndConditions = await client.fetch(
     groq`
-      *[_id == "privacyPolicypage"] {
+      *[_id == "termsAndConditionspage"] {
         title,
         effectiveDate,
         content
@@ -36,21 +36,21 @@ module.exports = async function() {
   )
 
   // Safety check: If the document doesn't exist in Sanity yet, return a fallback
-  if (!privacyPolicy) {
+  if (!termsAndConditions) {
     console.warn(
-      '⚠️ WARNING: Privacy Policy document not found in Sanity. Please publish it.',
+      '⚠️ WARNING: Terms of Use document not found in Sanity. Please publish it.',
     )
-    return { title: 'Privacy Policy', content: '<p>Content coming soon.</p>' }
+    return { title: 'Terms of Use', content: '<p>Content coming soon.</p>' }
   }
 
   // Only convert to HTML if the content field actually has data
-  if (privacyPolicy.content && privacyPolicy.content.length) {
-    privacyPolicy.content = blocksToHtml({
-      blocks: privacyPolicy.content.filter(Boolean),
+  if (termsAndConditions.content && termsAndConditions.content.length) {
+    termsAndConditions.content = blocksToHtml({
+      blocks: termsAndConditions.content.filter(Boolean),
       serializers: {
         types: { block: blockSerializer },
       },
     })
   }
-  return privacyPolicy
+  return termsAndConditions
 }

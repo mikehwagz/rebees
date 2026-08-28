@@ -29,7 +29,8 @@ export default {
                     {type: 'person'},
                     {type: 'people'},
                     {type: 'opportunities'},
-                    {type: 'privacyPolicy'}
+                    {type: 'privacyPolicy'},
+                    {type: 'termsAndConditions'}
                   ]
                 },
                 {

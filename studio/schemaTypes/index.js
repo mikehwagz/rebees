@@ -14,6 +14,7 @@ import tenants from './documents/tenants'
 import tenantVacancy from './documents/tenantVacancy'
 import partners from './documents/partners'
 import privacyPolicy from './documents/privacyPolicy'
+import termsAndConditions from './documents/termsAndConditions'
 
 // Objects
 import imageWithAltText from './objects/imageWithAltText'
@@ -38,6 +39,7 @@ export const schemaTypes = [
   tenantVacancy,
   partners,
   privacyPolicy,
+  termsAndConditions,
   imageWithAltText,
   imageWithAltTextAndCaption,
   richText,

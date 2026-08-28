@@ -1,6 +1,6 @@
 export default {
   title: 'Privacy Policy',
-  name: 'privacyPolicy',
+  name: 'termsAndConditions',
   type: 'document',
   fields: [
     {
@@ -10,7 +10,7 @@ export default {
     },
     {
       name: 'effectiveDate',
-      title: 'effectiveDate',
+      title: 'Effective Date',
       type: 'string'
     },
     {
