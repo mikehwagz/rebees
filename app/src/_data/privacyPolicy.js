@@ -12,7 +12,7 @@ function blockSerializer(props) {
   }
 
   if (style === 'h3') {
-    return h('h3', { className: 'f22 s:f30' }, props.children)
+    return h('h3', { className: 'f27 s:f35' }, props.children)
   }
 
   if (/^h\d/.test(style)) {
