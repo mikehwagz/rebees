@@ -7,12 +7,8 @@ module.exports = async function() {
     groq`
       *[_id == "privacyPolicypage"] {
         title,
-        body,
-        "links": links[] {
-          title,
-          subtitle,
-          "link": link->._type,
-        }
+        lastUpdated,
+        content
       } [0]
     `,
   )
