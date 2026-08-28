@@ -22,8 +22,10 @@ module.exports = async function() {
   }
 
   // Only convert to HTML if the content field actually has data
-  if (privacyPolicy.content) {
-    privacyPolicy.content = blocksToHtml(privacyPolicy.content)
+  if (privacyPolicy.content && privacyPolicy.content.length) {
+    privacyPolicy.content = blocksToHtml({
+      blocks: privacyPolicy.content.filter(Boolean),
+    })
   }
   return privacyPolicy
 }
